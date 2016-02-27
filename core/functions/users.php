@@ -76,7 +76,7 @@ function user_data ($user_id) {
 function get_all_users () {
 		$data = array();
 
-		$result = mysql_query("SELECT * FROM `mock_exam_users` WHERE `user_type` = 0");
+		$result = mysql_query("SELECT * FROM `mock_exam_users` WHERE `user_type` = 0 AND `active_status` =1");
 
 		while ($row = mysql_fetch_assoc($result)) {
 		    $data [] = $row;
