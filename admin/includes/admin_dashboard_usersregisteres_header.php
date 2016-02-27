@@ -1,3 +1,6 @@
+<?php include '../../core/session.php'; ?>
+<?php admin_protect (); ?>
+
 <link rel="canonical" href="http://www.bootstraptoggle.com">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css" rel="stylesheet" >
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">

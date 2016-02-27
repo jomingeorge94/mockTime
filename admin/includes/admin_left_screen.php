@@ -1,3 +1,6 @@
+<?php include '../../core/session.php'; ?>
+<?php admin_protect (); ?>
+
 <aside class="main-sidebar">
     <section class="sidebar">
         <form action="#" method="get" class="sidebar-form">

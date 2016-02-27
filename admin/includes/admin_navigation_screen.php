@@ -1,3 +1,6 @@
+<?php include '../../core/session.php'; ?>
+<?php admin_protect (); ?>
+
 <header class="main-header">
 
   <!-- Logo -->

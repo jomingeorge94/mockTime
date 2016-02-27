@@ -1,5 +1,5 @@
-
-
+<?php include '../../core/session.php'; ?>
+<?php admin_protect (); ?>
 
 <?php if(isset($_SESSION['error']) AND ! empty($_SESSION['error'])): ?>
     <div class="col-sm-5 form-box">
