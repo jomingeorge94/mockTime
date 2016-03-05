@@ -85,6 +85,19 @@ function get_all_users () {
 		return $data;
 } 
 
+//get all the categories from the category table
+function get_all_categories () {
+		$data = array();
+
+		$result = mysql_query("SELECT * FROM `mock_exam_category`");
+
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+
+		return $data;
+} 
+
 //update user details on the database
 function update_user($update_data) {
 	$update_detail = array();
@@ -143,6 +156,17 @@ function change_password ($user_id, $password) {
 
 	mysql_query("UPDATE `mock_exam_users` SET `password` = '$password', `password_recover` = 0 WHERE `user_id` = '$user_id'");
 }
+
+function set_category_active ($category_id) {
+	$category_id = (int)$category_id;
+	mysql_query("UPDATE `mock_exam_category` SET `status` = 1 WHERE `category_id` = '$category_id'");
+}
+
+function unset_category_active ($category_id) {
+	$category_id = (int)$category_id;
+	mysql_query("UPDATE `mock_exam_category` SET `status` = 0 WHERE `category_id` = '$category_id'");
+}
+
 
 function set_freeze_user_account ($user_id) {
 	$user_id = (int)$user_id;
