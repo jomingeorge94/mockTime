@@ -123,6 +123,8 @@ function user_register ($register_data) {
 	email($register_data['email_address'], 'Activate your account', "Hello " . $register_data['first_name'] .",\n\nTo activate your account, click on the link below or copy and paste the URL on to your browser.\nhttp://" . $_SERVER['SERVER_NAME'] . "/mocktime/activate.php?email=" . $register_data['email_address'] . "&email_code=" . $register_data['email_code'] ." \n\nmockTime");
 }
 
+
+
 function activate($email, $email_code) {
 	$email = mysql_real_escape_string($email);
 	$email_code = mysql_real_escape_string($email_code);
@@ -194,8 +196,13 @@ function delete_category ($category_id) {
 
 function change_category_name ($category_id, $categoryname) {
 	$category_id = (int)$category_id;
-// STOP TOICHING THE FUCKING KEYBOARD 
 	mysql_query("UPDATE `mock_exam_category` SET `category_name` = '$categoryname' WHERE `category_id` = '$category_id'");
+	
+}
+
+function add_new_category ($category_id, $categoryname) {
+	$category_id = (int)$category_id;
+	mysql_query("INSERT INTO `mock_exam_category` (`category_id`, `category_name`, `status`, `date_created`) VALUES ('$category_id', '$categoryname', '1', CURRENT_TIMESTAMP)");
 	
 }
 

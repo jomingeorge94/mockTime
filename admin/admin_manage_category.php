@@ -157,6 +157,7 @@
 
                   </tbody>
               </table>   
+              <button type="button" class="btn btn-success  add-category"> <i class="fa fa-plus-circle"></i> Add Category</a></button>
               <input type="submit" class="btn btn-success update-button" name="formSubmit" id="formSubmit" value="Update" />
 
           </form>   
@@ -231,8 +232,44 @@
             });
 
           }
-          );
-    });
+      );
+  });
+
+
+
+//add category button
+  var id;
+  var userInput;
+
+  $('button.add-category').click(function(e) {
+    id = $(this).parent()[0].childNodes[3].value;
+      swal({   title: "Add category",   
+        text: "Category name : ",   
+        type: "input",    
+        showCancelButton: true,   
+        closeOnConfirm: false,   
+        animation: "slide-from-top",   
+        inputPlaceholder: "Category name"
+      }, 
+        function(inputValue){   
+          if (inputValue === false) return false;      
+          if (inputValue === "") {     
+            swal.showInputError("You need to write something!");     
+            return false   }      
+            swal("Successfully Added!", "Category name : " + inputValue, "success"); 
+            userInput = inputValue;
+
+            $.post( "add_category.php", { editcategory: id, edituservalue: userInput}, function( data ) {
+              setTimeout(function () { location.reload(1); }, 1000);
+            });
+
+          }
+      );
+  });
+
+
+
+
 
   </script>
 

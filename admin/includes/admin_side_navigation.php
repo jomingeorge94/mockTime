@@ -33,7 +33,6 @@
 
             <li class="header">Manage</li>
             <li><a href="admin_manage_category.php"><i class="fa fa-cogs"></i> <span>Category Listing</span></a></li>
-            <li><a href="#"><i class="fa fa-plus-circle"></i> <span>Add Category</span></a></li>
             <li><a href="#"><i class="fa fa-cog"></i> <span>Exam Listing</span></a></li>
             <li><a href="#"><i class="fa fa-puzzle-piece"></i> <span>Add Exam</span></a></li>
 
