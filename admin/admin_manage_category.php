@@ -103,7 +103,11 @@
 
           <form method="post" action="">
 
+
+
+
               <table class="table table-hover table-datatable table-striped table-bordered">
+
                   <thead>
                       <tr>
                           <th style="text-align: left;">Category Name</th>
@@ -119,6 +123,7 @@
                       
                       <tr>
                           <td style="text-align: left;"><?php echo $r['category_name'] ?></td> 
+
                           
                           <td style="text-align: left;">
 
@@ -149,8 +154,9 @@
                                         <input type="hidden" value="'. $r['category_id'] .'"  name="delete[]">&nbsp';
 
                                  echo '<button type="button" class="btn btn-danger  delete delete-category"><i class="fa fa-trash-o fa-lg"></i> Delete</a></button> 
-                                        <input type="hidden" value="'. $r['category_id'] .'"  name="delete[]">';
+                                        <input type="hidden" value="'. $r['category_id'] .'"  name="delete[]">'; 
                               ?>
+
                           </td>
                       </tr>
                     <?php } ?>
@@ -160,7 +166,13 @@
               <button type="button" class="btn btn-success  add-category"> <i class="fa fa-plus-circle"></i> Add Category</a></button>
               <input type="submit" class="btn btn-success update-button" name="formSubmit" id="formSubmit" value="Update" />
 
-          </form>   
+
+          </form> 
+
+          <?php if (get_all_categories() == null) {
+  echo '<h3>No records found in the database.</h3>';
+} ?>
+
 
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
