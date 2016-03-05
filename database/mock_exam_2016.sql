@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2016 at 03:03 PM
+-- Generation Time: Mar 05, 2016 at 12:12 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -19,6 +19,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `mock_exam_2016`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mock_exam_category`
+--
+
+CREATE TABLE IF NOT EXISTS `mock_exam_category` (
+`category_id` int(11) NOT NULL,
+  `category_name` varchar(50) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mock_exam_category`
+--
+
+INSERT INTO `mock_exam_category` (`category_id`, `category_name`, `status`, `date_created`) VALUES
+(1, 'Java', 0, '2016-03-05 10:28:10'),
+(2, 'HTML', 0, '2016-03-05 10:43:39');
 
 -- --------------------------------------------------------
 
@@ -41,19 +62,25 @@ CREATE TABLE IF NOT EXISTS `mock_exam_users` (
   `user_type` int(1) NOT NULL DEFAULT '0',
   `admin_password_check` tinyint(1) NOT NULL DEFAULT '0',
   `session_start` int(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mock_exam_users`
 --
 
 INSERT INTO `mock_exam_users` (`user_id`, `email_address`, `password`, `first_name`, `last_name`, `email_code`, `profile_picture`, `freeze_account`, `active_status`, `date_created`, `password_recover`, `user_type`, `admin_password_check`, `session_start`) VALUES
-(64, 'jomink@yahoo.co.uk', '5f4dcc3b5aa765d61d8327deb882cf99', 'Jomin', 'George', 'ddcab504a7cb9e285dbbc2796b5a6934', 'images/profile/0af0ce5c4c.jpg', 0, 1, '2016-02-15 10:18:32', 0, 1, 0, 0),
+(64, 'jomink@yahoo.co.uk', '5f4dcc3b5aa765d61d8327deb882cf99', 'Jomin', 'George', 'ddcab504a7cb9e285dbbc2796b5a6934', 'images/profile/0af0ce5c4c.jpg', 0, 1, '2016-02-15 10:18:32', 0, 1, 1, 0),
 (69, 'sdasdas', 'asdasd', 'asda', 'sdasd', 'asdas', '', 1, 1, '2016-02-26 13:08:10', 0, 0, 0, 0);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `mock_exam_category`
+--
+ALTER TABLE `mock_exam_category`
+ ADD PRIMARY KEY (`category_id`);
 
 --
 -- Indexes for table `mock_exam_users`
@@ -66,10 +93,15 @@ ALTER TABLE `mock_exam_users`
 --
 
 --
+-- AUTO_INCREMENT for table `mock_exam_category`
+--
+ALTER TABLE `mock_exam_category`
+MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
 -- AUTO_INCREMENT for table `mock_exam_users`
 --
 ALTER TABLE `mock_exam_users`
-MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=77;
+MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
