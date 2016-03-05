@@ -89,7 +89,7 @@ function get_all_users () {
 function get_all_categories () {
 		$data = array();
 
-		$result = mysql_query("SELECT * FROM `mock_exam_category`");
+		$result = mysql_query("SELECT * FROM `mock_exam_category` ORDER BY category_name ASC");
 
 		while ($row = mysql_fetch_assoc($result)) {
 		    $data [] = $row;
@@ -190,6 +190,13 @@ function delete_category ($category_id) {
 	$category_id = (int)$category_id;
 
 	mysql_query("DELETE FROM `mock_exam_category` WHERE `category_id` = '$category_id'");
+}
+
+function change_category_name ($category_id, $categoryname) {
+	$category_id = (int)$category_id;
+// STOP TOICHING THE FUCKING KEYBOARD 
+	mysql_query("UPDATE `mock_exam_category` SET `category_name` = '$categoryname' WHERE `category_id` = '$category_id'");
+	
 }
 
 function set_password_check ($user_id) {

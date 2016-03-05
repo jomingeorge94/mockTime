@@ -145,7 +145,7 @@
 
                               <?php
 
-                                 echo '<button type="button" class="btn btn-warning  delete delete-account"><i class="fa fa-pencil-square-o"></i> Edit</a></button> 
+                                 echo '<button type="button" class="btn btn-warning  edit-category"><i class="fa fa-pencil-square-o"></i> Edit</a></button> 
                                         <input type="hidden" value="'. $r['category_id'] .'"  name="delete[]">&nbsp';
 
                                  echo '<button type="button" class="btn btn-danger  delete delete-category"><i class="fa fa-trash-o fa-lg"></i> Delete</a></button> 
@@ -203,10 +203,40 @@
   });
     });
 
+
+  //edit button
+  var id;
+  var userInput;
+
+  $('button.edit-category').click(function(e) {
+    id = $(this).parent()[0].childNodes[3].value;
+      swal({   title: "Modify category name",   
+        text: "Change the category name :",   
+        type: "input",   
+        showCancelButton: true,   
+        closeOnConfirm: false,   
+        animation: "slide-from-top",   
+        inputPlaceholder: "Category name"
+      }, 
+        function(inputValue){   
+          if (inputValue === false) return false;      
+          if (inputValue === "") {     
+            swal.showInputError("You need to write something!");     
+            return false   }      
+            swal("Successfully Changed!", "Category name : " + inputValue, "success"); 
+            userInput = inputValue;
+
+            $.post( "edit_category_name.php", { editcategory: id, edituservalue: userInput}, function( data ) {
+              setTimeout(function () { location.reload(1); }, 1000);
+            });
+
+          }
+          );
+    });
+
   </script>
 
   <?php include '/includes/admin_dashboard_scripts.php'; ?>
 
 </body>
 </html>
-
