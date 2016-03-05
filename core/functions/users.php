@@ -186,6 +186,12 @@ function delete_user ($user_id) {
 	mysql_query("DELETE FROM `mock_exam_users` WHERE `user_id` = '$user_id'");
 }
 
+function delete_category ($category_id) {
+	$category_id = (int)$category_id;
+
+	mysql_query("DELETE FROM `mock_exam_category` WHERE `category_id` = '$category_id'");
+}
+
 function set_password_check ($user_id) {
 	$user_id = (int)$user_id;
 

@@ -146,10 +146,10 @@
                               <?php
 
                                  echo '<button type="button" class="btn btn-warning  delete delete-account"><i class="fa fa-pencil-square-o"></i> Edit</a></button> 
-                                        <input type="hidden" value="'. $r['user_id'] .'"  name="delete[]">&nbsp';
+                                        <input type="hidden" value="'. $r['category_id'] .'"  name="delete[]">&nbsp';
 
-                                 echo '<button type="button" class="btn btn-danger  delete delete-account"><i class="fa fa-trash-o fa-lg"></i> Delete</a></button> 
-                                        <input type="hidden" value="'. $r['user_id'] .'"  name="delete[]">';
+                                 echo '<button type="button" class="btn btn-danger  delete delete-category"><i class="fa fa-trash-o fa-lg"></i> Delete</a></button> 
+                                        <input type="hidden" value="'. $r['category_id'] .'"  name="delete[]">';
                               ?>
                           </td>
                       </tr>
@@ -157,7 +157,7 @@
 
                   </tbody>
               </table>   
-              <input type="submit" class="btn btn-info update-button" name="formSubmit" id="formSubmit" value="Update" />
+              <input type="submit" class="btn btn-success update-button" name="formSubmit" id="formSubmit" value="Update" />
 
           </form>   
 
@@ -185,7 +185,7 @@
 
   //delete button
   var id;
-  $('button.delete-account').click(function(e) {
+  $('button.delete-category').click(function(e) {
     id = $(this).parent()[0].childNodes[3].value;
       swal({
     title: "Are you sure?",
@@ -197,7 +197,7 @@
     closeOnConfirm: false,
     html: false
   }, function(){
-    $.post( "deleteuser.php", { deletefunction: id}, function( data ) {
+    $.post( "delete_category.php", { deletecategoryfunction: id}, function( data ) {
     location.reload();
   });
   });
