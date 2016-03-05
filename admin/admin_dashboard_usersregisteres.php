@@ -94,7 +94,7 @@
           <li class="header">MAIN NAVIGATION</li>
           <li class="active treeview">
             <a href="#">
-              <i class="fa fa-dashboard"></i> <span>Dashboard</span> 
+              <i class="fa fa-dashboard"></i> <span><a href="admin_dashboard.php">Dashboard</a></span> 
             </a>
 
           </li>

@@ -56,9 +56,6 @@
       <div class="help-block text-center">
         Enter your password to retrieve your session
       </div>
-      <div class="text-center">
-        <a href="../admin">Or sign in as a different user</a>
-      </div>
 
     </div><!-- /.center -->
 
