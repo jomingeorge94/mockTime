@@ -72,12 +72,12 @@
       <section class="content-header">
         <h1>
           Manage
-          <small>Category Listing</small>
+          <small>Exam Listing</small>
         </h1>
         <ol class="breadcrumb">
           <li><a href="admin_dashboard.php"><i class="fa fa-home"></i> Home</a></li>
           <li><a href="admin_dashboard.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-          <li class="active">Category Listing</li>
+          <li class="active">Exam Listing</li>
         </ol>
       </section>
 
@@ -88,9 +88,9 @@
           if (isset($_POST['freezechecked'])) {
             foreach ($_POST['freezechecked'] as $freeze){
               if($freeze == "On")
-                set_category_active($_POST['id'][$counterboy]);
+                set_exam_active($_POST['id'][$counterboy]);
               else
-                unset_category_active($_POST['id'][$counterboy]); 
+                unset_exam_active($_POST['id'][$counterboy]); 
 
               $counterboy++;
             }
@@ -110,36 +110,41 @@
 
                   <thead>
                       <tr>
-                          <th style="text-align: left;">Category Name</th>
-                          <th style="text-align: left;">Active</th>
+                          <th style="text-align: left;">Exam Name</th>
+                          <th style="text-align: left;">Category</th>
+                          <th style="text-align: left;">Exam Duration</th>
+                          <th style="text-align: left;">Status</th>
                           <th style="text-align: left;">Action</th>
-                          
                       </tr>
                   </thead>
 
 
                   <tbody>
-                    <?php foreach (get_all_categories() as $r) { ?>
-                      
+                    <?php foreach (get_all_exam() as $r) { ?>
+                     
                       <tr>
+                          <td style="text-align: left;"><?php echo $r['quiz_name'] ?></td> 
+
                           <td style="text-align: left;"><?php echo $r['category_name'] ?></td> 
 
+
+                          <td style="text-align: left;"><?php echo $r['quiz_duration'].' minutes' ?></td> 
                           
                           <td style="text-align: left;">
 
                               <?php 
-                                if ($r['status'] == 0) { 
+                                if ($r['quiz_status'] == 0) { 
                                     echo '<div class="example">
                                      <input id="freezechecked" type="hidden" value="Off" name="freezechecked[]">
                                     <input type="checkbox" id="toggle-event" class="freeze" name="freezerchecked[]" value="Off" unchecked data-toggle="toggle">
-                                    <input type="hidden" value="'. $r['category_id'] .'" name="id[]">
+                                    <input type="hidden" value="'. $r['quiz_id'] .'" name="id[]">
                                   </div>';
                                 } 
                                 else {
                                     echo '<div class="example">
                                     <input id="freezechecked" type="hidden" value="On" name="freezechecked[]">
                                     <input type="checkbox" id="toggle-event" class="freeze" name="freezerchecked[]" value="On" checked data-toggle="toggle">
-                                    <input type="hidden" value="'. $r['category_id'] .'" name="id[]">
+                                    <input type="hidden" value="'. $r['quiz_id'] .'" name="id[]">
 
                                   </div>';
                                 }
@@ -150,7 +155,10 @@
 
                               <?php
 
-                                 echo '<button type="button" class="btn btn-warning  edit-category"><i class="fa fa-pencil-square-o"></i> Edit</a></button> 
+                                 echo '<button type="button" class="btn btn-primary  edit-category"><i class="fa fa-pencil-square-o"></i> Manage Questions</a></button> 
+                                        <input type="hidden" value="'. $r['category_id'] .'"  name="delete[]">&nbsp';
+
+                                echo '<button type="button" class="btn btn-warning  edit-category"><i class="fa fa-pencil-square-o"></i> Edit</a></button> 
                                         <input type="hidden" value="'. $r['category_id'] .'"  name="delete[]">&nbsp';
 
                                  echo '<button type="button" class="btn btn-danger  delete delete-category"><i class="fa fa-trash-o fa-lg"></i> Delete</a></button> 
@@ -163,13 +171,13 @@
 
                   </tbody>
               </table>   
-              <button type="button" class="btn btn-success  add-category"> <i class="fa fa-plus-circle"></i> Add Category</a></button>
+              <button type="button" class="btn btn-success  add-category"> <i class="fa fa-plus-circle"></i> Add Exam</a></button>
               <input type="submit" class="btn btn-success update-button" name="formSubmit" id="formSubmit" value="Update" />
 
 
           </form> 
 
-          <?php if (get_all_categories() == null) {
+          <?php if (get_all_exam() == null) {
             echo '<h3>No records found in the database.</h3>';
           } ?>
 

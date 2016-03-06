@@ -98,6 +98,30 @@ function get_all_categories () {
 		return $data;
 } 
 
+//get all the exam details from the exam table
+function get_all_exam () {
+		$data = array();
+
+
+
+		$result = mysql_query("SELECT a.*, b.*
+        FROM mock_exam_quiz a, mock_exam_category b
+        WHERE a.quiz_category_id = b.category_id");
+
+
+	/*	"SELECT mock_exam_quiz.*, mock_exam_category.*
+								FROM mock_exam_quiz LEFT JOIN mock_exam_category 
+								ON (mock_exam_quiz.quiz_category_id = mock_exam_category=category_id)"*/
+
+
+
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+
+		return $data;
+} 
+
 //update user details on the database
 function update_user($update_data) {
 	$update_detail = array();
@@ -158,6 +182,22 @@ function change_password ($user_id, $password) {
 
 	mysql_query("UPDATE `mock_exam_users` SET `password` = '$password', `password_recover` = 0 WHERE `user_id` = '$user_id'");
 }
+
+
+
+function set_exam_active ($quiz_id) {
+	$quiz_id = (int)$quiz_id;
+	mysql_query("UPDATE `mock_exam_quiz` SET `quiz_status` = 1 WHERE `quiz_id` = '$quiz_id'");
+}
+
+function unset_exam_active ($quiz_id) {
+	$quiz_id = (int)$quiz_id;
+	mysql_query("UPDATE `mock_exam_quiz` SET `quiz_status` = 0 WHERE `quiz_id` = '$quiz_id'");
+}
+
+
+
+
 
 function set_category_active ($category_id) {
 	$category_id = (int)$category_id;
