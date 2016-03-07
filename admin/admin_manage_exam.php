@@ -161,9 +161,11 @@
                               <button class="btn btn-sm btn-warning" type="button"><span class="glyphicon glyphicon-edit"></span> Edit</button>
                             </a>
                             &nbsp
-                            <a href="<?php echo generate_admin_link("admin_manage_edit_exam", "mode=edit&id=" . ($r["quiz_id"]) . "&" . get_all_get_params(array("id"))); ?>">
-                              <button class="btn btn-sm btn-danger" type="button"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-                            </a>
+                            
+                            <?php 
+                              echo '<button type="button" class="btn btn-sm btn-danger glyphicon glyphicon-trash delete delete-category"> Delete</a></button> 
+                                        <input type="hidden" value="'. $r['quiz_id'] .'"  name="delete[]">'; 
+                            ?>
 
                           </td>
                       </tr>
@@ -206,8 +208,8 @@
 
   //delete button
   var id;
-  $('button.delete-exam').click(function(e) {
-    id = $(this).parent()[0].childNodes[3].value;
+  $('button.delete-category').click(function(e) {
+    id = $(this).parent()[0].childNodes[7].value;
       swal({
     title: "Are you sure?",
     text: " You will not be able to undo this action !",
@@ -219,78 +221,10 @@
     html: false
   }, function(){
     $.post( "delete_exam.php", { deleteexamfunction: id}, function( data ) {
-      alert(id);
     location.reload();
   });
   });
     });
-
-
-  /*//edit button
-  var id;
-  var userInput;
-
-  $('button.edit-category').click(function(e) {
-    id = $(this).parent()[0].childNodes[3].value;
-      swal({   title: "Modify category name",   
-        text: "Change the category name :",   
-        type: "input",   
-        showCancelButton: true,   
-        closeOnConfirm: false,   
-        animation: "slide-from-top",   
-        inputPlaceholder: "Category name"
-      }, 
-        function(inputValue){   
-          if (inputValue === false) return false;      
-          if (inputValue === "") {     
-            swal.showInputError("You need to write something!");     
-            return false   }      
-            swal("Successfully Changed!", "Category name : " + inputValue, "success"); 
-            userInput = inputValue;
-
-            $.post( "edit_category_name.php", { editcategory: id, edituservalue: userInput}, function( data ) {
-              setTimeout(function () { location.reload(1); }, 1000);
-            });
-
-          }
-      );
-  });
-*/
-
-
-//add category button
-  var id;
-  var userInput;
-
-  $('button.add-category').click(function(e) {
-    id = $(this).parent()[0].childNodes[3].value;
-      swal({   title: "Add category",   
-        text: "Category name : ",   
-        type: "input",    
-        showCancelButton: true,   
-        closeOnConfirm: false,   
-        animation: "slide-from-top",   
-        inputPlaceholder: "Category name"
-      }, 
-        function(inputValue){   
-          if (inputValue === false) return false;      
-          if (inputValue === "") {     
-            swal.showInputError("You need to write something!");     
-            return false   }      
-            swal("Successfully Added!", "Category name : " + inputValue, "success"); 
-            userInput = inputValue;
-
-            $.post( "add_category.php", { editcategory: id, edituservalue: userInput}, function( data ) {
-              setTimeout(function () { location.reload(1); }, 1000);
-            });
-
-          }
-      );
-  });
-
-
-
-
 
   </script>
 

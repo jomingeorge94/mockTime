@@ -238,7 +238,6 @@
             return false   }      
             swal("Successfully Changed!", "Category name : " + inputValue, "success"); 
             userInput = inputValue;
-
             $.post( "edit_category_name.php", { editcategory: id, edituservalue: userInput}, function( data ) {
               setTimeout(function () { location.reload(1); }, 1000);
             });
