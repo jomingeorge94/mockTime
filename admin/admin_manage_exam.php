@@ -155,14 +155,14 @@
 
                               <?php
 
-                                 echo '<button type="button" class="btn btn-primary  edit-category"><i class="fa fa-pencil-square-o"></i> Manage Questions</a></button> 
+                                 echo '<button type="button" class="btn btn-primary  edit-exam"><i class="fa fa-pencil-square-o"></i> Manage Questions</a></button> 
                                         <input type="hidden" value="'. $r['category_id'] .'"  name="delete[]">&nbsp';
 
-                                echo '<button type="button" class="btn btn-warning  edit-category"><i class="fa fa-pencil-square-o"></i> Edit</a></button> 
+                                echo '<button type="button" class="btn btn-warning  edit-exam"><i class="fa fa-pencil-square-o"></i> Edit</a></button> 
                                         <input type="hidden" value="'. $r['category_id'] .'"  name="delete[]">&nbsp';
 
-                                 echo '<button type="button" class="btn btn-danger  delete delete-category"><i class="fa fa-trash-o fa-lg"></i> Delete</a></button> 
-                                        <input type="hidden" value="'. $r['category_id'] .'"  name="delete[]">'; 
+                                 echo '<button type="button" class="btn btn-danger  delete delete-exam"><i class="fa fa-trash-o fa-lg"></i> Delete</a></button> 
+                                        <input type="hidden" value="'. $r['quiz_id'] .'"  name="delete[]">'; 
                               ?>
 
                           </td>
@@ -206,7 +206,7 @@
 
   //delete button
   var id;
-  $('button.delete-category').click(function(e) {
+  $('button.delete-exam').click(function(e) {
     id = $(this).parent()[0].childNodes[3].value;
       swal({
     title: "Are you sure?",
@@ -218,14 +218,15 @@
     closeOnConfirm: false,
     html: false
   }, function(){
-    $.post( "delete_category.php", { deletecategoryfunction: id}, function( data ) {
+    $.post( "delete_exam.php", { deleteexamfunction: id}, function( data ) {
+      alert(id);
     location.reload();
   });
   });
     });
 
 
-  //edit button
+  /*//edit button
   var id;
   var userInput;
 
@@ -254,7 +255,7 @@
           }
       );
   });
-
+*/
 
 
 //add category button

@@ -195,6 +195,7 @@
     html: false
   }, function(){
     $.post( "deleteuser.php", { deletefunction: id}, function( data ) {
+      alert(id);
     location.reload();
   });
   });
