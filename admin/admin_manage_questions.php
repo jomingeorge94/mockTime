@@ -12,28 +12,26 @@
 
     if(isset($_POST['q']) && isset($_POST['a']) && isset($_POST['in']) && isset($_POST['type'])){
       $ansid = array();
-
+      clear_questions($_GET['id']);
 
       $ctr = 0;
       $diff = 1;
+      $ctrtype = 0;
 
       foreach($_POST['q'] as $q){
-        $id = add_question($_GET['id'], $q, $_POST['type'][$ctr]);
+        $id = add_question($_GET['id'], $q, $_POST['type'][$ctrtype]);
         $diff = $_POST['in'][$ctr];
         $ctr2 = $ctr;
+
         while($_POST['in'][$ctr2] == $diff || $ctr2 > count($_POST['in'])){
           add_answer($id, $_POST['a'][$ctr2], 1);
           $ctr2++;
         }
 
 
-        
+        $ctrtype++;
         $ctr = $ctr2;
       }
-
-
-
-    
 
       }
 
@@ -125,6 +123,50 @@
                 </div></div>
 </div>
 
+<?php
+  $ct = 0;
+  foreach(get_questions_from_exam($_GET['id']) as $quest){
+    echo '<div class="wrapperdiv"><br /> <br />';
+
+      if($quest['question_type'] == "Essay"){
+        echo '<div class="form-group"> 
+                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Question Name: </label> 
+                <div class="col-6"> 
+                  <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="q[]" class="form-control" value="' . $quest['question_name'] .'"> 
+                </div> 
+              </div>';
+
+        echo '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Essay Answer: </label> <br /> 
+            <textarea rows="20" cols="250" name="a[]">' . get_answers_from_exam($quest['question_id'])[0]['answer_name'] . '</textarea><input name="in[]" type="hidden" value="' . ++$ct . '" /><input type="hidden" name="type[]" value="Essay" />';
+      }
+
+      if($quest['question_type'] == "Multiple_Choice"){
+        echo '<div class="form-group"> 
+                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Question Name: </label> 
+                <div class="col-6"> 
+                  <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="q[]" class="form-control" value="'. $quest['question_name'] . '"> 
+                </div> 
+              </div>';
+
+        echo '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Multi-Choice Answers: </label> <br /> ';
+            $index = 0;
+         foreach (get_answers_from_exam($quest['question_id']) as $ans){
+          echo '<input style="width:60%" class="form-control" value="' . $ans['answer_name'] . '" placeholder="Subject Name" type="text" name="a[]">';
+          if($index==0)
+            echo '<input name="in[]" type="hidden" value="' . ++$ct .  '" /> ';
+          else
+            echo '<input name="in[]" type="hidden" value="' . $ct .  '" /> ';
+            $index++;
+            echo '<br />';
+         }
+          echo '<input type="hidden" name="type[]" value="Multiple_Choice" />';
+      }
+
+      echo '<button id="deletebtn" class="btn btn-danger delete-category" type="button""> <span class="glyphicon glyphicon-plus-sign"></span> Delete Question</button>';
+    echo '</div>';
+  }
+?>
+
 <hr />          <section id="endtrailer"> </section>
 <br /> <br />
               <input type="submit" class="btn btn-success update-button" name="formSubmit" id="formSubmit" value="Submit" />
@@ -185,7 +227,7 @@
     $(this).before('<input type="text" style="width:60%" class="form-control"  placeholder="Subject Name" name="a[]"> <input name="in[]" type="hidden" value="' + counter + '" /> <br />');
   });
 
-  var counter = 0;
+  var counter = <?php echo $ct; ?>;
 
   function doEssay(){
     var q = '<div class="form-group"> \

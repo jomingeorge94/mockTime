@@ -126,17 +126,69 @@ function get_available_categories(){
 	return $ret;
 }
 
+function clear_questions($exam_id){
+	$data = array();
+
+	$result = mysql_query("SELECT * FROM `mock_exam_questions` WHERE `quiz_id` = '$exam_id'");
+
+	while ($row = mysql_fetch_assoc($result)) {
+	    $data [] = $row;
+	}
+
+	foreach($data as $d){
+		clear_answers($d['question_id']);
+	}
+
+	$id = (int)$exam_id;
+	// Delete the question to update
+	mysql_query("DELETE FROM `mock_exam_questions` WHERE `quiz_id` = '$id'");
+
+}
+
+function clear_answers($qid){
+	$id = (int)$qid;
+	// Delete the question to update
+	$r = mysql_query("DELETE FROM `mock_exam_answers` WHERE `question_id` = '$id'");
+
+}
+
 
 function add_question($exam_id, $q_name, $q_type){
+	
+	// Add them anew
 	mysql_query("INSERT INTO `mock_exam_questions` (`quiz_id`, `question_name`, `question_type`) VALUES ('$exam_id', '$q_name', '$q_type')");
 	return mysql_insert_id();
 }
 
 function add_answer($qid, $a_name, $is_true){
+	
+	// Add them anew
 	mysql_query("INSERT INTO `mock_exam_answers` (`question_id`, `answer_name`, `is_true`) VALUES ('$qid', '$a_name', '$is_true')");
 }
 
+function get_questions_from_exam($examid){
+	$data = array();
 
+	$result = mysql_query("SELECT * FROM `mock_exam_questions` WHERE `quiz_id` = '$examid'");
+
+	while ($row = mysql_fetch_assoc($result)) {
+	    $data [] = $row;
+	}
+
+	return $data;
+}
+
+function get_answers_from_exam($qid){
+	$data = array();
+
+	$result = mysql_query("SELECT * FROM `mock_exam_answers` WHERE `question_id` = '$qid'");
+
+	while ($row = mysql_fetch_assoc($result)) {
+	    $data [] = $row;
+	}
+
+	return $data;
+}
 
 
 function get_exam($id){
