@@ -10,7 +10,7 @@
       header('Location: /mocktime/admin');
     }
 
-    if(isset($_POST['q']) && isset($_POST['a']) && isset($_POST['in']) && isset($_POST['type'])){
+    if(isset($_POST['q']) && isset($_POST['a']) && isset($_POST['in']) && isset($_POST['selector']) && isset($_POST['type'])){
       $ansid = array();
       clear_questions($_GET['id']);
 
@@ -18,16 +18,37 @@
       $diff = 1;
       $ctrtype = 0;
 
+        $ctr3 = 0;
+
       foreach($_POST['q'] as $q){
         $id = add_question($_GET['id'], $q, $_POST['type'][$ctrtype]);
         $diff = $_POST['in'][$ctr];
         $ctr2 = $ctr;
+        
+        $ctr4 = 1;
 
         while($_POST['in'][$ctr2] == $diff || $ctr2 > count($_POST['in'])){
-          add_answer($id, $_POST['a'][$ctr2], 1);
+          
+          $isTrue = 1;
+
+
+          if($_POST['type'][$ctrtype] == 'Multiple_Choice'){
+
+            if($_POST['selector'][$ctr3] == $ctr4){
+              $isTrue = 1;
+            }else{
+              $isTrue = 0;
+            }
+          }
+
+          add_answer($id, $_POST['a'][$ctr2], $isTrue);
           $ctr2++;
+          $ctr4++;
+          $ctr++;
         }
 
+        if($_POST['type'][$ctrtype] == 'Multiple_Choice')
+          $ctr3++; 
 
         $ctrtype++;
         $ctr = $ctr2;
@@ -160,10 +181,30 @@
             echo '<br />';
          }
           echo '<input type="hidden" name="type[]" value="Multiple_Choice" />';
-      }
+           echo '<div class="form-group" style="width:60%">
+                        <label class="col-2 control-label" for="ans"><span class="required">*</span>Answer: </label>
+                        <div class="col-2">
+                          <select class="form-control" name="selector[]" id="selector" >';
+                            $count = count(get_answers_from_exam($quest['question_id']));
+                            $j = 0;
+                            foreach(get_answers_from_exam($quest['question_id']) as $ans){
+                              if($ans['is_true'] == 1){
+                                                             echo '<option selected value="' . ($j + 1) . '">Question: '. ($j + 1) . '</option>';
 
+                              }else{
+                                                             echo '<option value="' . ($j + 1) . '">Question: '. ($j + 1) . '</option>';
+
+                              }
+                              $j++;
+                            }
+                            
+                         echo ' </select>
+                        </div>
+                      </div>';
       echo '<button id="deletebtn" class="btn btn-danger delete-category" type="button""> <span class="glyphicon glyphicon-plus-sign"></span> Delete Question</button>';
     echo '</div>';
+      }
+     
   }
 ?>
 
@@ -191,6 +232,12 @@
 
                      var addButton = '<button id="" class="btn btn-primary add-multi" type="button""> \
                     <span class="glyphicon glyphicon-plus-sign"></span> Add Multi-Choice</button>';
+
+  var sele = '<div class="form-group" style="width:60%"> \
+                        <label class="col-2 control-label" for="ans"><span class="required">*</span>Answer: </label> \
+                        <div class="col-2"> \
+                          <select class="form-control" name="selector[]" id="selector" > \
+                           ';
 
 
   $('#addQ').click(function (e){
@@ -225,6 +272,10 @@
 
   $('body').on('click', '.add-multi', function() {
     $(this).before('<input type="text" style="width:60%" class="form-control"  placeholder="Subject Name" name="a[]"> <input name="in[]" type="hidden" value="' + counter + '" /> <br />');
+    var x = $(this).next().next().next().children().eq(1).children().eq(0).children().length;
+    x++;
+    $(this).next().next().next().children().eq(1).children().eq(0).append('<option value="' + x + '"> Question: ' + x + '</option>');
+    console.log($(this));
   });
 
   var counter = <?php echo $ct; ?>;
@@ -250,7 +301,10 @@
               </div>';
     var textfields = '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Multi-Choice Answers: </label> <br /> \
 <input type="text" style="width:60%" class="form-control"  placeholder="Subject Name" name="a[]"> <br /> <input style="width:60%" class="form-control" placeholder="Subject Name" type="text" name="a[]"> <input name="in[]" type="hidden" value="' + ++counter + '" /><input name="in[]" type="hidden" value="' + counter + '" /><input type="hidden" name="type[]" value="Multiple_Choice" />';
-    $("#endtrailer").before("<div class='wrapperdiv'><br /> <br /> " + q +textfields + '<br />' + addButton + '<br /><br />' + deleteBtn + "</div>");
+    
+  var options = '<option value="1">Question: 1</option><option value="2">Question: 2</option>';
+
+    $("#endtrailer").before("<div class='wrapperdiv'><br /> <br /> " + q + textfields  + '<br />' + addButton + '<br /><br />'+ sele + options + '</select></div></div><br /><br />' + deleteBtn + "</div>");
   }
 
 

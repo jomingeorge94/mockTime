@@ -191,6 +191,8 @@ function get_answers_from_exam($qid){
 }
 
 
+
+
 function get_exam($id){
 
 	$query = mysql_query("SELECT * FROM `mock_exam_quiz` WHERE `quiz_id` = '$id'");
