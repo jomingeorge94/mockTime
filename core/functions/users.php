@@ -116,10 +116,25 @@ function get_all_exam () {
 
 
 
+function get_available_categories(){
+	$ret = array();
+	$ret[] = "Multiple_Choice";
+	$ret[] = "True_False";
+	$ret[] = "Essay";
+	$ret[] = "Fill_Blank";
+	$ret[] = "Acronym_Answer";
+	return $ret;
+}
 
 
+function add_question($exam_id, $q_name, $q_type){
+	mysql_query("INSERT INTO `mock_exam_questions` (`quiz_id`, `question_name`, `question_type`) VALUES ('$exam_id', '$q_name', '$q_type')");
+	return mysql_insert_id();
+}
 
-
+function add_answer($qid, $a_name, $is_true){
+	mysql_query("INSERT INTO `mock_exam_answers` (`question_id`, `answer_name`, `is_true`) VALUES ('$qid', '$a_name', '$is_true')");
+}
 
 
 

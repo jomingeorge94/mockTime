@@ -107,7 +107,7 @@
 
                           <td style="text-align: left;">
 
-                              <a href="<?php echo generate_admin_link("admin_manage_edit_exam", "id=" . ($r["quiz_id"]) . "&" . get_all_get_params(array("id"))); ?>">
+                              <a href="<?php echo generate_admin_link("admin_manage_questions", "id=" . ($r["quiz_id"]) . "&" . get_all_get_params(array("id"))); ?>">
                                 <button class="btn btn-sm btn-primary" type="button"><span class="glyphicon glyphicon-cog"></span> Modify Questions</button>
                              </a>
                              &nbsp
