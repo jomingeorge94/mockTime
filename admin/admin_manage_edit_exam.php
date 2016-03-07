@@ -72,12 +72,13 @@
       <section class="content-header">
         <h1>
           Manage
-          <small>Exam Listing</small>
+          <small>Edit Exam</small>
         </h1>
         <ol class="breadcrumb">
           <li><a href="admin_dashboard.php"><i class="fa fa-home"></i> Home</a></li>
           <li><a href="admin_dashboard.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-          <li class="active">Exam Listing</li>
+          <li><a href="admin_manage_exam.php"><i class="fa fa-dashboard"></i> Exam Listing</a></li>
+          <li class="active">Edit Exam</li>
         </ol>
       </section>
 
@@ -106,73 +107,8 @@
 
 
 
-              <table class="table table-hover table-datatable table-striped table-bordered">
-
-                  <thead>
-                      <tr>
-                          <th style="text-align: left;">Exam Name</th>
-                          <th style="text-align: left;">Category</th>
-                          <th style="text-align: left;">Exam Duration</th>
-                          <th style="text-align: left;">Status</th>
-                          <th style="text-align: left;">Action</th>
-                      </tr>
-                  </thead>
-
-
-                  <tbody>
-                    <?php foreach (get_all_exam() as $r) { ?>
-                     
-                      <tr>
-                          <td style="text-align: left;"><?php echo $r['quiz_name'] ?></td> 
-
-                          <td style="text-align: left;"><?php echo $r['category_name'] ?></td> 
-
-
-                          <td style="text-align: left;"><?php echo $r['quiz_duration'].' minutes' ?></td> 
-                          
-                          <td style="text-align: left;">
-
-                              <?php 
-                                if ($r['quiz_status'] == 0) { 
-                                    echo '<div class="example">
-                                     <input id="freezechecked" type="hidden" value="Off" name="freezechecked[]">
-                                    <input type="checkbox" id="toggle-event" class="freeze" name="freezerchecked[]" value="Off" unchecked data-toggle="toggle">
-                                    <input type="hidden" value="'. $r['quiz_id'] .'" name="id[]">
-                                  </div>';
-                                } 
-                                else {
-                                    echo '<div class="example">
-                                    <input id="freezechecked" type="hidden" value="On" name="freezechecked[]">
-                                    <input type="checkbox" id="toggle-event" class="freeze" name="freezerchecked[]" value="On" checked data-toggle="toggle">
-                                    <input type="hidden" value="'. $r['quiz_id'] .'" name="id[]">
-
-                                  </div>';
-                                }
-                              ?>
-                          </td>
-
-                          <td style="text-align: left;">
-
-                              <a href="<?php echo generate_admin_link("admin_manage_edit_exam", "mode=edit&id=" . ($r["quiz_id"]) . "&" . get_all_get_params(array("id"))); ?>">
-                                <button class="btn btn-sm btn-primary" type="button"><span class="glyphicon glyphicon-cog"></span> Modify Questions</button>
-                             </a>
-                             &nbsp
-                            <a href="<?php echo generate_admin_link("admin_manage_edit_exam", "mode=edit&id=" . ($r["quiz_id"]) . "&" . get_all_get_params(array("id"))); ?>">
-                              <button class="btn btn-sm btn-warning" type="button"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                            </a>
-                            &nbsp
-                            <a href="<?php echo generate_admin_link("admin_manage_edit_exam", "mode=edit&id=" . ($r["quiz_id"]) . "&" . get_all_get_params(array("id"))); ?>">
-                              <button class="btn btn-sm btn-danger" type="button"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-                            </a>
-
-                          </td>
-                      </tr>
-                    <?php } ?>
-
-                  </tbody>
-              </table>   
-              <button type="button" class="btn btn-success  add-category"> <i class="fa fa-plus-circle"></i> Add Exam</a></button>
-              <input type="submit" class="btn btn-success update-button" name="formSubmit" id="formSubmit" value="Update" />
+               
+              <input type="submit" class="btn btn-success update-button" name="formSubmit" id="formSubmit" value="Submit" />
 
 
           </form> 

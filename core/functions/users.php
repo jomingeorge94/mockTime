@@ -302,4 +302,64 @@ function safe_output($string) {
   return trim((stripslashes($string)));
 }
 
+
+
+// this code is been used from http://www.thesoftwareguy.in/
+function generate_admin_link($page = '', $parameters = '') {
+
+  if ($page == '') {
+    die('<font color="#ff0"><b>Error!</b></font><br><br><b>Unable to determine the page link!</b>');
+  }
+
+
+  if (!strstr($page, '.php'))
+    $page .= '.php';
+
+  if ($parameters == '') {
+    $link = $link . $page;
+    $separator = '?';
+  } else {
+    $link = $link . $page . '?' . $parameters;
+    $separator = '&';
+  }
+
+  while ((substr($link, -1) == '&') || (substr($link, -1) == '?'))
+    $link = substr($link, 0, -1);
+  return $link;
+}
+
+// this code is been used from http://www.thesoftwareguy.in/
+function get_all_get_params($exclude_array = '') {
+
+  if (!is_array($exclude_array))
+    $exclude_array = array();
+
+  $get_url = '';
+  if (is_array($_GET) && (sizeof($_GET) > 0)) {
+    reset($_GET);
+
+    $arr = $_GET;
+    foreach ($arr as $k => $value) {
+      if (gettype($arr[$k]) == "array") {
+        foreach ($arr[$k] as $key => $values) {
+          if ((strlen($values) > 0) && (!in_array($key, $exclude_array))) {
+            $get_url .= sanitize_string($k) . '[]=' . rawurlencode(stripslashes($values)) . '&';
+          }
+        }
+      } else {
+        if ((strlen($value) > 0) && ($k != 'error') && (!in_array($k, $exclude_array)) && ($k != 'x') && ($k != 'y')) {
+          $get_url .= sanitize_string($k) . '=' . rawurlencode(stripslashes($value)) . '&';
+        }
+      }
+    }
+  }
+
+  while (strstr($get_url, '&&'))
+    $get_url = str_replace('&&', '&', $get_url);
+  while (strstr($get_url, '&amp;&amp;'))
+    $get_url = str_replace('&amp;&amp;', '&amp;', $get_url);
+
+  return $get_url;
+}
+
 ?>
