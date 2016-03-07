@@ -159,6 +159,8 @@
 
         echo '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Essay Answer: </label> <br /> 
             <textarea rows="20" cols="250" name="a[]">' . get_answers_from_exam($quest['question_id'])[0]['answer_name'] . '</textarea><input name="in[]" type="hidden" value="' . ++$ct . '" /><input type="hidden" name="type[]" value="Essay" />';
+              echo '<button id="deletebtn" class="btn btn-danger delete-category" type="button""> <span class="glyphicon glyphicon-plus-sign"></span> Delete Question</button></div>';
+
       }
 
       if($quest['question_type'] == "Multiple_Choice"){
