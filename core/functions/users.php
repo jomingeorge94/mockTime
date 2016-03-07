@@ -102,18 +102,9 @@ function get_all_categories () {
 function get_all_exam () {
 		$data = array();
 
-
-
 		$result = mysql_query("SELECT a.*, b.*
         FROM mock_exam_quiz a, mock_exam_category b
         WHERE a.quiz_category_id = b.category_id");
-
-
-	/*	"SELECT mock_exam_quiz.*, mock_exam_category.*
-								FROM mock_exam_quiz LEFT JOIN mock_exam_category 
-								ON (mock_exam_quiz.quiz_category_id = mock_exam_category=category_id)"*/
-
-
 
 		while ($row = mysql_fetch_assoc($result)) {
 		    $data [] = $row;
@@ -121,6 +112,50 @@ function get_all_exam () {
 
 		return $data;
 } 
+
+
+
+
+
+
+
+
+
+
+
+
+function get_exam($id){
+
+	$query = mysql_query("SELECT * FROM `mock_exam_quiz` WHERE `quiz_id` = '$id'");
+	return mysql_fetch_row($query);
+
+}
+
+function get_category_name($id){
+
+	$query = mysql_query("SELECT * FROM `mock_exam_category` WHERE `category_id` = '$id'");
+	return mysql_fetch_row($query);
+
+}
+
+function update_exam($id, $name, $category, $duration, $status) {
+	if(empty($id) || empty($name) || empty($category) || empty($duration))
+		return false;
+
+	mysql_query("UPDATE `mock_exam_quiz` SET `quiz_name` = '$name', `quiz_category_id` = '$category', `quiz_duration` = '$duration', `quiz_status` = $status WHERE `quiz_id` = '$id'");
+
+	return true;
+}
+
+
+
+
+
+
+
+
+
+
 
 //update user details on the database
 function update_user($update_data) {

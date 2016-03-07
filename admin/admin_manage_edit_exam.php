@@ -11,6 +11,23 @@
     }
 
   ?>
+
+  <?php
+    if(isset($_POST['quiz_name']) && isset($_POST['quiz_category']) && isset($_POST['quiz_duration']) && isset($_POST['freezechecked'])){
+      $freeze = 0;
+      if($_POST['freezechecked'] == 'On'){
+        $freeze = 1;
+        
+      }
+      else{
+        $freeze = 0;
+      }
+
+      if(!update_exam($_GET['id'], $_POST['quiz_name'], $_POST['quiz_category'], $_POST['quiz_duration'], $freeze)){
+        // echo "error";
+      }
+    }
+  ?>
   
   <?php include '/includes/admin_dashboard_usersregisteres_header.php'; ?>
   <?php include '/includes/admin_dashboard_header.php'; ?>
@@ -18,53 +35,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
 
-    <header class="main-header">
-        <!-- Logo -->
-      <a href="index.php" class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>mT</b></span>
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>mockTime</b></span>
-      </a>
-        <!-- Header Navbar: style can be found in header.less -->
-      <nav class="navbar navbar-static-top" role="navigation">
-        <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-          <span class="sr-only">Toggle navigation</span>
-        </a>
-        <div class="navbar-custom-menu">
-          <ul class="nav navbar-nav">
-
-            <!-- User Account: style can be found in dropdown.less -->
-            <li class="dropdown user user-menu">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <?php echo '<img src="../', $user_data['profile_picture'], '" alt="', $user_data['first_name'], '\'s Profile Picture" class="user-image" /> '; ?>
-                <span class="hidden-xs"><?php echo $user_data['first_name'];?>&nbsp;<?php echo $user_data['last_name'];?></span>
-              </a>
-              <ul class="dropdown-menu">
-                <!-- User image -->
-                <li class="user-header">
-                  <?php echo '<img src="../', $user_data['profile_picture'], '" alt="', $user_data['first_name'], '\'s Profile Picture" class="img-circle" /> '; ?>                     
-                  <p>
-                    <?php echo $user_data['first_name'];?>&nbsp;<?php echo $user_data['last_name'];?>
-                    <small>Member since Nov. 2012</small>
-                  </p>
-                </li>
-                <!-- Menu Footer-->
-                <li class="user-footer">
-                  <div class="pull-left">
-                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                  </div>
-                  <div class="pull-right">
-                    <a href="admin_logout.php" class="btn btn-default btn-flat">Sign out</a>
-                  </div>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header>
+    <?php include '/includes/admin_header_profile.php';?>
       <!-- Left side column. contains the logo and sidebar -->
     <?php include '/includes/admin_side_navigation.php';?>
 
@@ -82,40 +53,73 @@
         </ol>
       </section>
 
-        <?php
-        
-          $counterboy = 0;
-
-          if (isset($_POST['freezechecked'])) {
-            foreach ($_POST['freezechecked'] as $freeze){
-              if($freeze == "On")
-                set_exam_active($_POST['id'][$counterboy]);
-              else
-                unset_exam_active($_POST['id'][$counterboy]); 
-
-              $counterboy++;
-            }
-          }
-
-
-        ?>
+      
 
         <section class="content">
 
           <form method="post" action="">
 
+            <?php  $r = get_exam($_GET['id']); ?>
+
+          
 
 
+              <div class="form-group">
+                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Exam Name: </label>
+                <div class="col-6">
+                  <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="quiz_name" class="form-control" value="<?php echo $r[1] ?>">
+                </div>
+              </div>
+              <div class="form-group">
 
+                  <label class="col-2 control-label" for="category"><span class="required">*</span>Exam Category: </label>
                
+                    <select class="form-control" name="quiz_category" id="category">
+                      <option value="">select</option>
+                      <?php
+                      foreach (get_all_categories() as $cat) {
+                        $s = ( $r[2] == $cat["category_id"] ) ? 'selected="selected"' : "";
+                        echo '<option value="' . $cat["category_id"] . '" ' . $s . ' >' . $cat["category_name"] . '</option>';
+                      }
+                      ?>
+                    </select>
+            </div>
+
+               <div class="form-group">
+                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Exam Duration: </label>
+                <div class="col-6">
+                  <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="quiz_duration" class="form-control" value="<?php echo $r[3] ?>">
+                </div>
+              </div>
+
+              <div class="example">
+                <?php 
+                                if ($r[4] == 0) { 
+                                    echo '                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Exam Status: </label><br />
+<div class="example">
+                                     <input id="freezechecked" type="hidden" value="Off" name="freezerchecked">
+                                    <input type="checkbox" id="toggle-event" class="freeze" name="freezerchecked" value="Off" unchecked data-toggle="toggle">
+                                    <input type="hidden" value="'. $r['quiz_id'] .'" name="freezechecked">
+                                  </div>';
+                                } 
+                                else {
+                                    echo '<div class="example">                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Exam Status: </label>
+<br />
+                                    <input id="freezechecked" type="hidden" value="On" name="freezerchecked">
+                                    <input type="checkbox" id="toggle-event" class="freeze" name="freezerchecked" value="On" checked data-toggle="toggle">
+                                    <input type="hidden" value="'. $r['quiz_id'] .'" name="freezechecked">
+
+                                  </div>';
+                                }
+                              ?>
+
+               <br /> <br />
               <input type="submit" class="btn btn-success update-button" name="formSubmit" id="formSubmit" value="Submit" />
-
-
+      
+               
           </form> 
 
-          <?php if (get_all_exam() == null) {
-            echo '<h3>No records found in the database.</h3>';
-          } ?>
+          
 
 
         </section><!-- /.content -->
@@ -132,11 +136,11 @@
   $(document).ready(function(){
      $(document).on('click.bs.toggle', 'div[data-toggle^=toggle]', function(e) {
       var $checkbox = $(this).find('input[type=checkbox]').parent().parent();
-
-      if($checkbox[0].childNodes[1].value == "On")
-        $checkbox[0].childNodes[1].value = "Off";
+      console.log($checkbox);
+      if($checkbox[0].childNodes[5].value == "On")
+        $checkbox[0].childNodes[5].value = "Off";
       else
-        $checkbox[0].childNodes[1].value = "On";
+        $checkbox[0].childNodes[5].value = "On";
     })
   });
 
