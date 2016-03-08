@@ -241,6 +241,20 @@
                     <input name="a[]" value="' . get_answer($quest['question_id'])[0] . '" type="hidden"><input name="in[]" type="hidden" value="' . ++$ct . '" /><input type="hidden" name="type[]" value="True_False" /></div> 
                 </div> 
             </div>';
+                  echo '<button id="deletebtn" class="btn btn-danger delete-category" type="button""> <span class="glyphicon glyphicon-plus-sign"></span> Delete Question</button>';
+        echo '</div>';
+      }
+
+      if($quest['question_type'] == "Acronym_Answer"){
+        echo '<div class="form-group"> 
+                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Question Name: </label> 
+                <div class="col-6"> 
+                  <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="q[]" class="form-control" value="' . $quest['question_name'] . '"> 
+                </div> 
+              </div>';
+              echo '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Acronym Answer: </label> <br /> 
+<input type="text" value="' . get_answer($quest['question_id'])[0] . '" name="a[]"><input name="in[]" type="hidden" value="' . ++$ct . '" /><input type="hidden" name="type[]" value="Acronym_Answer" />';
+      echo '<br /><br /><button id="deletebtn" class="btn btn-danger delete-category" type="button""> <span class="glyphicon glyphicon-plus-sign"></span> Delete Question</button>';
 
         echo '</div>';
       }
@@ -291,6 +305,9 @@
 
     if(quiz == "True_False")
       doTF();
+
+    if(quiz == "Acronym_Answer")
+      doAcro();
 
   });
 
@@ -374,6 +391,18 @@
                 </div> \
             </div>';
     $("#endtrailer").before("<div class='wrapperdiv'><br /> <br /> " + q + radios + '<br /><br />' +  deleteBtn + "</div>");
+  }
+
+  function doAcro(){
+    var q = '<div class="form-group"> \
+                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Question Name: </label> \
+                <div class="col-6"> \
+                  <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="q[]" class="form-control" value=""> \
+                </div> \
+              </div>';
+    var textfield = '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Acronym Answer: </label> <br /> \
+<input type="text" name="a[]"><input name="in[]" type="hidden" value="' + ++counter + '" /><input type="hidden" name="type[]" value="Acronym_Answer" />';
+    $("#endtrailer").before("<div class='wrapperdiv'><br /> <br /> " + q + textfield + '<br /><br/> ' + deleteBtn + "</div>");
   }
 
 
