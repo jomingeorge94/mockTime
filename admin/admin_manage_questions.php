@@ -11,6 +11,10 @@
     }
 
 
+    if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['q']) && !isset($_POST['a'])){
+      delete_all_questions($_GET['id']);
+    }
+
     if(isset($_POST['q']) && isset($_POST['a'])){
       $ansid = array();
       clear_questions($_GET['id']);
@@ -40,6 +44,10 @@
             }else{
               $isTrue = 0;
             }
+          }
+
+          if($_POST['type'][$ctrtype] == 'True_False'){
+            $isTrue = $_POST['a'][$ctr2];
           }
 
           add_answer($id, $_POST['a'][$ctr2], $isTrue);
@@ -207,6 +215,35 @@
       echo '<button id="deletebtn" class="btn btn-danger delete-category" type="button""> <span class="glyphicon glyphicon-plus-sign"></span> Delete Question</button>';
     echo '</div>';
       }
+
+      if($quest['question_type'] == "True_False"){
+         echo '<div class="form-group"> 
+                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Question Name: </label> 
+                <div class="col-6"> 
+                  <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="q[]" class="form-control" value="'. $quest['question_name'] . '"> 
+                </div> 
+              </div>';
+
+        echo '<div class="form-group col-md-12"> 
+                <div class="form-group col-md-12"> 
+                    <label for="tf" class="control-label"><b>True or False</b></label/>  
+                    <br /> 
+                    <div class="btn-group inline" data-toggle="buttons"> 
+                            ';
+                    if(get_answers_from_exam($quest['question_id'])[0]['answer_name'] == 1){ $checked = '<label class="btn chk btn-default active" style="margin-right:10px"><input class="" type="radio" checked id="category" name="faux" value="1" /> True </label>';}
+                    else $checked = '<label class="btn chk btn-default" style="margin-right:10px"><input class="" type="radio" id="category" name="faux" value="1" /> True </label>';
+
+                    if(get_answers_from_exam($quest['question_id'])[0]['answer_name'] == 0){ $checkedf = '<label class="btn chk btn-default active" style="margin-right:10px"><input type="radio" checked id="category" name="faux" value="0" /> False </label>';}
+                    else $checkedf = '<label class="btn chk btn-default" style="margin-right:10px"><input class="" type="radio" id="category" name="faux" value="0" /> False </label>';
+
+
+                      echo $checked . $checkedf .' 
+                    <input name="a[]" value="' . get_answer($quest['question_id'])[0] . '" type="hidden"><input name="in[]" type="hidden" value="' . ++$ct . '" /><input type="hidden" name="type[]" value="True_False" /></div> 
+                </div> 
+            </div>';
+
+        echo '</div>';
+      }
      
   }
 ?>
@@ -252,6 +289,9 @@
     if(quiz == "Multiple_Choice")
       doMulti();
 
+    if(quiz == "True_False")
+      doTF();
+
   });
 
   //delete button
@@ -271,6 +311,11 @@
     i.parent().remove();
     swal("Deleted!", "Your question has been deleted.", "success");
   });
+  });
+
+  $('body').on('click', '.chk', function() {
+    var update = $(this).children().eq(0).val();
+    $(this).parent().children().eq(2).val(update);
   });
 
   $('body').on('click', '.add-multi', function() {
@@ -308,6 +353,27 @@
   var options = '<option value="1">Question: 1</option><option value="2">Question: 2</option>';
 
     $("#endtrailer").before("<div class='wrapperdiv'><br /> <br /> " + q + textfields  + '<br />' + addButton + '<br /><br />'+ sele + options + '</select></div></div><br /><br />' + deleteBtn + "</div>");
+  }
+
+  function doTF(){
+    var q = '<div class="form-group"> \
+                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Question Name: </label> \
+                <div class="col-6"> \
+                  <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="q[]" class="form-control" value=""> \
+                </div> \
+              </div>';
+
+    var radios = '<div class="form-group col-md-12"> \
+                <div class="form-group col-md-12"> \
+                    <label for="tf" class="control-label"><b>True or False</b></label/>  \
+                    <br /> \
+                    <div class="btn-group inline" data-toggle="buttons"> \
+                            <label class=" chk btn btn-default" style="margin-right:10px"><input type="radio" id="category" name="faux" value="1" /> True </label> \
+                            <label class="btn chk btn-default"><input type="radio" id="category" name="faux" value="0" /> False </label> ' +  
+                   ' <input name="a[]" type="hidden" value="0"> <input name="in[]" type="hidden" value="' + ++counter + '" /><input type="hidden" name="type[]" value="True_False" /></div> \
+                </div> \
+            </div>';
+    $("#endtrailer").before("<div class='wrapperdiv'><br /> <br /> " + q + radios + '<br /><br />' +  deleteBtn + "</div>");
   }
 
 

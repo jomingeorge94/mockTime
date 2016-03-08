@@ -152,6 +152,10 @@ function clear_answers($qid){
 
 }
 
+function delete_all_questions($id){
+	clear_questions($id);
+}
+
 function add_exam( $name, $category, $duration, $status) {
 
 	if(empty($name) || empty($category) || empty($duration))
@@ -200,7 +204,12 @@ function get_answers_from_exam($qid){
 	return $data;
 }
 
+function get_answer($id){
 
+	$query = mysql_query("SELECT `answer_name` FROM `mock_exam_answers` WHERE `question_id` = '$id'");
+	return mysql_fetch_row($query);
+
+}
 
 
 function get_exam($id){
