@@ -13,9 +13,13 @@
   ?>
 
   <?php
-    if(isset($_POST['quiz_name']) && isset($_POST['quiz_category']) && isset($_POST['quiz_duration']) && isset($_POST['freezerchecked'])){
+
+    if(isset($_POST['quiz_name']) && isset($_POST['quiz_category']) && isset($_POST['quiz_duration']) && isset($_POST['freezechecked'])){
+      
+
+
       $freeze = 0;
-      if($_POST['freezerchecked'] == 'On'){
+      if($_POST['freezechecked'] == 'On'){
         $freeze = 1;
         
       }
@@ -23,7 +27,7 @@
         $freeze = 0;
       }
 
-      if(!update_exam($_GET['id'], $_POST['quiz_name'], $_POST['quiz_category'], $_POST['quiz_duration'], $freeze)){
+      if(!add_exam($_POST['quiz_name'], $_POST['quiz_category'], $_POST['quiz_duration'], $freeze)){
         // echo "error";
       }else{
         header('Location: /mocktime/admin/admin_manage_exam.php');
@@ -45,7 +49,7 @@
       <section class="content-header">
         <h1>
           Manage
-          <small>Edit Exam</small>
+          <small>Add Exam</small>
         </h1>
         <ol class="breadcrumb">
           <li><a href="admin_dashboard.php"><i class="fa fa-home"></i> Home</a></li>
@@ -61,7 +65,6 @@
 
           <form method="post" action="">
 
-            <?php  $r = get_exam($_GET['id']); ?>
 
           
 
@@ -69,7 +72,7 @@
               <div class="form-group">
                 <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Exam Name: </label>
                 <div class="col-6">
-                  <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="quiz_name" class="form-control" value="<?php echo $r[1] ?>">
+                  <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="quiz_name" class="form-control" value="">
                 </div>
               </div>
               <div class="form-group">
@@ -90,28 +93,18 @@
                <div class="form-group">
                 <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Exam Duration: </label>
                 <div class="col-6">
-                  <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="quiz_duration" class="form-control" value="<?php echo $r[3] ?>">
+                  <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="quiz_duration" class="form-control" value="">
                 </div>
               </div>
 
               <div class="example">
-                <?php 
-                                if ($r[4] == 0) { 
-                                    echo '                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Exam Status: </label><br />
+               
+                                 
+                                                  <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Exam Status: </label><br />
 <div class="example">
-                                     <input id="ss" type="hidden" value="Off" name="freezerchecked">
-                                    <input type="checkbox" id="toggle-event" class="freeze" name="sss" value="Off" unchecked data-toggle="toggle">
-                                  </div>';
-                                } 
-                                else {
-                                    echo '               <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Exam Status: </label>
-<br /><div class="example"> 
-                                    <input id="ss" type="hidden" value="On" name="freezerchecked">
-                                    <input type="checkbox" id="toggle-event" class="freeze" name="sss" value="On" checked data-toggle="toggle">
-
-                                  </div>';
-                                }
-                              ?>
+                                     <input id="freezechecked" type="hidden" value="Off" name="freezechecked">
+                                    <input type="checkbox" id="toggle-event" class="freeze" name="freezerchecked" value="Off" unchecked data-toggle="toggle">
+                                  </div>
 
                <br /> <br />
               <input type="submit" class="btn btn-success update-button" name="formSubmit" id="formSubmit" value="Submit" />

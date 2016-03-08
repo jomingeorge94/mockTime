@@ -126,8 +126,10 @@
                     <?php } ?>
 
                   </tbody>
-              </table>   
-              <button type="button" class="btn btn-success  add-category"> <i class="fa fa-plus-circle"></i> Add Exam</a></button>
+              </table>
+              <a style="color: white" href="<?php echo generate_admin_link("admin_manage_add_exam"); ?>">   
+              <button type="button" class="btn btn-success  add-exam"> <i class="fa fa-plus-circle"></i> Add Exam</a></button>
+            </a>
               <input type="submit" class="btn btn-success update-button" name="formSubmit" id="formSubmit" value="Update" />
 
 

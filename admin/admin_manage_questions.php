@@ -10,7 +10,8 @@
       header('Location: /mocktime/admin');
     }
 
-    if(isset($_POST['q']) && isset($_POST['a']) && isset($_POST['in']) && isset($_POST['selector']) && isset($_POST['type'])){
+
+    if(isset($_POST['q']) && isset($_POST['a'])){
       $ansid = array();
       clear_questions($_GET['id']);
 
@@ -266,7 +267,7 @@
     confirmButtonText: "Yes, delete it!",
     closeOnConfirm: false,
     html: false
-  }, function(e){
+  }, function(){
     i.parent().remove();
     swal("Deleted!", "Your question has been deleted.", "success");
   });

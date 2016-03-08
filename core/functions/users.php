@@ -152,6 +152,16 @@ function clear_answers($qid){
 
 }
 
+function add_exam( $name, $category, $duration, $status) {
+
+	if(empty($name) || empty($category) || empty($duration))
+		return false;
+
+	mysql_query("INSERT INTO `mock_exam_quiz` (`quiz_name`, `quiz_category_id`, `quiz_duration`, `quiz_status`) VALUES ('$name', '$category', '$duration', '$status')");
+
+	return true;
+}
+
 
 function add_question($exam_id, $q_name, $q_type){
 	
@@ -215,16 +225,6 @@ function update_exam($id, $name, $category, $duration, $status) {
 
 	return true;
 }
-
-
-
-
-
-
-
-
-
-
 
 //update user details on the database
 function update_user($update_data) {
