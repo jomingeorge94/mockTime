@@ -6,7 +6,8 @@
   <?php
 
     if(($user_data['admin_password_check']) == 1){
-    } else {
+    } 
+    else {
       header('Location: /mocktime/admin');
     }
 
@@ -16,6 +17,7 @@
   <?php include '/includes/admin_dashboard_header.php'; ?>
 
 <body class="hold-transition skin-blue sidebar-mini">
+  
   <div class="wrapper">
 
     <?php include '/includes/admin_header_profile.php';?>
@@ -178,7 +180,6 @@
   }, function(){
 
     $.post( "delete_exam.php", { deleteexamfunction: id}, function( data ) {
- alert(id);
     location.reload();
   });
   });
