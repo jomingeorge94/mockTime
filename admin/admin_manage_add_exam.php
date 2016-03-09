@@ -72,7 +72,7 @@
               <div class="form-group">
                 <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Exam Name: </label>
                 <div class="col-6">
-                  <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="quiz_name" class="form-control" value="">
+                  <input type="text" placeholder="Exam Name" id="quiz_name" autocomplete="off" name="quiz_name" class="form-control" value="">
                 </div>
               </div>
               <div class="form-group">
@@ -80,7 +80,7 @@
                   <label class="col-2 control-label" for="category"><span class="required">*</span>Exam Category: </label>
                
                     <select class="form-control" name="quiz_category" id="category">
-                      <option value="">select</option>
+                      <option value="">Select Category</option>
                       <?php
                       foreach (get_all_categories() as $cat) {
                         $s = ( $r[2] == $cat["category_id"] ) ? 'selected="selected"' : "";
@@ -93,7 +93,7 @@
                <div class="form-group">
                 <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Exam Duration: </label>
                 <div class="col-6">
-                  <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="quiz_duration" class="form-control" value="">
+                  <input type="text" placeholder="Exam Duration" id="quiz_name" autocomplete="off" name="quiz_duration" class="form-control" value="">
                 </div>
               </div>
 

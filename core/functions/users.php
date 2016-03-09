@@ -343,27 +343,12 @@ function delete_category ($category_id) {
 	mysql_query("DELETE FROM `mock_exam_category` WHERE `category_id` = '$category_id'");
 }
 
-
-
-
-
-
-
-
 function delete_exam ($quiz_id) {
+	clear_questions($quiz_id);
 	$quiz_id = (int)$quiz_id;
 
 	mysql_query("DELETE FROM `mock_exam_quiz` WHERE `quiz_id` = '$quiz_id'");
 }
-
-
-
-
-
-
-
-
-
 
 function change_category_name ($category_id, $categoryname) {
 	$category_id = (int)$category_id;

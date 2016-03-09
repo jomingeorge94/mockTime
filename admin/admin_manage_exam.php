@@ -117,7 +117,7 @@
                             &nbsp
                             
                             <?php 
-                              echo '<button type="button" class="btn btn-sm btn-danger glyphicon glyphicon-trash delete delete-category"> Delete</a></button> 
+                              echo '<button type="button" class="btn btn-sm btn-danger glyphicon glyphicon-trash delete delete-exam"> Delete</a></button> 
                                         <input type="hidden" value="'. $r['quiz_id'] .'"  name="delete[]">'; 
                             ?>
 
@@ -164,7 +164,7 @@
 
   //delete button
   var id;
-  $('button.delete-category').click(function(e) {
+  $('button.delete-exam').click(function(e) {
     id = $(this).parent()[0].childNodes[7].value;
       swal({
     title: "Are you sure?",
@@ -176,7 +176,9 @@
     closeOnConfirm: false,
     html: false
   }, function(){
+
     $.post( "delete_exam.php", { deleteexamfunction: id}, function( data ) {
+ alert(id);
     location.reload();
   });
   });
