@@ -1,5 +1,5 @@
 <?php
-
+//function to check if the user exist by checking against email address
 function user_exists($emailaddress) {
 	//sanitising the user input against a function 
 	$emailaddress = sanitise($emailaddress);
@@ -8,13 +8,13 @@ function user_exists($emailaddress) {
 	//if the query returns to be 1 then this function will return true otherwise false
 	return (mysql_result($query, 0) == 1) ? true : false; 
 }
-
+//function to freeze user account by an email address
 function freeze_account($emailaddress) {
 	$emailaddress = sanitise($emailaddress);
 	$query = mysql_query("SELECT COUNT(`user_id`) FROM `mock_exam_users` WHERE `email_address` = '$emailaddress' AND `freeze_account` = 0");
 	return (mysql_result($query, 0) == 1) ? true : false; 
 }
-
+//function to activate an user account by email address
 function user_active($emailaddress) {
 	//sanitising the user input against a function 
 	$emailaddress = sanitise($emailaddress);
@@ -23,19 +23,17 @@ function user_active($emailaddress) {
 	//if the query returns to be 1 then this function will return true otherwise false
 	return (mysql_result($query, 0) == 1) ? true : false; 
 }
-
+//function to retrive user id by giving the email address
 function user_id_from_email_address ($emailaddress) {
 	$emailaddress = sanitise($emailaddress);
 	return mysql_result(mysql_query("SELECT `user_id` FROM `mock_exam_users` WHERE `email_address` = '$emailaddress'"), 0,'user_id');
 
 }
-
+//function which handles login
 function login ($emailaddress, $password) {
 	$user_id = user_id_from_email_address($emailaddress);
-
 	$emailaddress = sanitise ($emailaddress);
 	$password = md5($password);
-
 	//if this statement is true then return the users id otherwise return false
 	return (mysql_result(mysql_query("SELECT COUNT(`user_id`) FROM `mock_exam_users` WHERE `email_address` = '$emailaddress' AND `password` = '$password'"), 0) == 1) ? $user_id : false;
 }
@@ -45,11 +43,12 @@ function user_logged_in () {
 	return (isset($_SESSION['user_id'])) ? true : false;
 }
 
-//returns the number of current active users on the site except the admin
+//function which returns the number of current active users on the site except the admin
 function user_count () {
 	return mysql_result(mysql_query("SELECT COUNT(`user_id`) FROM `mock_exam_users` WHERE `active_status` = 1 AND `user_type` = 0"), 0);
 }
 
+//function which handles a user characeterstic
 function user_data ($user_id) {
 	$data = array();
 	$user_id = (int)$user_id;
@@ -113,9 +112,7 @@ function get_all_exam () {
 		return $data;
 } 
 
-
-
-
+//function to get all the available categories
 function get_available_categories(){
 	$ret = array();
 	$ret[] = "Multiple_Choice";
@@ -126,6 +123,7 @@ function get_available_categories(){
 	return $ret;
 }
 
+//function to clear all the questions - this take care of foriegn key constraints
 function clear_questions($exam_id){
 	$data = array();
 
@@ -145,6 +143,7 @@ function clear_questions($exam_id){
 
 }
 
+//clearning all the answers linked with an exam
 function clear_answers($qid){
 	$id = (int)$qid;
 	// Delete the question to update
@@ -152,10 +151,12 @@ function clear_answers($qid){
 
 }
 
+//function to delete all the questions
 function delete_all_questions($id){
 	clear_questions($id);
 }
 
+//
 function add_exam( $name, $category, $duration, $status) {
 
 	if(empty($name) || empty($category) || empty($duration))
