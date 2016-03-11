@@ -156,7 +156,7 @@ function delete_all_questions($id){
 	clear_questions($id);
 }
 
-//
+//function to add exam 
 function add_exam( $name, $category, $duration, $status) {
 
 	if(empty($name) || empty($category) || empty($duration))
@@ -167,7 +167,7 @@ function add_exam( $name, $category, $duration, $status) {
 	return true;
 }
 
-
+//function to add question 
 function add_question($exam_id, $q_name, $q_type){
 	
 	// Add them anew
@@ -175,12 +175,14 @@ function add_question($exam_id, $q_name, $q_type){
 	return mysql_insert_id();
 }
 
+//function to add answer for a question
 function add_answer($qid, $a_name, $is_true){
 	
 	// Add them anew
 	mysql_query("INSERT INTO `mock_exam_answers` (`question_id`, `answer_name`, `is_true`) VALUES ('$qid', '$a_name', '$is_true')");
 }
 
+//function to get all the questions from an exam
 function get_questions_from_exam($examid){
 	$data = array();
 
@@ -193,6 +195,7 @@ function get_questions_from_exam($examid){
 	return $data;
 }
 
+//function to get all the answers from an exam
 function get_answers_from_exam($qid){
 	$data = array();
 
@@ -205,6 +208,7 @@ function get_answers_from_exam($qid){
 	return $data;
 }
 
+//function to get answers
 function get_answer($id){
 
 	$query = mysql_query("SELECT `answer_name` FROM `mock_exam_answers` WHERE `question_id` = '$id'");
@@ -212,7 +216,7 @@ function get_answer($id){
 
 }
 
-
+//function to get exam 
 function get_exam($id){
 
 	$query = mysql_query("SELECT * FROM `mock_exam_quiz` WHERE `quiz_id` = '$id'");

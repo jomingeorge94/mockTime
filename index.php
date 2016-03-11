@@ -13,6 +13,7 @@
 <?php   
     if (user_logged_in() === true){
          include 'includes/navigationloggedin.php'; 
+
     }else{
         include 'includes/navigation.php'; 
     }
