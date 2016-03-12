@@ -28,13 +28,13 @@
 
                 
                 <li>
-                    <select class="form-control choose-exam" name="quiz_category" id="category">
+                    <select class="form-control choose-exam" name="exam_category" onchange="run()" id="exam_category">
                       <option value="">Choose an Exam</option>
                       <?php
                       foreach (get_all_exam() as $exam) {
-                        $s = ( $r[2] == $exam["quiz_id"] ) ? 'selected="selected"' : "";
-                        echo '<option value="' . $exam["quiz_id"] . '" ' . $s . ' >' . $exam["quiz_name"] . '</option>';
-
+                        
+                        echo '<option value="' . $exam["quiz_id"] . '"  >' . $exam["quiz_name"] . '</option>';
+                        
                       }
                       ?>
                     </select>
@@ -59,3 +59,10 @@
         </div>
     </div>
 </nav>
+
+ <script type="text/javascript">
+    function run() {
+        var value = document.getElementById("exam_category").value;
+        alert(value);
+    }
+</script>

@@ -503,5 +503,6 @@ only screen and (                min-resolution: 2dppx) {
 	border-color: #140D40;
 	color: #ffffff;
 	font-size: 16px ! important;
+	margin-top: -2px;
 
 }
