@@ -497,3 +497,11 @@ only screen and (                min-resolution: 2dppx) {
     margin: 0 auto;   
     padding-top: 20px;
 }
+
+.choose-exam {
+	background-color: #140D40 ! important;
+	border-color: #140D40;
+	color: #ffffff;
+	font-size: 16px ! important;
+
+}

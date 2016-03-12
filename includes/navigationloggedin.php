@@ -26,16 +26,22 @@
                     <a class="page-scroll" href="#contact">Contact</a>
                 </li>
 
-                <li class="dropdown">
-                  <a data-toggle="dropdown" class="dropdown-toggle" href="#"> Choose an Exam <b class="caret"></b></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="userprofile.php">User Profile</a></li>
-                    <li class="divider"></li>
-                    <li><a href="profile.php">Change Password</a></li>
-                    <li class="divider"></li>
-                    <li><a href="logout.php"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
-                  </ul>
+                
+                <li>
+                    <select class="form-control choose-exam" name="quiz_category" id="category">
+                      <option value="">Choose an Exam</option>
+                      <?php
+                      foreach (get_all_exam() as $exam) {
+                        $s = ( $r[2] == $exam["quiz_id"] ) ? 'selected="selected"' : "";
+                        echo '<option value="' . $exam["quiz_id"] . '" ' . $s . ' >' . $exam["quiz_name"] . '</option>';
+
+                      }
+                      ?>
+                    </select>
                 </li>
+                 
+
+                
             </ul>
 
             <ul class="nav navbar-right navbar-nav user-settings">
