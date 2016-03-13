@@ -504,5 +504,35 @@ only screen and (                min-resolution: 2dppx) {
 	color: #ffffff;
 	font-size: 16px ! important;
 	margin-top: -2px;
+}
 
+.startExam {
+	color: #140D40;
+}
+
+.startExamHeader {
+	text-align: left;
+}
+
+.startExamLine {
+	margin-top: 0px;
+	margin-left:10px;
+	background-color: #1B4B7F;
+	height: 1px;
+}
+
+.startExamMainScreen {
+	margin-right: 15%;
+	margin-left: 15%;
+	margin-top: 70px;
+}
+.startExamInsideScreen {
+	background-color: #f5f5f5;
+	padding: 30px;
+	text-align: center;
+}
+
+.startExamSubmitButton {
+	background-color: #202540 ! important;
+	width: 100% ! important;
 }

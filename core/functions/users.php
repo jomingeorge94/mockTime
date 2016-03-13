@@ -463,28 +463,5 @@ function get_all_get_params($exclude_array = '') {
   return $get_url;
 }
 
-function generate_site_link($page = '', $parameters = '') {
-
-  if ($page == '') {
-    die('<font color="#ff0"><b>Error!</b></font><br><br><b>Unable to determine the page link!</b>');
-  }
-
-  $link = get_site_url();
-
-  if (!strstr($page, '.php'))
-    $page .= '.php';
-
-  if ($parameters == '') {
-    $link = $link . $page;
-    $separator = '?';
-  } else {
-    $link = $link . $page . '?' . $parameters;
-    $separator = '&';
-  }
-
-  while ((substr($link, -1) == '&') || (substr($link, -1) == '?'))
-    $link = substr($link, 0, -1);
-  return $link;
-}
 
 ?>

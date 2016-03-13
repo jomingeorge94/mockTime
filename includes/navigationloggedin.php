@@ -1,3 +1,8 @@
+<link rel="stylesheet" href="assets/css/sweetalert.css">
+
+<script src="assets/js/sweetalert.min.js"></script>
+
+
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
 
@@ -26,42 +31,24 @@
                     <a class="page-scroll" href="#contact">Contact</a>
                 </li>
 
-
+                
                 <li>
-                    <a data-toggle="dropdown" href="#" class="page-scroll" >Choose an Exam <b class="caret"></b></a>
+                    <a data-toggle="dropdown" href="#">Choose an Exam <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <?php 
                               $sub = get_all_exam();
                                 foreach($sub as $s ) {
-                                    ?>
-                                        <li><a href="http://www.google.co.uk"><?php echo safe_output($s["quiz_name"]); ?></a></li>
+                                    ?>  
+                                        <li><a href="<?php echo generate_admin_link("start_exam", "id=" . ($s["quiz_id"]) . "&" . get_all_get_params(array("id"))); ?>"> <?php echo safe_output($s["quiz_name"]); ?></a></li>
                                     <?php 
                                 } 
                             ?>
                         </ul>
                 </li>
-                
+                 
 
-
-
-
-
-
-
-
-                
                 
             </ul>
-
-
-
-
-            
-
-            
-          
-
-
 
             <ul class="nav navbar-right navbar-nav user-settings">
                 <li class="dropdown">
@@ -78,3 +65,12 @@
         </div>
     </div>
 </nav>
+
+ <script type="text/javascript">
+    function show_alert(){
+        
+    }
+
+
+
+</script>
