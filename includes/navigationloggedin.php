@@ -27,12 +27,17 @@
                     <a data-toggle="dropdown" href="#">Choose an Exam <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <?php 
-                              $sub = get_all_exam();
-                                foreach($sub as $s ) {
-                                    ?>  
-                                        <li><a href="<?php echo generate_admin_link("start_exam", "id=" . ($s["quiz_id"]) . "&" . get_all_get_params(array("id"))); ?>"> <?php echo safe_output($s["quiz_name"]); ?></a></li>
-                                    <?php 
-                                } 
+                              $sub = get_all_exam_status();
+
+                                if ($sub!= null) {
+                                    foreach($sub as $s ) {
+                                        ?>  
+                                            <li><a href="<?php echo generate_admin_link("start_exam", "id=" . ($s["quiz_id"]) . "&" . get_all_get_params(array("id"))); ?>"> <?php echo safe_output($s["quiz_name"]); ?></a></li>
+                                        <?php 
+                                    } 
+                                } else {
+                                    echo '<li><strong>Exams not available</strong></li>';
+                                }
                             ?>
                         </ul>
                 </li> 

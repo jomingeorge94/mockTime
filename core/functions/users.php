@@ -112,6 +112,21 @@ function get_all_exam () {
 		return $data;
 } 
 
+//get all the exam details from the exam table which is set to be active
+function get_all_exam_status () {
+		$data = array();
+
+		$result = mysql_query("SELECT a.*, b.*
+        FROM mock_exam_quiz a, mock_exam_category b
+        WHERE a.quiz_category_id = b.category_id AND `quiz_status` = 1");
+
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+
+		return $data;
+} 
+
 //function to get all the available categories
 function get_available_categories(){
 	$ret = array();
