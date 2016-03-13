@@ -6,7 +6,6 @@
 
     if (user_logged_in() === true){
          include 'includes/navigationloggedinmodified.php';
- 
 ?>
 <body>
     <div class="container profile">
@@ -18,7 +17,8 @@
                     <div class="startExamMainScreen">
                         <div class="startExamInsideScreen">
                           <div id="loginForm">
-                            <form class="form-horizontal" method="POST" id="startExamForm" name="startExamForm" action="#">
+                            <form method="post" action="<?php echo generate_site_link("exam_authorisation"); ?>">
+                              <input type="hidden" value="start" name="mode">
                                 <?php  $r = get_exam($_GET['id']); ?>
                                       <fieldset>
                                         <div class="form-group col-12 center">
@@ -35,12 +35,10 @@
                     </div>   
     </div>
 <?php
-
     }else{
         include 'includes/navigation_modified.php'; 
         header('Location: generic.php');
             exit();
-        
     }
     include 'includes/footer.php';
 ?> 
