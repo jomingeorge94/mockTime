@@ -26,23 +26,42 @@
                     <a class="page-scroll" href="#contact">Contact</a>
                 </li>
 
-                
+
                 <li>
-                    <select class="form-control choose-exam" name="exam_category" onchange="run()" id="exam_category">
-                      <option value="">Choose an Exam</option>
-                      <?php
-                      foreach (get_all_exam() as $exam) {
-                        
-                        echo '<option value="' . $exam["quiz_id"] . '"  >' . $exam["quiz_name"] . '</option>';
-                        
-                      }
-                      ?>
-                    </select>
+                    <a data-toggle="dropdown" href="#" class="page-scroll" >Choose an Exam <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <?php 
+                              $sub = get_all_exam();
+                                foreach($sub as $s ) {
+                                    ?>
+                                        <li><a href="http://www.google.co.uk"><?php echo safe_output($s["quiz_name"]); ?></a></li>
+                                    <?php 
+                                } 
+                            ?>
+                        </ul>
                 </li>
-                 
+                
+
+
+
+
+
+
+
 
                 
+                
             </ul>
+
+
+
+
+            
+
+            
+          
+
+
 
             <ul class="nav navbar-right navbar-nav user-settings">
                 <li class="dropdown">
@@ -59,10 +78,3 @@
         </div>
     </div>
 </nav>
-
- <script type="text/javascript">
-    function run() {
-        var value = document.getElementById("exam_category").value;
-        alert(value);
-    }
-</script>
