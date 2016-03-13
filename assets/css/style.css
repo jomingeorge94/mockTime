@@ -536,3 +536,7 @@ only screen and (                min-resolution: 2dppx) {
 	background-color: #202540 ! important;
 	width: 100% ! important;
 }
+
+.contactScreenMessageBox {
+	padding-bottom: 100px ! important;
+}
