@@ -5,11 +5,6 @@
 
 <?php include 'includes/head.php'; ?>
 
-
-    
-
-
-
 <?php   
     if (user_logged_in() === true){
          include 'includes/navigationloggedin.php'; 
@@ -32,7 +27,6 @@
     <!-- Contact Section -->
     <?php include 'includes/contactscreen.php'; ?>
 
-
     <!-- Footer of the site -->
     <?php include 'includes/footer.php'; ?>    
     <!-- /.container -->
@@ -40,7 +34,6 @@
     <!-- Scrolling Nav JavaScript -->
     <script src="assets/js/jquery.easing.min.js"></script>
     <script src="assets/js/scrolling-nav.js"></script>
-
 
     <!-- Contact Form JavaScript -->
     <script src="assets/js/jqBootstrapValidation.js"></script>

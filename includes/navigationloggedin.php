@@ -1,11 +1,5 @@
-<link rel="stylesheet" href="assets/css/sweetalert.css">
-
-<script src="assets/js/sweetalert.min.js"></script>
-
-
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -15,7 +9,6 @@
             </button>
             <a class="navbar-brand page-scroll" href="#page-top">mockTime</a>
         </div>
-
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="hidden">
@@ -30,8 +23,6 @@
                 <li>
                     <a class="page-scroll" href="#contact">Contact</a>
                 </li>
-
-                
                 <li>
                     <a data-toggle="dropdown" href="#">Choose an Exam <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -44,12 +35,8 @@
                                 } 
                             ?>
                         </ul>
-                </li>
-                 
-
-                
+                </li> 
             </ul>
-
             <ul class="nav navbar-right navbar-nav user-settings">
                 <li class="dropdown">
                   <a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $user_data['first_name'];?> <?php echo $user_data['last_name'];?> <b class="caret"></b></a>
@@ -65,12 +52,3 @@
         </div>
     </div>
 </nav>
-
- <script type="text/javascript">
-    function show_alert(){
-        
-    }
-
-
-
-</script>

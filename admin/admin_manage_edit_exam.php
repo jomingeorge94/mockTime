@@ -55,8 +55,6 @@
         </ol>
       </section>
 
-      
-
         <section class="content">
 
           <form method="post" action="">
