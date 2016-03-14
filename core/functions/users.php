@@ -48,6 +48,16 @@ function user_count () {
 	return mysql_result(mysql_query("SELECT COUNT(`user_id`) FROM `mock_exam_users` WHERE `active_status` = 1 AND `user_type` = 0"), 0);
 }
 
+function redirect($url) {
+  echo "<script language=\"JavaScript\">\n";
+  echo "<!-- hide from old browser\n\n";
+  echo "window.location = \"" . $url . "\";\n";
+  echo "-->\n";
+  echo "</script>\n";
+
+  return true;
+}
+
 //function which handles a user characeterstic
 function user_data ($user_id) {
 	$data = array();
