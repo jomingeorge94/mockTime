@@ -5,6 +5,9 @@
 
 <?php include 'includes/head.php'; ?>
 
+
+
+
 <?php   
     if (user_logged_in() === true){
          include 'includes/navigationloggedin.php'; 
@@ -38,6 +41,7 @@
     <!-- Contact Form JavaScript -->
     <script src="assets/js/jqBootstrapValidation.js"></script>
     <script src="assets/js/contact_me.js"></script>
+
 
 </body>
 

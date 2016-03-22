@@ -13,6 +13,11 @@
      <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
 
 
+    <link rel="stylesheet" href="assets/css/reset.css"> <!-- CSS reset NEWWWWWWWWWWWWW --> 
+    <link rel="stylesheet" href="assets/css/footer-style.css"> <!-- Resource style NEWWWWWWWWWWWWW --> 
+    <script src="assets/js/modernizr.js"></script> <!-- Modernizr NEWWWWWWWWWWWWW --> 
+
+
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/form-elements.css">
@@ -27,7 +32,15 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
     
-        <script src="assets/js/jquery.js"></script>
+
+    <script src="assets/js/jquery-2.1.1.js"></script>
+    <script src="assets/js/jquery.mobile.custom.min.js"></script>
+    <script src="assets/js/main.js"></script> <!-- Resource jQuery -->
+
+
+    <script src="assets/js/jquery.js"></script>
+
+
 
     <!-- Bootstrap Core JavaScript -->
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
@@ -36,6 +49,9 @@
     <script src="assets/js/jquery.backstretch.min.js"></script>
     <script src="assets/js/retina-1.1.0.min.js"></script>
     <script src="assets/js/scripts.js"></script>
+
+
+
    
 
 
