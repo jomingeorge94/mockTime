@@ -18,7 +18,7 @@
                     <a class="page-scroll" href="#about">About</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#services">FAQ</a>
+                    <a class="page-scroll" href="#faq">FAQ</a>
                 </li>
                 <li>
                     <a class="page-scroll" href="#contact">Contact</a>

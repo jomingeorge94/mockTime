@@ -135,7 +135,7 @@ function get_all_exam_status () {
 		}
 
 		return $data;
-} 
+}
 
 //function to get all the available categories
 function get_available_categories(){
@@ -255,6 +255,30 @@ function get_category_name($id){
 	return mysql_fetch_row($query);
 
 }
+
+
+
+
+
+
+function get_faq(){
+	$data = array();
+
+	$query = mysql_query("SELECT * FROM `mock_exam_faq`");
+	while ($row = mysql_fetch_assoc($query)) {
+		$data [] = $row;
+	}
+    return $data;
+}
+
+
+
+
+
+
+
+
+
 
 function update_exam($id, $name, $category, $duration, $status) {
 	if(empty($id) || empty($name) || empty($category) || empty($duration))
