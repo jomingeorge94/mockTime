@@ -542,6 +542,8 @@ only screen and (                min-resolution: 2dppx) {
 }
 
 .col-6.col-offset-4 {
+	padding-top: 10px;
 	margin-left: auto;
     margin-right: auto;
-    width: 15%;
+    width: 20%;
+
