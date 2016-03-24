@@ -546,4 +546,11 @@ only screen and (                min-resolution: 2dppx) {
 	margin-left: auto;
     margin-right: auto;
     width: 20%;
+}
+
+.faq_date_updated {
+	padding-top: 10px;
+	text-align: right;
+	font-weight: 500;
+}
 

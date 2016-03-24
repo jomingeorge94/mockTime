@@ -15,6 +15,7 @@
 										<a class="cd-faq-trigger" href="#0"><?php echo $s['faq_question'] ?></a>
 										<div class="cd-faq-content">
 											<p><?php echo $s['faq_answer'] ?></p>
+											<p class="faq_date_updated">Last Updated: <?php echo date("D d F Y,  H:i:s", strtotime(safe_output($s['faq_date_updated']))) ?></p>
 										</div> <!-- cd-faq-content -->
 									</li>
 									<?php 
