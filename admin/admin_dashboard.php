@@ -19,7 +19,7 @@ if(($user_data['admin_password_check']) == 1){
  <?php include '/includes/admin_dashboard_header.php'; ?> 
 
 
-  <body class="hold-transition skin-blue sidebar-mini">
+  <body class="hold-transition skin-green sidebar-mini">
     <div class="wrapper">
 
       <?php include '/includes/admin_header_profile.php';?>
