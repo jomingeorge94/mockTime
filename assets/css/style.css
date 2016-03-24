@@ -540,3 +540,8 @@ only screen and (                min-resolution: 2dppx) {
 .contactScreenMessageBox {
 	padding-bottom: 100px ! important;
 }
+
+.col-6.col-offset-4 {
+	margin-left: auto;
+    margin-right: auto;
+    width: 15%;
