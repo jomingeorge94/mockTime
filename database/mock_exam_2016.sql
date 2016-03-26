@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2016 at 07:33 PM
+-- Generation Time: Mar 26, 2016 at 08:09 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `mock_exam_quiz` (
   `quiz_password_required` int(1) NOT NULL DEFAULT '0',
   `quiz_secret_password` varchar(255) NOT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `mock_exam_quiz`
@@ -144,8 +144,32 @@ CREATE TABLE IF NOT EXISTS `mock_exam_quiz` (
 
 INSERT INTO `mock_exam_quiz` (`quiz_id`, `quiz_name`, `quiz_category_id`, `quiz_duration`, `quiz_status`, `quiz_password_required`, `quiz_secret_password`, `date_created`) VALUES
 (23, 'Java Exam', 23, 30, 1, 0, '', '2016-03-11 11:27:22'),
-(24, 'Literacy Test', 33, 60, 1, 0, '', '2016-03-24 11:27:50'),
-(25, 'Science Exam', 31, 1, 1, 0, '', '2016-03-17 20:06:56');
+(24, 'Literacy Test', 33, 1, 1, 0, '', '2016-03-24 11:27:50'),
+(25, 'Science Exam', 31, 0, 1, 0, '', '2016-03-17 20:06:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mock_exam_student_summary`
+--
+
+CREATE TABLE IF NOT EXISTS `mock_exam_student_summary` (
+`student_summary_id` int(11) NOT NULL,
+  `exam_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `exam_start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `exam_end_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mock_exam_student_summary`
+--
+
+INSERT INTO `mock_exam_student_summary` (`student_summary_id`, `exam_id`, `user_id`, `question_id`, `category_id`, `exam_start_time`, `exam_end_time`) VALUES
+(7, 23, 64, 1, 23, '2016-03-26 14:28:22', '2016-03-26 14:28:22'),
+(8, 24, 64, 6, 31, '2016-03-26 14:28:30', '2016-03-26 14:28:30');
 
 -- --------------------------------------------------------
 
@@ -213,6 +237,12 @@ ALTER TABLE `mock_exam_quiz`
  ADD PRIMARY KEY (`quiz_id`), ADD UNIQUE KEY `quiz_name` (`quiz_name`), ADD KEY `quiz_category_id` (`quiz_category_id`);
 
 --
+-- Indexes for table `mock_exam_student_summary`
+--
+ALTER TABLE `mock_exam_student_summary`
+ ADD PRIMARY KEY (`student_summary_id`);
+
+--
 -- Indexes for table `mock_exam_users`
 --
 ALTER TABLE `mock_exam_users`
@@ -246,7 +276,12 @@ MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 -- AUTO_INCREMENT for table `mock_exam_quiz`
 --
 ALTER TABLE `mock_exam_quiz`
-MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT for table `mock_exam_student_summary`
+--
+ALTER TABLE `mock_exam_student_summary`
+MODIFY `student_summary_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `mock_exam_users`
 --

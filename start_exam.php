@@ -19,7 +19,7 @@
                           <div id="loginForm">
                             <form method="post" action="<?php echo generate_site_link("exam_authorisation"); ?>">
                                 
-                                <?php  $r = get_exam($_GET['id']); ?>
+                                <?php  $r = get_exam($_GET['id']);?>
                                       <fieldset>
                                         <input type="hidden" value="start" name="mode">
                                         <input type="hidden" value="<?php echo intval($r[0]); ?>" name="eid">

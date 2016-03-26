@@ -14,23 +14,18 @@
 
 <script src="http://localhost/mockTime/assets/js/countdown.js"></script>
 
-
 <script>
-
-  var st = '<?php echo intval($_SESSION["last_exam_time"]); ?>';
-  
-
   function time_over() {
     document.getElementById("form1").submit();
   }
 
   function submitExams() {
+    
     if (confirm('Are you sure')) {
       document.getElementById("form1").submit();
     }
 
   }
-
 </script>
 
 <div class="col-6 col-offset-4"  id="foo">
@@ -81,11 +76,7 @@
 </script>  
 
 <?php 
-  //die(print_r($_SESSION));
 
-  $epoch = $_SESSION['chosen_exam_start_time']; 
-  $dt = new DateTime("@$epoch");
-  echo $dt->format('Y-m-d H:i:s');
 
 
     include 'includes/footer.php';

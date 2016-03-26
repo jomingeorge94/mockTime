@@ -6,6 +6,8 @@
 
     if (user_logged_in() === true){
          include 'includes/navigationloggedinmodified.php';
+
+         //die(var_dump($_POST));
 ?>
 
 <body>
