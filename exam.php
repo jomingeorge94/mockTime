@@ -12,29 +12,13 @@
 
 ?>
 
-
-
-
-
-
 <script src="http://localhost/mockTime/assets/js/countdown.js"></script>
 
 
 <script>
 
   var st = '<?php echo intval($_SESSION["last_exam_time"]); ?>';
-  function last_exam_time() {
-    $.ajax({
-      type: "GET",
-      url: "<?php echo generate_site_link("ajax/inc_last_exam_time"); ?>",
-      data: "lext=" + window.st,
-      cache: false,
-      success: function(html) {
-        //console.log("New Value : "+html)
-        window.st = html;
-      }
-    });
-  }
+  
 
   function time_over() {
     document.getElementById("form1").submit();
@@ -54,12 +38,11 @@
 </div>
 
 
-        <form class="form-horizontal" method="post" id="form1" name="form1" action="<?php echo generate_site_link("ee"); ?>">
+        <form class="form-horizontal" method="post" id="form1" name="form1" action="<?php echo generate_site_link("view_summary"); ?>">
           <input type="hidden" value="end" name="mode">
           <input type="hidden" value="<?php echo intval($_SESSION["user_id"]); ?>" name="eid">
           <input type="hidden" value="<?php echo ($_SESSION["exam_start_time"]); ?>" name="st_exams_time">
           <input type="hidden" value="<?php echo ($_SESSION["chosen_exam_time"]); ?>" name="etime">
-          
         </form>
 
 <script type="application/javascript">
@@ -97,30 +80,13 @@
 
 </script>  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php 
+  //die(print_r($_SESSION));
+
+  $epoch = $_SESSION['chosen_exam_start_time']; 
+  $dt = new DateTime("@$epoch");
+  echo $dt->format('Y-m-d H:i:s');
+
 
     include 'includes/footer.php';
 

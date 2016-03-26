@@ -554,3 +554,9 @@ only screen and (                min-resolution: 2dppx) {
 	font-weight: 500;
 }
 
+.student_exam_summary_thread {
+  background-color: #140D40;
+  color: #fff;
+  
+}
+
