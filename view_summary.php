@@ -7,6 +7,7 @@
     if (user_logged_in() === true){
          include 'includes/navigationloggedinmodified.php';
 ?>
+
 <body>
     <div class="container profile">
                 <div class="startExamHeader">
@@ -79,10 +80,9 @@
               </table>
     </div>
 <?php
-    }else{
-        include 'includes/navigation_modified.php'; 
-        header('Location: generic.php');
-            exit();
+    }else{ 
+        header('Location: index.php');
+        exit();
     }
     include 'includes/footer.php';
 ?> 
