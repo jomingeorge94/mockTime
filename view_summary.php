@@ -31,7 +31,11 @@
 
 
                   <tbody>
-                    <?php foreach (get_student_summary() as $r) { ?>
+
+
+
+                    <?php foreach (get_student_summary($user_data['user_id']) as $r) { ?>
+
                      
                       <tr>
                           <td style="text-align: left;"><?php echo $r['quiz_name'] ?></td> 

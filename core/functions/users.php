@@ -79,7 +79,24 @@ function user_data ($user_id) {
 
 		return $data;
 	}
+}
+
+
+
+function get_student_summary ($id) {
+		$data = array();
+
+		$result = mysql_query("SELECT a.*,b.*,c.*,d.*,e.* FROM mock_exam_quiz a, mock_exam_student_summary b, mock_exam_users c, mock_exam_questions d, mock_exam_category e WHERE a.quiz_id = b.exam_id AND b.user_id = c.user_id AND d.question_id = b.question_id AND e.category_id = b.category_id AND b.user_id='$id' ");
+
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+
+		return $data;
 } 
+
+
+
 
 //get all the users in the database except the admin
 function get_all_users () {
@@ -121,27 +138,6 @@ function get_all_exam () {
 
 		return $data;
 } 
-
-
-
-
-function get_student_summary () {
-		$data = array();
-
-		$result = mysql_query("SELECT a.*,b.*,c.*,d.*,e.* FROM mock_exam_quiz a, mock_exam_student_summary b, mock_exam_users c, mock_exam_questions d, mock_exam_category e WHERE a.quiz_id = b.exam_id AND c.user_id = b.user_id AND d.question_id = b.question_id AND e.category_id = b.category_id");
-
-		while ($row = mysql_fetch_assoc($result)) {
-		    $data [] = $row;
-		}
-
-		return $data;
-} 
-
-
-
-
-
-
 
 
 //get all the exam details from the exam table which is set to be active
