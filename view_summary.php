@@ -6,8 +6,32 @@
 
     if (user_logged_in() === true){
          include 'includes/navigationloggedinmodified.php';
-//die(var_dump($_SESSION));
 
+         if(isset($_POST['submittest']))
+                    {
+
+
+
+                      //die(var_dump($_SESSION));
+
+
+
+                       
+
+                        $date_clicked = new DateTime();
+                        $date_clicked->setTimeZone(new DateTimeZone('Europe/London'));
+                        $clickedtime =  $date_clicked->format('Y-m-d H:i:s');
+
+                        update_student_summary ($clickedtime, $_SESSION['chosen_exam_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_category_id']);
+
+
+
+
+
+              
+
+
+                    }
 ?>
 
 <body>
@@ -31,7 +55,6 @@
 
                       </tr>
                   </thead>
-
 
                   <tbody>
 
@@ -83,6 +106,8 @@
     }else{ 
         header('Location: index.php');
         exit();
+
+        die(var_dump($_SESSION));
     }
     include 'includes/footer.php';
 ?> 

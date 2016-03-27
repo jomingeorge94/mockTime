@@ -86,7 +86,7 @@ function user_data ($user_id) {
 function insert_student_summary ($exam_id, $user_id, $category_id, $start_time) {
 		$data = array();
 
-		$result = mysql_query("INSERT INTO `mock_exam_student_summary` (`exam_id`, `user_id`,`category_id`, `exam_start_time`) VALUES ('$exam_id', '$user_id', '$category_id', '2222-22-22 22:22:22')");
+		$result = mysql_query("INSERT INTO `mock_exam_student_summary` (`exam_id`, `user_id`,`category_id`, `exam_start_time`) VALUES ('$exam_id', '$user_id', '$category_id', '$start_time')");
 
 		while ($row = mysql_fetch_assoc($result)) {
 		    $data [] = $row;
@@ -310,6 +310,17 @@ function get_faq(){
 }
 
 
+//function to update student summary after they submit their exam
+function update_student_summary ($exam_end_time, $exam_id, $user_id, $category_id) {
+		if(empty($exam_end_time))
+			return fucked;
+
+		mysql_query("UPDATE `mock_exam_student_summary` SET `exam_end_time` = '$exam_end_time' WHERE `exam_id` = '$exam_id' AND `user_id` = '$user_id' AND `category_id` = '$category_id'");
+
+		return working;
+
+
+}
 
 
 

@@ -10,6 +10,9 @@
         exit();
     }
 
+
+    
+
 ?>
 
 <script src="http://localhost/mockTime/assets/js/countdown.js"></script>
@@ -22,7 +25,9 @@
   function submitExams() {
     
     if (confirm('Are you sure')) {
+      
       document.getElementById("form1").submit();
+
     }
 
   }
@@ -40,7 +45,7 @@
           <input type="hidden" value="<?php echo ($_SESSION["chosen_exam_time"]); ?>" name="etime">
           <input type="hidden" value="<?php echo ($_SESSION["chosen_exam_category"]); ?>" name="ecategory">
           <input type="hidden" value="<?php echo ($_SESSION["chosen_exam_category_id"]); ?>" name="ecategoryid">
-          <button class="btn btn-success loginbutton" type="button" style="margin-top:100px;" onclick="submitExams();">Submit Test</button>
+          <button class="btn btn-success loginbutton" type="submit" style="margin-top:100px;" name="submittest" onclick="submitExams();">Submit Test</button>
         </form>
 
 <script type="application/javascript">
@@ -80,7 +85,7 @@
 
 <?php 
 
-
+ 
 
     include 'includes/footer.php';
 

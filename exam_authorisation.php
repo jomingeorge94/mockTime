@@ -9,6 +9,8 @@
         $examcategory = $_POST['ecategory']; //getting the exam category after form posted
         $examcategoryid = $_POST['ecategoryid']; //getting the exam category id after form posted
 
+
+
         $currentUserPage = $_SERVER["HTTP_REFERER"]; //gettin the page where user was send the form from
 
             if (intval($examid) == 0) {
@@ -27,11 +29,19 @@
                 $_SESSION["chosen_exam_category_id"] = $examcategoryid;
 
                 $_SESSION["chosen_exam_start_time"] = new DateTime();
-                $user_started_time =  $_SESSION["chosen_exam_start_time"]->format('Y-m-d H:i:s');
+                $schedule_date =  $_SESSION["chosen_exam_start_time"]; 
+                $schedule_date->setTimeZone(new DateTimeZone('Europe/London'));
+                $triggerOn =  $schedule_date->format('Y-m-d H:i:s');
 
-                insert_student_summary($examid, $_SESSION['user_id'], $examcategoryid, $user_started_time);
+                
+
+
+                insert_student_summary($examid, $_SESSION['user_id'], $examcategoryid, $triggerOn);
                 redirect(generate_site_link("exam"));
-                exit();
+
+                //exit();
+
+                
 
                 
             }
