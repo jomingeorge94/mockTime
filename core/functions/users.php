@@ -82,11 +82,11 @@ function user_data ($user_id) {
 }
 
 
-
-function get_student_summary ($id) {
+//function to add student summary after they enter for an exam
+function insert_student_summary ($exam_id, $user_id, $category_id, $start_time) {
 		$data = array();
 
-		$result = mysql_query("SELECT a.*,b.*,c.*,d.*,e.* FROM mock_exam_quiz a, mock_exam_student_summary b, mock_exam_users c, mock_exam_questions d, mock_exam_category e WHERE a.quiz_id = b.exam_id AND b.user_id = c.user_id AND d.question_id = b.question_id AND e.category_id = b.category_id AND b.user_id='$id' ");
+		$result = mysql_query("INSERT INTO `mock_exam_student_summary` (`exam_id`, `user_id`,`category_id`, `exam_start_time`) VALUES ('$exam_id', '$user_id', '$category_id', '2222-22-22 22:22:22')");
 
 		while ($row = mysql_fetch_assoc($result)) {
 		    $data [] = $row;
@@ -94,6 +94,37 @@ function get_student_summary ($id) {
 
 		return $data;
 } 
+
+
+function get_student_summary () {
+		$data = array();
+
+		$result = mysql_query("SELECT a.*,b.*,c.*,e.* FROM mock_exam_quiz a, mock_exam_student_summary b, mock_exam_users c, mock_exam_category e WHERE a.quiz_id = b.exam_id AND b.user_id = c.user_id AND e.category_id = b.category_id");
+
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+
+		return $data;
+} 
+
+
+//function to get exam 
+function get_exam($id){
+
+	$query = mysql_query("SELECT a.*, b.* FROM mock_exam_quiz a, mock_exam_category b WHERE a.quiz_id = '$id' AND a.quiz_category_id = b.category_id");
+	return mysql_fetch_row($query);
+
+}
+
+
+//function to get answers
+function get_answer($id){
+
+	$query = mysql_query("SELECT `answer_name` FROM `mock_exam_answers` WHERE `question_id` = '$id'");
+	return mysql_fetch_row($query);
+
+}
 
 
 
@@ -218,6 +249,7 @@ function add_question($exam_id, $q_name, $q_type){
 	return mysql_insert_id();
 }
 
+
 //function to add answer for a question
 function add_answer($qid, $a_name, $is_true){
 	
@@ -251,21 +283,9 @@ function get_answers_from_exam($qid){
 	return $data;
 }
 
-//function to get answers
-function get_answer($id){
 
-	$query = mysql_query("SELECT `answer_name` FROM `mock_exam_answers` WHERE `question_id` = '$id'");
-	return mysql_fetch_row($query);
 
-}
 
-//function to get exam 
-function get_exam($id){
-
-	$query = mysql_query("SELECT * FROM `mock_exam_quiz` WHERE `quiz_id` = '$id'");
-	return mysql_fetch_row($query);
-
-}
 
 function get_category_name($id){
 

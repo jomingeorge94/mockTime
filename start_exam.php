@@ -19,12 +19,15 @@
                           <div id="loginForm">
                             <form method="post" action="<?php echo generate_site_link("exam_authorisation"); ?>">
                                 
-                                <?php  $r = get_exam($_GET['id']);?>
+                                <?php  $r = get_exam($_GET['id']); ?>
                                       <fieldset>
                                         <input type="hidden" value="start" name="mode">
                                         <input type="hidden" value="<?php echo intval($r[0]); ?>" name="eid">
                                         <input type="hidden" value="<?php echo safe_output($r[1]); ?>" name="ename">
                                         <input type="hidden" value="<?php echo safe_output($r[3]); ?>" name="etime">
+                                        <input type="hidden" value="<?php echo safe_output($r[9]); ?>" name="ecategory">
+                                        <input type="hidden" value="<?php echo safe_output($r[8]); ?>" name="ecategoryid">
+
 
                                         <div class="form-group col-12 center">
                                           <div class="padding10"></div>

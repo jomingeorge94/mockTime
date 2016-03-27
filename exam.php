@@ -38,6 +38,9 @@
           <input type="hidden" value="<?php echo intval($_SESSION["user_id"]); ?>" name="eid">
           <input type="hidden" value="<?php echo ($_SESSION["exam_start_time"]); ?>" name="st_exams_time">
           <input type="hidden" value="<?php echo ($_SESSION["chosen_exam_time"]); ?>" name="etime">
+          <input type="hidden" value="<?php echo ($_SESSION["chosen_exam_category"]); ?>" name="ecategory">
+          <input type="hidden" value="<?php echo ($_SESSION["chosen_exam_category_id"]); ?>" name="ecategoryid">
+          <button class="btn btn-success loginbutton" type="button" style="margin-top:100px;" onclick="submitExams();">Submit Test</button>
         </form>
 
 <script type="application/javascript">

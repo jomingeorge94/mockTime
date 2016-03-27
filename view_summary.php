@@ -6,8 +6,8 @@
 
     if (user_logged_in() === true){
          include 'includes/navigationloggedinmodified.php';
+//die(var_dump($_SESSION));
 
-         //die(var_dump($_POST));
 ?>
 
 <body>
@@ -35,9 +35,7 @@
 
                   <tbody>
 
-
-
-                    <?php foreach (get_student_summary($user_data['user_id']) as $r) { ?>
+                    <?php foreach (get_student_summary() as $r ) { ?>
 
                      
                       <tr>

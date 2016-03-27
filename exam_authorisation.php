@@ -6,7 +6,9 @@
         $examid = $_POST['eid']; //getting the exam id 
         $examname = $_POST['ename']; //getting the exam name after form get posted
         $examduration = $_POST['etime']; //getting the exam duration after form posted
-        $examstarttime = time(); // time user started the exam
+        $examcategory = $_POST['ecategory']; //getting the exam category after form posted
+        $examcategoryid = $_POST['ecategoryid']; //getting the exam category id after form posted
+
         $currentUserPage = $_SERVER["HTTP_REFERER"]; //gettin the page where user was send the form from
 
             if (intval($examid) == 0) {
@@ -21,10 +23,17 @@
                 $_SESSION["chosen_exam_id"] = $examid;
                 $_SESSION["chosen_exam_name"] = $examname;
                 $_SESSION["chosen_exam_time"] = $examduration;
-                $_SESSION["chosen_exam_start_time"] = $examstarttime;
-                
+                $_SESSION["chosen_exam_category"] = $examcategory;
+                $_SESSION["chosen_exam_category_id"] = $examcategoryid;
+
+                $_SESSION["chosen_exam_start_time"] = new DateTime();
+                $user_started_time =  $_SESSION["chosen_exam_start_time"]->format('Y-m-d H:i:s');
+
+                insert_student_summary($examid, $_SESSION['user_id'], $examcategoryid, $user_started_time);
                 redirect(generate_site_link("exam"));
                 exit();
+
+                
             }
 
 
