@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2016 at 08:09 PM
+-- Generation Time: Mar 27, 2016 at 11:26 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -161,15 +161,14 @@ CREATE TABLE IF NOT EXISTS `mock_exam_student_summary` (
   `category_id` int(11) NOT NULL,
   `exam_start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `exam_end_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mock_exam_student_summary`
 --
 
 INSERT INTO `mock_exam_student_summary` (`student_summary_id`, `exam_id`, `user_id`, `question_id`, `category_id`, `exam_start_time`, `exam_end_time`) VALUES
-(7, 23, 64, 1, 23, '2016-03-26 14:28:22', '2016-03-26 14:28:22'),
-(8, 24, 64, 6, 31, '2016-03-26 14:28:30', '2016-03-26 14:28:30');
+(91, 23, 64, 0, 23, '2016-03-27 21:26:01', '2016-03-27 21:26:03');
 
 -- --------------------------------------------------------
 
@@ -281,7 +280,7 @@ MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 -- AUTO_INCREMENT for table `mock_exam_student_summary`
 --
 ALTER TABLE `mock_exam_student_summary`
-MODIFY `student_summary_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `student_summary_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=92;
 --
 -- AUTO_INCREMENT for table `mock_exam_users`
 --
