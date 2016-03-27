@@ -96,10 +96,10 @@ function insert_student_summary ($exam_id, $user_id, $category_id, $start_time) 
 } 
 
 
-function get_student_summary () {
+function get_student_summary ($id) {
 		$data = array();
 
-		$result = mysql_query("SELECT a.*,b.*,c.*,e.* FROM mock_exam_quiz a, mock_exam_student_summary b, mock_exam_users c, mock_exam_category e WHERE a.quiz_id = b.exam_id AND b.user_id = c.user_id AND e.category_id = b.category_id");
+		$result = mysql_query("SELECT a.*,b.*,c.*,e.* FROM mock_exam_quiz a, mock_exam_student_summary b, mock_exam_users c, mock_exam_category e WHERE a.quiz_id = b.exam_id AND b.user_id = c.user_id AND e.category_id = b.category_id AND b.user_id = '$id'");
 
 		while ($row = mysql_fetch_assoc($result)) {
 		    $data [] = $row;

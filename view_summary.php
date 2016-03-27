@@ -35,7 +35,7 @@
 
                   <tbody>
 
-                    <?php foreach (get_student_summary() as $r ) { ?>
+                    <?php foreach (get_student_summary($_SESSION['user_id']) as $r ) { ?>
 
                      
                       <tr>
