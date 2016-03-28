@@ -287,6 +287,10 @@ function get_answers_from_exam($qid){
 
 
 
+
+
+
+
 function get_category_name($id){
 
 	$query = mysql_query("SELECT * FROM `mock_exam_category` WHERE `category_id` = '$id'");

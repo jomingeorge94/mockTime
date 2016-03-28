@@ -78,10 +78,10 @@
                           			$end_date = $r['exam_end_time'];
 
                           			$start_time = strtotime($start_date);
-									$end_time = strtotime($end_date);
-									$difference = $end_time - $start_time;
+              									$end_time = strtotime($end_date);
+              									$difference = $end_time - $start_time;
 
-									echo sprintf("%02d%s%02d%s%02d", floor($difference/3600), ':', ($difference/60)%60, ':', $difference%60); 
+              									echo sprintf("%02d%s%02d%s%02d", floor($difference/3600), ':', ($difference/60)%60, ':', $difference%60); 
 	
                           	?> 
                           </td> 

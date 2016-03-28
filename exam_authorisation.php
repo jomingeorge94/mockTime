@@ -36,7 +36,7 @@
                 
 
 
-                insert_student_summary($examid, $_SESSION['user_id'], $examcategoryid, $triggerOn);
+                //insert_student_summary($examid, $_SESSION['user_id'], $examcategoryid, $triggerOn);
                 redirect(generate_site_link("exam"));
 
                 //exit();

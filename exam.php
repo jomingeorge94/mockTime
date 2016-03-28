@@ -10,7 +10,7 @@
         exit();
     }
 
-
+  //die(var_dump(get_questions_from_exam($_SESSION['chosen_exam_id'])));
     
 
 ?>
@@ -45,6 +45,18 @@
           <input type="hidden" value="<?php echo ($_SESSION["chosen_exam_time"]); ?>" name="etime">
           <input type="hidden" value="<?php echo ($_SESSION["chosen_exam_category"]); ?>" name="ecategory">
           <input type="hidden" value="<?php echo ($_SESSION["chosen_exam_category_id"]); ?>" name="ecategoryid">
+
+
+          <div class = "panel panel-primary student_question_area">
+             <div class = "panel-heading">
+                <h3 class = "panel-title student_question_number">Panel title</h3>
+             </div>
+             <div class = "panel-body">
+                This is a Basic panel
+             </div>
+          </div>
+
+
           <button class="btn btn-success loginbutton" type="submit" style="margin-top:100px;" name="submittest" onclick="submitExams();">Submit Test</button>
         </form>
 
