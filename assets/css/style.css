@@ -570,5 +570,9 @@ only screen and (                min-resolution: 2dppx) {
 .student_question_number {
 	text-align: left ! important;
 }
+
+.number_of_questions{
+	float: right
+}
  
 

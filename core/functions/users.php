@@ -83,10 +83,10 @@ function user_data ($user_id) {
 
 
 //function to add student summary after they enter for an exam
-function insert_student_summary ($exam_id, $user_id, $category_id, $start_time) {
+function insert_student_summary ($exam_id, $user_id, $category_id, $start_time, $finish_time) {
 		$data = array();
 
-		$result = mysql_query("INSERT INTO `mock_exam_student_summary` (`exam_id`, `user_id`,`category_id`, `exam_start_time`) VALUES ('$exam_id', '$user_id', '$category_id', '$start_time')");
+		$result = mysql_query("INSERT INTO `mock_exam_student_summary` (`exam_id`, `user_id`,`category_id`, `exam_start_time`, `exam_end_time`) VALUES ('$exam_id', '$user_id', '$category_id', '$start_time', '$finish_time')");
 
 		while ($row = mysql_fetch_assoc($result)) {
 		    $data [] = $row;
@@ -99,7 +99,7 @@ function insert_student_summary ($exam_id, $user_id, $category_id, $start_time) 
 function get_student_summary ($id) {
 		$data = array();
 
-		$result = mysql_query("SELECT a.*,b.*,c.*,e.* FROM mock_exam_quiz a, mock_exam_student_summary b, mock_exam_users c, mock_exam_category e WHERE a.quiz_id = b.exam_id AND b.user_id = c.user_id AND e.category_id = b.category_id AND b.user_id = '$id'");
+		$result = mysql_query("SELECT a.*,b.*,c.*,e.* FROM mock_exam_quiz a, mock_exam_student_summary b, mock_exam_users c, mock_exam_category e WHERE a.quiz_id = b.exam_id AND b.user_id = c.user_id AND e.category_id = b.category_id AND b.user_id = '$id' ORDER BY b.exam_start_time DESC");
 
 		while ($row = mysql_fetch_assoc($result)) {
 		    $data [] = $row;
@@ -257,6 +257,8 @@ function add_answer($qid, $a_name, $is_true){
 	mysql_query("INSERT INTO `mock_exam_answers` (`question_id`, `answer_name`, `is_true`) VALUES ('$qid', '$a_name', '$is_true')");
 }
 
+
+
 //function to get all the questions from an exam
 function get_questions_from_exam($examid){
 	$data = array();
@@ -269,6 +271,19 @@ function get_questions_from_exam($examid){
 
 	return $data;
 }
+
+
+
+function count_questions_of_an_exam($examid){
+
+	$query = mysql_query("SELECT COUNT(*) FROM `mock_exam_questions` WHERE `quiz_id` = '$examid'");
+	return mysql_fetch_row($query);
+
+}
+
+
+
+
 
 //function to get all the answers from an exam
 function get_answers_from_exam($qid){
@@ -283,25 +298,12 @@ function get_answers_from_exam($qid){
 	return $data;
 }
 
-
-
-
-
-
-
-
-
 function get_category_name($id){
 
 	$query = mysql_query("SELECT * FROM `mock_exam_category` WHERE `category_id` = '$id'");
 	return mysql_fetch_row($query);
 
 }
-
-
-
-
-
 
 function get_faq(){
 	$data = array();
