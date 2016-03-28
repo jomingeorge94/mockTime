@@ -2,27 +2,27 @@
 	include 'core/session.php';
 	include 'includes/head.php';
 
-
   if(isset($_REQUEST['submittest'])) {
 
       $date_clicked = new DateTime();
       $date_clicked->setTimeZone(new DateTimeZone('Europe/London'));
       $clickedtime =  $date_clicked->format('Y-m-d H:i:s');
 
-
       $choosen_exam_time = $_SESSION['chosen_exam_start_time'];
       $choosen_exam_time->setTimeZone(new DateTimeZone('Europe/London'));
       $chosen_start_time_forExam =  $choosen_exam_time->format('Y-m-d H:i:s');
       $chosen_exam_summary_id = get_student_summary_id($chosen_start_time_forExam);
 
-      
       update_student_summary($chosen_exam_summary_id[0], $clickedtime);
       header('Location: view_summary.php');
       exit();
-  } 
+  }
 
-  
-  
+  if(isset($_REQUEST['nextquestion'])) {
+    echo 'CLICKED';
+  } else {
+    echo 'NOT CLICKED';
+  }
 
 	if (user_logged_in() === true){
          include 'includes/navigationloggedinmodified.php';
@@ -32,24 +32,17 @@
         exit();
     }
 
-
-
-    
-
 ?>
 
-<script src="http://localhost/mockTime/assets/js/countdown.js"></script>
+<script src="/mockTime/assets/js/countdown.js"></script>
 
 <script>
   function time_over() {
     document.getElementById("form1").submit();
+
     window.location.replace("http://localhost/mockTime/view_summary.php");
-
   }
-
 </script>
-
-
 
 <div class="col-6 col-offset-4"  id="foo">
 
@@ -82,17 +75,22 @@
              </div>
 
           </div>
-
-          <input type="button" name="nextquestion" value="1" class="subbtn"/>
+          <form>
+          <input type="submit"  value="NEXT" id="next" name="nextquestion" value="1" class="subbtn"/>
+        </form>
           <button class="btn btn-success loginbutton" type="submit" style="margin-top:100px;" name="submittest">Submit Test</button>
           
         </form>
 
 <script type="application/javascript">
-
+var storage = 0;
+  if(!localStorage["<?php echo $_SESSION['chosen_exam_id']; ?>"]){
+    storage = <?php echo intval((intval($_SESSION["chosen_exam_time"]) * 60) - $_SESSION["last_exam_time"]); ?>
+  } else {
+    storage = localStorage["<?php echo $_SESSION['chosen_exam_id']; ?>"]; 
+  }
   var myCountdown4 = new Countdown({
-
-  time: '<?php echo intval((intval($_SESSION["chosen_exam_time"]) * 60) - $_SESSION["last_exam_time"]); ?>',
+  time: storage,
   width:300,
   rangeHi  : "hour",     
   hideLine  : true,  
@@ -120,6 +118,10 @@
   } 
   });
 
+  $("#next").click(function (){
+    console.log(myCountdown4._timeRunnerNow);//
+    localStorage["<?php echo $_SESSION['chosen_exam_id']; ?>"] =  parseInt(myCountdown4._timeRunnerNow.second) + parseInt(myCountdown4._timeRunnerNow.minute * 60) + parseInt(myCountdown4._timeRunnerNow.hour * 3600);
+  });
 </script> 
 
 <?php 
