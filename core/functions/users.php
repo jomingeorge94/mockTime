@@ -96,6 +96,8 @@ function insert_student_summary ($exam_id, $user_id, $category_id, $start_time, 
 } 
 
 
+
+
 function get_student_summary ($id) {
 		$data = array();
 
@@ -106,6 +108,14 @@ function get_student_summary ($id) {
 		}
 
 		return $data;
+} 
+
+
+function get_student_summary_id ($exam_start_time) {
+		
+
+		$query = mysql_query("SELECT `student_summary_id` FROM mock_exam_student_summary WHERE `exam_start_time` = '$exam_start_time'");
+		return mysql_fetch_row($query);
 } 
 
 
@@ -317,21 +327,15 @@ function get_faq(){
 
 
 //function to update student summary after they submit their exam
-function update_student_summary ($exam_end_time, $exam_id, $user_id, $category_id) {
-		if(empty($exam_end_time))
-			return fucked;
+function update_student_summary($student_summary_id, $exam_end_time) {
+		if(empty($exam_end_time) || empty($student_summary_id))
+			return false;
 
-		mysql_query("UPDATE `mock_exam_student_summary` SET `exam_end_time` = '$exam_end_time' WHERE `exam_id` = '$exam_id' AND `user_id` = '$user_id' AND `category_id` = '$category_id'");
-
-		return working;
+		mysql_query("UPDATE `mock_exam_student_summary` SET `exam_end_time` = '$exam_end_time' WHERE `student_summary_id` = '$student_summary_id'");
+		return true;
 
 
 }
-
-
-
-
-
 
 
 

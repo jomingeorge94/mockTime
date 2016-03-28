@@ -9,8 +9,14 @@
       $date_clicked->setTimeZone(new DateTimeZone('Europe/London'));
       $clickedtime =  $date_clicked->format('Y-m-d H:i:s');
 
-      update_student_summary ($clickedtime, $_SESSION['chosen_exam_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_category_id']);
 
+      $choosen_exam_time = $_SESSION['chosen_exam_start_time'];
+      $choosen_exam_time->setTimeZone(new DateTimeZone('Europe/London'));
+      $chosen_start_time_forExam =  $choosen_exam_time->format('Y-m-d H:i:s');
+      $chosen_exam_summary_id = get_student_summary_id($chosen_start_time_forExam);
+
+      
+      update_student_summary($chosen_exam_summary_id[0], $clickedtime);
       header('Location: view_summary.php');
       exit();
   } 
