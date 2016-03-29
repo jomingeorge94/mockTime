@@ -562,8 +562,8 @@ only screen and (                min-resolution: 2dppx) {
 
 .student_question_area {
 	margin-top: 30px;
-	margin-left: 20%;
-	margin-right: 20%;
+	margin-left: 15%;
+	margin-right: 15%;
 	background-color: #F5F5F5;
 }
 
@@ -577,8 +577,8 @@ only screen and (                min-resolution: 2dppx) {
 
 .chosen_exam_questions {
 	color: #140D40;
-	font-size: 18px;
-	float: left;
+	font-size: 22px ! important;
+	
 }
 
 .submitbutton {
@@ -591,5 +591,29 @@ only screen and (                min-resolution: 2dppx) {
 	padding-top: 2%;
 	padding-bottom: 2%;
 }
- 
+
+.nextpreviousbutton {
+	background-color: #337ab7 ! important;
+	font-size: 12px ! important;
+	height: 40px ! important;
+
+}
+
+.noresize {
+	resize: none ! important; 
+	margin-top: 20px ! important;
+	border-width: 1px ! important;
+	height: 100px ! important;
+	border-style: solid  ! important;
+    border-color: #337ab7 ! important;
+
+    
+}
+
+.chosen_exam_questions_class {
+	float: left;
+	padding-bottom: 10px;
+
+}
+
 

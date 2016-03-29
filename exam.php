@@ -69,27 +69,41 @@
 
     <div class = "panel panel-primary student_question_area">
        <div class = "panel-heading student_question_heading">
-          <h3 class = "panel-title student_question_number"> <span class="chosen_student_exam_name"> Exam Name: <strong><?php  echo $_SESSION['chosen_exam_name'];?></strong> </span> <span class="currentquestionNumber">Question Number: <strong> <?php if($_SESSION['questionNumber'] == 0){echo '1';}else {echo $_SESSION['questionNumber'] + 1;} ?> </span><strong> <span class="chosen_exam_total_numbers"> Number of Questions: <strong><?php  echo $totalquestions[0];?></strong></span></h3>
+          <h3 class = "panel-title student_question_number"> <span class="chosen_student_exam_name"> Exam Name: <strong><?php  echo $_SESSION['chosen_exam_name'];?></strong> </span> <span class="currentquestionNumber">Question Number: <strong> <?php if($_SESSION['questionNumber'] == 0){echo '1';}else {echo $_SESSION['questionNumber'] + 1;} ?></strong> </span> <span class="chosen_exam_total_numbers"> Number of Questions: <strong> <?php  echo $totalquestions[0];?> </strong></span></h3>
        </div>
        <div class = "panel-body">
-          <div class= "chosen_exam_questions">
+          <div class= "chosen_exam_questions" style="font-family: sans-serif;">
             <?php 
               $question_num = $_SESSION['questionNumber']; 
-              echo $e[$question_num]['question_name'];
+              echo '<div class="chosen_exam_questions_class">' . $e[$question_num]['question_name'] . '</div>';
+
+
+              if ($e[$question_num]['question_type'] == 'Essay') {
+               
+                echo '<div class="form-group essay_question_types">
+                        <textarea class="form-control noresize" placeholder="Please specify your answer"></textarea>
+                      </div>';
+              
+              }
+
             ?>
+
+            
           </div>  
+
+          
        </div>
       <form >
           <div class="next_and_previous_button">
 
-            <button class="btn btn-info" id="previous" name="previousquestion" type="submit" <?php
+            <button class="btn btn-info nextpreviousbutton" id="previous" name="previousquestion" type="submit" <?php
             if ($_SESSION['questionNumber'] < 1) {
                 echo 'disabled';
             } else {
                 ?> <?php } ?> ><span class="glyphicon glyphicon-backward"></span> PREVIOUS</button>
 
 
-            <button class="btn btn-primary" id="next" name="nextquestion" type="submit" <?php if ($_SESSION['questionNumber'] < (int)$totalquestions[0] - 1) { ?> <?php
+            <button class="btn btn-info nextpreviousbutton" id="next" name="nextquestion" type="submit" <?php if ($_SESSION['questionNumber'] < (int)$totalquestions[0] - 1) { ?> <?php
             } else {
                 echo 'disabled';
             }
@@ -148,5 +162,7 @@
   </script> 
 
 <?php 
+    //die(var_dump($e));
+    //die(var_dump($e[$question_num]['question_type'] == 'Essay'));
     include 'includes/footer.php';
 ?>
