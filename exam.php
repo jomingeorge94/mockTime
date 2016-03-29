@@ -19,9 +19,16 @@
   }
 
   if(isset($_REQUEST['nextquestion'])) {
-    echo 'CLICKED';
+    echo 'NEXT BUTTON CLICKED';
+
   } else {
-    echo 'NOT CLICKED';
+    echo 'NEXT BUTTON NOT CLICKED';
+  }
+
+  if(isset($_REQUEST['previousquestion'])) {
+    echo 'PREVIOUS BUTTON CLICKED';
+  } else {
+    echo 'PREVIOUS BUTTON NOT CLICKED';
   }
 
 	if (user_logged_in() === true){
@@ -76,7 +83,8 @@
 
           </div>
           <form>
-          <input type="submit"  value="NEXT" id="next" name="nextquestion" value="1" class="subbtn"/>
+          <input type="submit"  value="NEXT" id="next" name="nextquestion" class="subbtn"/>
+          <input type="submit"  value="PREVIOUS" id="previous" name="previousquestion" class="subbtn"/>
         </form>
           <button class="btn btn-success loginbutton" type="submit" style="margin-top:100px;" name="submittest">Submit Test</button>
           
@@ -119,6 +127,11 @@ var storage = 0;
   });
 
   $("#next").click(function (){
+    console.log(myCountdown4._timeRunnerNow);//
+    localStorage["<?php echo $_SESSION['chosen_exam_id']; ?>"] =  parseInt(myCountdown4._timeRunnerNow.second) + parseInt(myCountdown4._timeRunnerNow.minute * 60) + parseInt(myCountdown4._timeRunnerNow.hour * 3600);
+  });
+
+  $("#previous").click(function (){
     console.log(myCountdown4._timeRunnerNow);//
     localStorage["<?php echo $_SESSION['chosen_exam_id']; ?>"] =  parseInt(myCountdown4._timeRunnerNow.second) + parseInt(myCountdown4._timeRunnerNow.minute * 60) + parseInt(myCountdown4._timeRunnerNow.hour * 3600);
   });
