@@ -575,5 +575,21 @@ only screen and (                min-resolution: 2dppx) {
 	float: right;
 }
 
+.chosen_exam_questions {
+	color: #140D40;
+	font-size: 18px;
+	float: left;
+}
+
+.submitbutton {
+	background-color: #337ab7 ! important;
+}
+
+.next_and_previous_button {
+	float: left;
+	padding-left: 10px;
+	padding-top: 2%;
+	padding-bottom: 2%;
+}
  
 

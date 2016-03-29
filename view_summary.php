@@ -26,7 +26,7 @@
                           <th style="text-align: center;">Category</th>
                           <th style="text-align: center;">Exam Duration</th>
                           <th style="text-align: center;">Date and Time</th>
-                          <th style="text-align: center;">Time Spend</th>
+                          <th style="text-align: center;">Time Spent</th>
                           <th style="text-align: center;">Percentage</th>
                           <th style="text-align: center;">Actions</th>
 
