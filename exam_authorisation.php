@@ -31,7 +31,7 @@
                 $schedule_date->setTimeZone(new DateTimeZone('Europe/London'));
                 $triggerOn =  $schedule_date->format('Y-m-d H:i:s');
 
-                $_SESSION['questionNumber'] = 1;
+                $_SESSION['questionNumber'] = 0;
 
                 $finished_time = new DateTime();
                 $value = $examduration;
@@ -39,7 +39,7 @@
                 $finished_time->setTimeZone(new DateTimeZone('Europe/London'));
                 $exam_finish_time =  $finished_time->format('Y-m-d H:i:s');
               
-                insert_student_summary($examid, $_SESSION['user_id'], $examcategoryid, $triggerOn, $exam_finish_time);
+                //insert_student_summary($examid, $_SESSION['user_id'], $examcategoryid, $triggerOn, $exam_finish_time);
                 redirect(generate_site_link("exam"));
 
             }

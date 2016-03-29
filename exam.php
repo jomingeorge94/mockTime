@@ -19,16 +19,15 @@
   }
 
   if(isset($_REQUEST['nextquestion'])) {
-    echo 'NEXT BUTTON CLICKED';
-
-  } else {
-    echo 'NEXT BUTTON NOT CLICKED';
+      if((int)$_SESSION['questionNumber']<count_questions_of_an_exam($_SESSION['chosen_exam_id'])) {
+        $_SESSION['questionNumber']=$_SESSION['questionNumber']+1;
+      }
   }
 
   if(isset($_REQUEST['previousquestion'])) {
-    echo 'PREVIOUS BUTTON CLICKED';
-  } else {
-    echo 'PREVIOUS BUTTON NOT CLICKED';
+      if((int)$_SESSION['questionNumber']>=1){
+              $_SESSION['questionNumber']=$_SESSION['questionNumber']-1;
+      }
   }
 
 	if (user_logged_in() === true){
@@ -38,6 +37,9 @@
         header('Location: generic.php');
         exit();
     }
+
+header("Cache-Control: no-cache, must-revalidate");
+
 
 ?>
 
@@ -74,10 +76,15 @@
           
           <div class = "panel panel-primary student_question_area">
              <div class = "panel-heading student_question_heading">
-                <h3 class = "panel-title student_question_number"> <span> Exam Name: <strong><?php  echo $_SESSION['chosen_exam_name'];?></strong> </span> <span class="number_of_questions"> Number of Questions: <strong><?php  echo $totalquestions[0];?></strong> </span></h3>
+                <h3 class = "panel-title student_question_number"> <span class="chosen_student_exam_name"> Exam Name: <strong><?php  echo $_SESSION['chosen_exam_name'];?></strong> </span> <span class="currentquestionNumber">Question Number: <strong> <?php if($_SESSION['questionNumber'] == 0){echo '1';}else {echo $_SESSION['questionNumber'] + 1;} ?> </span><strong> <span class="chosen_exam_total_numbers"> Number of Questions: <strong><?php  echo $totalquestions[0];?></strong></span> </span></h3>
              </div>
              <div class = "panel-body">
-                <strong><?php  ?><strong>
+                  
+              <?php $question_num = $_SESSION['questionNumber']; 
+              //die(var_dump($e));
+                echo $e[$question_num]['question_name'];
+
+              ?>
 
              </div>
 
@@ -143,7 +150,8 @@ var storage = 0;
 ?> 
 
 <?php 
-  
+  //var_dump((int)$_SESSION['questionNumber']);
+    //var_dump(count_questions_of_an_exam($_SESSION['chosen_exam_id']));
     include 'includes/footer.php';
 
 ?>

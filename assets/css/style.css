@@ -567,12 +567,13 @@ only screen and (                min-resolution: 2dppx) {
 	background-color: #F5F5F5;
 }
 
-.student_question_number {
-	text-align: left ! important;
+.chosen_student_exam_name {
+	float: left ! important;
 }
 
-.number_of_questions{
-	float: right
+.chosen_exam_total_numbers{
+	float: right;
 }
+
  
 
