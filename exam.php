@@ -91,8 +91,8 @@
               if ($e[$question_num]['question_type'] == 'True_False') {
                
                 echo '<div class="form-group trueorfalse">
-                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input class="" type="radio" checked id="category" name="faux" value="1" /> True </label>
-                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input type="radio" checked id="category" name="faux" value="0" /> False </label>
+                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input class="" type="radio" id="category" name="faux" value="1" /> True </label>
+                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input type="radio" id="category" name="faux" value="0" /> False </label>
                       </div>';
               
               }
@@ -101,9 +101,8 @@
                 
                 $questionNumber = $question_and_answers[$question_num]['question_id']; //get the question id by passing in the exam id and the current question
                 $questions_and_answer_from_question = get_all_answers_belongToOne_question($questionNumber); //pass in the question id so collect all the details of the specified question and it's answers
-                //die(var_dump($questions_and_answer_from_question[0]['answer_name']));
                 $count  = count_answers_belongToOne_question($questionNumber)[0]['count(*)']; //counting all the answers for a question
-                
+
                 echo '<select class="form-control multiplechose_questionTypes" name="quiz_category" id="category">
                       <option class="multiplechoiceguessess" value=""disabled selected>Select the answer</option>';
 
@@ -112,14 +111,28 @@
                           echo '<option class="multiplechoiceguessess">'; echo $questions_and_answer_from_question[$i]['answer_name']; '</option>';
               
                       }
-
                 echo'</select>';
-
-
-
                 echo '<p class="linebreak">&nbsp;</p>';
 
               }
+
+              if ($e[$question_num]['question_type'] == 'Fill_Blank') {
+               
+                echo '<div class="form-group fillblankquestiontype">
+                        <input type="text" class="fill_in_blank_answer_box" name="FirstName" placeholder="Type your answer here" >
+                      </div>';
+              
+              }
+              //die(var_dump($e));
+              if ($e[$question_num]['question_type'] == 'Acronym_Answer') {
+               
+                echo '<div class="form-group fillblankquestiontype">
+                        <input type="text" class="acronym_answer_box" name="FirstName" placeholder="Type your answer here" >
+                      </div>';
+              
+              }
+
+              
 
 
 

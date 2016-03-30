@@ -649,5 +649,24 @@ hr{
 	color: #140D40 ! important;
 }
 
+.fillblankquestiontype {
+	float: left;
+}
+
+.fill_in_blank_answer_box {
+	border-style: solid  ! important;
+    border-color: #337ab7 ! important;
+    border-width: 1px ! important;
+    width: 300%;
+    
+}
+
+.acronym_answer_box {
+	border-style: solid  ! important;
+    border-color: #337ab7 ! important;
+    border-width: 1px ! important;
+    width: 200%;
+}
+
 
 
