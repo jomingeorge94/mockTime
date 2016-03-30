@@ -111,6 +111,53 @@ function get_student_summary ($id) {
 } 
 
 
+
+
+//function to get all the questions and answers from an exam
+function get_questions_from_exam_and_answers($examid){
+	$data = array();
+
+	$result = mysql_query("SELECT a.*, b.* FROM mock_exam_questions a, mock_exam_answers b WHERE a.quiz_id = '$examid' AND b.question_id = a.question_id");
+
+	while ($row = mysql_fetch_assoc($result)) {
+	    $data [] = $row;
+	}
+
+	return $data;
+}
+
+
+
+//function to get all the questions and answers from an exam
+function get_all_answers_belongToOne_question($questionid){
+	$data = array();
+
+	$result = mysql_query("SELECT a.*, b.* FROM mock_exam_questions a, mock_exam_answers b WHERE b.question_id = a.question_id AND a.question_id = '$questionid'");
+
+	while ($row = mysql_fetch_assoc($result)) {
+	    $data [] = $row;
+	}
+
+	return $data;
+}
+
+
+//function to get all the questions and answers from an exam
+function count_answers_belongToOne_question($questionid){
+	$data = array();
+
+	$result = mysql_query("SELECT count(*) FROM mock_exam_questions a, mock_exam_answers b WHERE b.question_id = a.question_id AND a.question_id = '$questionid'");
+
+	while ($row = mysql_fetch_assoc($result)) {
+	    $data [] = $row;
+	}
+
+	return $data;
+}
+
+
+
+
 function get_student_summary_id ($exam_start_time) {
 		
 
@@ -281,6 +328,9 @@ function get_questions_from_exam($examid){
 
 	return $data;
 }
+
+
+
 
 
 

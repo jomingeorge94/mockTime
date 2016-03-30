@@ -64,6 +64,8 @@
 
     <?php
       $e = get_questions_from_exam($_SESSION['chosen_exam_id']); 
+      $question_and_answers = get_questions_from_exam_and_answers($_SESSION['chosen_exam_id']); //all the questions and asnwers that belongs to an exam
+      
     ?>
     <?php $totalquestions = count_questions_of_an_exam($_SESSION['chosen_exam_id']);?>
 
@@ -76,7 +78,7 @@
             <?php 
               $question_num = $_SESSION['questionNumber']; 
               echo '<div class="chosen_exam_questions_class">' . $e[$question_num]['question_name'] . '</div>';
-
+              
 
               if ($e[$question_num]['question_type'] == 'Essay') {
                
@@ -94,6 +96,31 @@
                       </div>';
               
               }
+              echo '<hr>';
+              if ($e[$question_num]['question_type'] == 'Multiple_Choice') {
+                
+                $questionNumber = $question_and_answers[$question_num]['question_id']; //get the question id by passing in the exam id and the current question
+                $questions_and_answer_from_question = get_all_answers_belongToOne_question($questionNumber); //pass in the question id so collect all the details of the specified question and it's answers
+                //die(var_dump($questions_and_answer_from_question[0]['answer_name']));
+                $count  = count_answers_belongToOne_question($questionNumber)[0]['count(*)']; //counting all the answers for a question
+                
+                echo '<select class="form-control multiplechose_questionTypes" name="quiz_category" id="category">
+                      <option class="multiplechoiceguessess" value=""disabled selected>Select the answer</option>';
+
+                      for($i = 0; $i < $count; $i++) {
+
+                          echo '<option class="multiplechoiceguessess">'; echo $questions_and_answer_from_question[$i]['answer_name']; '</option>';
+              
+                      }
+
+                echo'</select>';
+
+
+
+                echo '<p class="linebreak">&nbsp;</p>';
+
+              }
+
 
 
             ?>

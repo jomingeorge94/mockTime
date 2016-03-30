@@ -634,4 +634,20 @@ hr{
 
 }
 
+.linebreak {
+	padding-bottom: 5%;
+}
+
+.multiplechose_questionTypes {	
+	border-style: solid  ! important;
+    border-color: #337ab7 ! important;
+    color: #140D40 ! important;
+}
+
+.multiplechoiceguessess {
+	background-color: #fff ! important;
+	color: #140D40 ! important;
+}
+
+
 
