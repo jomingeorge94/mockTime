@@ -616,4 +616,22 @@ only screen and (                min-resolution: 2dppx) {
 
 }
 
+.essay_question_types_trueorfalse {
+	border-style: solid;
+    border-color: #337ab7;
+    margin-left: 5px ! important;
+    margin-top: 10px;
+    float: left;
+    color: #140D40 ! important;
+    border-style: solid  ! important;
+    border-color: #337ab7 ! important;
+    background-color: #fff ! important;
+}
+
+hr{ 
+	clear:both;
+	margin-bottom: -10px ! important;
+
+}
+
 

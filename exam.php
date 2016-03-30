@@ -80,11 +80,21 @@
 
               if ($e[$question_num]['question_type'] == 'Essay') {
                
-                echo '<div class="form-group essay_question_types">
+                echo '<div class="form-group">
                         <textarea class="form-control noresize" placeholder="Please specify your answer"></textarea>
                       </div>';
               
               }
+              echo '<hr>';
+              if ($e[$question_num]['question_type'] == 'True_False') {
+               
+                echo '<div class="form-group trueorfalse">
+                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input class="" type="radio" checked id="category" name="faux" value="1" /> True </label>
+                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input type="radio" checked id="category" name="faux" value="0" /> False </label>
+                      </div>';
+              
+              }
+
 
             ?>
 
