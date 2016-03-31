@@ -2,6 +2,8 @@
 	include 'core/session.php';
 	include 'includes/head.php';
 
+  
+
   if(isset($_REQUEST['submittest'])) {
     $date_clicked = new DateTime();
     $date_clicked->setTimeZone(new DateTimeZone('Europe/London'));
@@ -18,12 +20,15 @@
   }
 
   if(isset($_REQUEST['nextquestion'])) {
+    
     if((int)$_SESSION['questionNumber']<count_questions_of_an_exam($_SESSION['chosen_exam_id'])) {
       $_SESSION['questionNumber']=$_SESSION['questionNumber']+1;
     }
+
   }
 
   if(isset($_REQUEST['previousquestion'])) {
+     
     if((int)$_SESSION['questionNumber']>=1){
       $_SESSION['questionNumber']=$_SESSION['questionNumber']-1;
     }
@@ -63,9 +68,36 @@
     <input type="hidden" value="<?php echo ($_SESSION["chosen_exam_category_id"]); ?>" name="ecategoryid">
 
     <?php
+
       $e = get_questions_from_exam($_SESSION['chosen_exam_id']); 
       $question_and_answers = get_questions_from_exam_and_answers($_SESSION['chosen_exam_id']); //all the questions and asnwers that belongs to an exam
+
+      //current exam question 
+        $question_num = $_SESSION['questionNumber']; 
       
+      //student result is getting stored into the database
+
+      //gets the answer that user set for each question  ----------------------------------------------V check this value. make sure its right okay im done, any further work = MONEY.
+      $student_result = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $e[$question_num]['question_id']);
+
+     // it should be rigt ??because no ANSWER YET ???? that not answered is a f beaut fbuau bltu  bu but i typed an answer earlier but it didnt update.yeah but that waittttt p lEIA SEK NOW I K NOW. no need to tell me its no in the db.
+      // fucking shit code...
+
+      if(!is_null($student_result)) {
+        //die(var_dump('INSERT'));
+                update_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $e[$question_num]['question_id'], $_POST['answer']);
+
+
+      } else {
+                insert_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $e[$question_num]['question_id'], $_POST['answer'], 'in_progress');
+
+        //die(var_dump('UPDATE'));
+      }
+
+      
+
+      
+
     ?>
     <?php $totalquestions = count_questions_of_an_exam($_SESSION['chosen_exam_id']);?>
 
@@ -76,14 +108,14 @@
        <div class = "panel-body">
           <div class= "chosen_exam_questions" style="font-family: sans-serif;">
             <?php 
-              $question_num = $_SESSION['questionNumber']; 
+              
               echo '<div class="chosen_exam_questions_class">' . $e[$question_num]['question_name'] . '</div>';
               
 
               if ($e[$question_num]['question_type'] == 'Essay') {
                
                 echo '<div class="form-group">
-                        <textarea class="form-control noresize" placeholder="Please specify your answer"></textarea>
+                        <textarea class="form-control noresize" name="answer" placeholder="Please specify your answer"></textarea>
                       </div>';
               
               }
@@ -91,8 +123,8 @@
               if ($e[$question_num]['question_type'] == 'True_False') {
                
                 echo '<div class="form-group trueorfalse">
-                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input class="" type="radio" id="category" name="faux" value="1" /> True </label>
-                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input type="radio" id="category" name="faux" value="0" /> False </label>
+                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input class="" type="radio" id="category" name="answer" value="1" /> True </label>
+                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input type="radio" id="category" name="answer" value="0" /> False </label>
                       </div>';
               
               }
@@ -102,13 +134,14 @@
                 $questionNumber = $question_and_answers[$question_num]['question_id']; //get the question id by passing in the exam id and the current question
                 $questions_and_answer_from_question = get_all_answers_belongToOne_question($questionNumber); //pass in the question id so collect all the details of the specified question and it's answers
                 $count  = count_answers_belongToOne_question($questionNumber)[0]['count(*)']; //counting all the answers for a question
-
-                echo '<select class="form-control multiplechose_questionTypes" name="quiz_category" id="category">
+// WHY NOT JUST CALL THE NAME OF THE ANSWER ANSWER THEN YOU DONT HAVE TO WORRY ABOUT DIFF NAMES ??? so if I give it name as the name , would it only bring t let me try now
+                echo '<select class="form-control multiplechose_questionTypes" name="answer" id="multiple_choice_student_chosen">
                       <option class="multiplechoiceguessess" value=""disabled selected>Select the answer</option>';
 
                       for($i = 0; $i < $count; $i++) {
-
+                          
                           echo '<option class="multiplechoiceguessess">'; echo $questions_and_answer_from_question[$i]['answer_name']; '</option>';
+
               
                       }
                 echo'</select>';
@@ -119,7 +152,7 @@
               if ($e[$question_num]['question_type'] == 'Fill_Blank') {
                
                 echo '<div class="form-group fillblankquestiontype">
-                        <input type="text" class="fill_in_blank_answer_box" name="FirstName" placeholder="Type your answer here" >
+                        <input type="text" class="fill_in_blank_answer_box" name="answer" placeholder="Type your answer here" >
                       </div>';
               
               }
@@ -127,12 +160,12 @@
               if ($e[$question_num]['question_type'] == 'Acronym_Answer') {
                
                 echo '<div class="form-group fillblankquestiontype">
-                        <input type="text" class="acronym_answer_box" name="FirstName" placeholder="Type your answer here" >
+                        <input type="text" class="acronym_answer_box" name="answer" placeholder="Type your answer here" >
                       </div>';
               
               }
 
-              
+                    
 
 
 
@@ -144,6 +177,7 @@
           
        </div>
       <form >
+
           <div class="next_and_previous_button">
 
             <button class="btn btn-info nextpreviousbutton" id="previous" name="previousquestion" type="submit" <?php
@@ -159,6 +193,8 @@
             }
                 ?>>NEXT <span class="glyphicon glyphicon-forward"></span></button>
           </div>
+
+
     </form>
     <button class="btn btn-large btn-block btn-primary submitbutton" type="submit" style="margin-top:100px;" name="submittest">Submit Test</button>
     </div>
@@ -212,7 +248,7 @@
   </script> 
 
 <?php 
-    //die(var_dump($e));
-    //die(var_dump($e[$question_num]['question_type'] == 'Essay'));
+
+     //die(var_dump($_POST['answer']));
     include 'includes/footer.php';
 ?>

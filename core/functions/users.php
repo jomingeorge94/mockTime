@@ -97,6 +97,37 @@ function insert_student_summary ($exam_id, $user_id, $category_id, $start_time, 
 
 
 
+//function to add student result on each next click during an exam
+function insert_student_result ($user_id, $exam_id, $question_id, $answer, $student_result_status) {
+		$data = array();
+
+		$result = mysql_query("INSERT INTO `mock_exam_student_result` (`user_id`, `exam_id`,`question_id`, `student_answer`, `student_result_status`) VALUES ('$user_id', '$exam_id', '$question_id', '$answer', '$student_result_status')");
+
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+
+		return $data;
+}
+
+
+
+
+
+
+//function to retrieve student result 
+function retrieve_student_result ($user_id, $exam_id, $question_id) {
+		$data = array();
+// data is fine, problem is query.
+		$result = mysql_query("SELECT `student_answer` from `mock_exam_student_result` WHERE `user_id` = $user_id AND `exam_id` = $exam_id AND `question_id` = $question_id LIMIT 1");
+		$row = mysql_fetch_assoc($result);
+// okay the query works hmmmm I wonder oh i know.
+		
+		return $row ["student_answer"];
+}
+
+
+
 
 function get_student_summary ($id) {
 		$data = array();
@@ -373,6 +404,16 @@ function get_faq(){
 		$data [] = $row;
 	}
     return $data;
+}
+
+//function to update student result on each next click during an exam
+function update_student_result ($user_id, $exam_id, $question_id, $studentanswer) {
+	if(empty($user_id) || empty($exam_id) || empty($question_id))
+		return false;
+
+		mysql_query("UPDATE `mock_exam_student_result` SET `student_answer` = '$studentanswer' WHERE `user_id` = '$user_id' AND `exam_id` = '$exam_id' AND `question_id` = '$question_id'");
+		return true;
+		
 }
 
 
