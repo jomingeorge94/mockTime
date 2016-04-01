@@ -25,7 +25,6 @@
       $_SESSION['questionNumber']=$_SESSION['questionNumber']+1;
     }
 
-    var_dump($_SESSION['questionNumber']);
 
   }
 
@@ -35,7 +34,6 @@
       $_SESSION['questionNumber']=$_SESSION['questionNumber']-1;
     }
 
-    var_dump($_SESSION['questionNumber']);
   }
 
 	if (user_logged_in() === true){
@@ -72,7 +70,6 @@
     <input type="hidden" value="<?php echo ($_SESSION["chosen_exam_category_id"]); ?>" name="ecategoryid">
 
     <?php
-    var_dump($_POST['raw_questionid']);
       $e = get_questions_from_exam($_SESSION['chosen_exam_id']); 
 
       
@@ -83,6 +80,7 @@
 
       //student result is getting stored into the database
       $student_result = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $e[$question_num]['question_id']);
+      $student_result2 = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $_POST['raw_questionid']);
 
 
     ?>
@@ -97,18 +95,17 @@
             <?php 
               
               echo '<div class="chosen_exam_questions_class">' . $e[$question_num]['question_name'] . '</div>';
-// I can fix this a cleverer way I think.... raff, please can i tell you soething quick i $_SESSION['questionNumber']kn ow i am fgoing to fix this in a cleverer way in the DB I hopeo.k..
-              // I know the bug and I know how to fix this :) okay.aha ok show me where the POST FORM HTM LIS
+
               if(isset($_POST['raw_questionid'])){
-              if(!is_null($student_result)) {
+              if(!is_null($student_result2)) {
 
                 update_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer']);
 
 
               } else {
-                        
+
                         insert_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer'], 'in_progress');
-              }} // this sohuld fix .... 
+              }} 
 
 
 
@@ -264,6 +261,5 @@
 
 <?php 
 
-     //die(var_dump($_POST['answer']));
     include 'includes/footer.php';
 ?>
