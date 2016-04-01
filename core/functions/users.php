@@ -100,7 +100,7 @@ function insert_student_summary ($exam_id, $user_id, $category_id, $start_time, 
 //function to add student result on each next click during an exam
 function insert_student_result ($user_id, $exam_id, $question_id, $answer, $student_result_status) {
 		$data = array();
-
+// this is a very obscure bug it might be because of how you do POSTs on the HTML side let me take look at it 
 		$result = mysql_query("INSERT INTO `mock_exam_student_result` (`user_id`, `exam_id`,`question_id`, `student_answer`, `student_result_status`) VALUES ('$user_id', '$exam_id', '$question_id', '$answer', '$student_result_status')");
 
 		while ($row = mysql_fetch_assoc($result)) {
@@ -115,16 +115,18 @@ function insert_student_result ($user_id, $exam_id, $question_id, $answer, $stud
 
 
 
+
 //function to retrieve student result 
 function retrieve_student_result ($user_id, $exam_id, $question_id) {
 		$data = array();
-// data is fine, problem is query.
+
 		$result = mysql_query("SELECT `student_answer` from `mock_exam_student_result` WHERE `user_id` = $user_id AND `exam_id` = $exam_id AND `question_id` = $question_id LIMIT 1");
 		$row = mysql_fetch_assoc($result);
-// okay the query works hmmmm I wonder oh i know.
-		
+
 		return $row ["student_answer"];
 }
+
+
 
 
 

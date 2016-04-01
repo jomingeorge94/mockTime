@@ -1,9 +1,7 @@
 <?php 
 	include 'core/session.php';
 	include 'includes/head.php';
-
   
-
   if(isset($_REQUEST['submittest'])) {
     $date_clicked = new DateTime();
     $date_clicked->setTimeZone(new DateTimeZone('Europe/London'));
@@ -20,10 +18,14 @@
   }
 
   if(isset($_REQUEST['nextquestion'])) {
+
+    
     
     if((int)$_SESSION['questionNumber']<count_questions_of_an_exam($_SESSION['chosen_exam_id'])) {
       $_SESSION['questionNumber']=$_SESSION['questionNumber']+1;
     }
+
+    var_dump($_SESSION['questionNumber']);
 
   }
 
@@ -32,6 +34,8 @@
     if((int)$_SESSION['questionNumber']>=1){
       $_SESSION['questionNumber']=$_SESSION['questionNumber']-1;
     }
+
+    var_dump($_SESSION['questionNumber']);
   }
 
 	if (user_logged_in() === true){
@@ -68,35 +72,18 @@
     <input type="hidden" value="<?php echo ($_SESSION["chosen_exam_category_id"]); ?>" name="ecategoryid">
 
     <?php
-
+    var_dump($_POST['raw_questionid']);
       $e = get_questions_from_exam($_SESSION['chosen_exam_id']); 
+
+      
       $question_and_answers = get_questions_from_exam_and_answers($_SESSION['chosen_exam_id']); //all the questions and asnwers that belongs to an exam
 
       //current exam question 
-        $question_num = $_SESSION['questionNumber']; 
-      
-      //student result is getting stored into the database
+      $question_num = $_SESSION['questionNumber']; 
 
-      //gets the answer that user set for each question  ----------------------------------------------V check this value. make sure its right okay im done, any further work = MONEY.
+      //student result is getting stored into the database
       $student_result = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $e[$question_num]['question_id']);
 
-     // it should be rigt ??because no ANSWER YET ???? that not answered is a f beaut fbuau bltu  bu but i typed an answer earlier but it didnt update.yeah but that waittttt p lEIA SEK NOW I K NOW. no need to tell me its no in the db.
-      // fucking shit code...
-
-      if(!is_null($student_result)) {
-        //die(var_dump('INSERT'));
-                update_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $e[$question_num]['question_id'], $_POST['answer']);
-
-
-      } else {
-                insert_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $e[$question_num]['question_id'], $_POST['answer'], 'in_progress');
-
-        //die(var_dump('UPDATE'));
-      }
-
-      
-
-      
 
     ?>
     <?php $totalquestions = count_questions_of_an_exam($_SESSION['chosen_exam_id']);?>
@@ -110,34 +97,63 @@
             <?php 
               
               echo '<div class="chosen_exam_questions_class">' . $e[$question_num]['question_name'] . '</div>';
-              
+// I can fix this a cleverer way I think.... raff, please can i tell you soething quick i $_SESSION['questionNumber']kn ow i am fgoing to fix this in a cleverer way in the DB I hopeo.k..
+              // I know the bug and I know how to fix this :) okay.aha ok show me where the POST FORM HTM LIS
+              if(isset($_POST['raw_questionid'])){
+              if(!is_null($student_result)) {
+
+                update_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer']);
+
+
+              } else {
+                        
+                        insert_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer'], 'in_progress');
+              }} // this sohuld fix .... 
+
+
+
+
+
 
               if ($e[$question_num]['question_type'] == 'Essay') {
-               
+
+
+
                 echo '<div class="form-group">
-                        <textarea class="form-control noresize" name="answer" placeholder="Please specify your answer"></textarea>
+                        <textarea class="form-control noresize" name="answer" placeholder="Please specify your answer"> '. $student_result .  ' </textarea>
                       </div>';
               
               }
               echo '<hr>';
               if ($e[$question_num]['question_type'] == 'True_False') {
-               
+               if($student_result == 1)
                 echo '<div class="form-group trueorfalse">
-                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input class="" type="radio" id="category" name="answer" value="1" /> True </label>
+                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input class="" type="radio" id="category" name="answer" value="1" checked /> True </label>
                         <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input type="radio" id="category" name="answer" value="0" /> False </label>
+                      </div>';
+                else
+                  echo '<div class="form-group trueorfalse">
+                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input class="" type="radio" id="category" name="answer" value="1" /> True </label>
+                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input type="radio" id="category" name="answer" value="0" checked /> False </label>
                       </div>';
               
               }
+
               echo '<hr>';
               if ($e[$question_num]['question_type'] == 'Multiple_Choice') {
+
                 
+
+
+
                 $questionNumber = $question_and_answers[$question_num]['question_id']; //get the question id by passing in the exam id and the current question
                 $questions_and_answer_from_question = get_all_answers_belongToOne_question($questionNumber); //pass in the question id so collect all the details of the specified question and it's answers
                 $count  = count_answers_belongToOne_question($questionNumber)[0]['count(*)']; //counting all the answers for a question
-// WHY NOT JUST CALL THE NAME OF THE ANSWER ANSWER THEN YOU DONT HAVE TO WORRY ABOUT DIFF NAMES ??? so if I give it name as the name , would it only bring t let me try now
-                echo '<select class="form-control multiplechose_questionTypes" name="answer" id="multiple_choice_student_chosen">
-                      <option class="multiplechoiceguessess" value=""disabled selected>Select the answer</option>';
-
+                echo '<select class="form-control multiplechose_questionTypes" name="answer" id="multiple_choice_student_chosen">';
+                if(is_null($student_result))
+                      echo  '<option class="multiplechoiceguessess" value=""disabled selected>Select the answer</option>';
+                    else
+                      echo '<option class="multiplechoiceguessess" value="'. $student_result . '"selected>' . $student_result . '</option>';
                       for($i = 0; $i < $count; $i++) {
                           
                           echo '<option class="multiplechoiceguessess">'; echo $questions_and_answer_from_question[$i]['answer_name']; '</option>';
@@ -152,23 +168,20 @@
               if ($e[$question_num]['question_type'] == 'Fill_Blank') {
                
                 echo '<div class="form-group fillblankquestiontype">
-                        <input type="text" class="fill_in_blank_answer_box" name="answer" placeholder="Type your answer here" >
+                        <input type="text" class="fill_in_blank_answer_box" value=" ' . $student_result .'" name="answer" placeholder="Type your answer here" >
                       </div>';
               
               }
-              //die(var_dump($e));
+
               if ($e[$question_num]['question_type'] == 'Acronym_Answer') {
                
                 echo '<div class="form-group fillblankquestiontype">
-                        <input type="text" class="acronym_answer_box" name="answer" placeholder="Type your answer here" >
+                        <input type="text" class="acronym_answer_box" name="answer" value="' . $student_result .'" placeholder="Type your answer here" >
                       </div>';
               
               }
 
                     
-
-
-
             ?>
 
             
@@ -178,7 +191,9 @@
        </div>
       <form >
 
+
           <div class="next_and_previous_button">
+                <input type="hidden" value="<?php echo ($e[$question_num]['question_id']); ?>" name="raw_questionid">  
 
             <button class="btn btn-info nextpreviousbutton" id="previous" name="previousquestion" type="submit" <?php
             if ($_SESSION['questionNumber'] < 1) {
