@@ -8,7 +8,6 @@
     if (user_logged_in() === true){
          include 'includes/navigationloggedinmodified.php';
 
-         
 ?>
 
 <body>
@@ -27,7 +26,8 @@
                           <th style="text-align: center;">Exam Duration</th>
                           <th style="text-align: center;">Date and Time</th>
                           <th style="text-align: center;">Time Spent</th>
-                          <th style="text-align: center;">Percentage</th>
+                          <th style="text-align: center;">Maximum Mark</th>
+                          <th style="text-align: center;">Status</th>
                           <th style="text-align: center;">Actions</th>
 
                       </tr>
@@ -39,16 +39,16 @@
 
                      
                       <tr>
-                          <td style="text-align: left;"><?php echo $r['quiz_name'] ?></td> 
+                          <td style="text-align: center;"><?php echo $r['quiz_name'] ?></td> 
 
-                          <td style="text-align: left;"><?php echo $r['category_name'] ?></td> 
+                          <td style="text-align: center;"><?php echo $r['category_name'] ?></td> 
 
 
-                          <td style="text-align: left;"><?php echo $r['quiz_duration'] ?> Minutes</td> 
+                          <td style="text-align: center;"><?php echo $r['quiz_duration'] ?> Minutes</td> 
                           
-                          <td style="text-align: left;"><?php echo date("D d F Y,  H:i:s", strtotime($r['exam_start_time'])); ?></td> 
+                          <td style="text-align: center;"><?php echo date("D d F Y,  H:i:s", strtotime($r['exam_start_time'])); ?></td> 
 
-                          <td style="text-align: left;">
+                          <td style="text-align: center;">
                           	<?php
 
                           			$start_date = $r['exam_start_time'];
@@ -61,9 +61,18 @@
               									echo sprintf("%02d%s%02d%s%02d", floor($difference/3600), ':', ($difference/60)%60, ':', $difference%60); 
 	
                           	?> 
-                          </td> 
+                          </td>
 
-                          <td style="text-align: left;"><?php  ?></td> 
+
+                          
+
+                          <td style="text-align: center;">
+                            <?php 
+                                echo $r['total_questions'] * 10;
+                            ?>
+                          </td>  
+
+                          <td style="text-align: center;"></td> 
 
                           <td style="text-align: center;">
                           	<a href="#" class="btn btn-success"><i class="fa fa-file-pdf-o"></i> Save as PDF</a>

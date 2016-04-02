@@ -82,9 +82,14 @@
       $student_result = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $e[$question_num]['question_id']);
       $student_result2 = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $_POST['raw_questionid']);
 
+      $totalquestions = count_questions_of_an_exam($_SESSION['chosen_exam_id']);
+
+      insert_total_questions_into_quiz ($totalquestions[0], $_SESSION['chosen_exam_id'], $_SESSION['chosen_exam_time'], $_SESSION['chosen_exam_category']);
 
     ?>
-    <?php $totalquestions = count_questions_of_an_exam($_SESSION['chosen_exam_id']);?>
+    
+
+
 
     <div class = "panel panel-primary student_question_area">
        <div class = "panel-heading student_question_heading">

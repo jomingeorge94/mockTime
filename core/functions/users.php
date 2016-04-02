@@ -100,8 +100,21 @@ function insert_student_summary ($exam_id, $user_id, $category_id, $start_time, 
 //function to add student result on each next click during an exam
 function insert_student_result ($user_id, $exam_id, $question_id, $answer, $student_result_status) {
 		$data = array();
-// this is a very obscure bug it might be because of how you do POSTs on the HTML side let me take look at it 
+
 		$result = mysql_query("INSERT INTO `mock_exam_student_result` (`user_id`, `exam_id`,`question_id`, `student_answer`, `student_result_status`) VALUES ('$user_id', '$exam_id', '$question_id', '$answer', '$student_result_status')");
+
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+
+		return $data;
+}
+
+
+function insert_total_questions_into_quiz ($total_question, $quiz_id, $quiz_duration, $quiz_category_id) {
+		$data = array();
+		
+		$result = mysql_query("UPDATE `mock_exam_quiz` SET `total_questions` = '$total_question' WHERE `quiz_id` = '$quiz_id' AND `quiz_duration` = '$quiz_duration' AND `quiz_category_id` = '$quiz_category_id'");
 
 		while ($row = mysql_fetch_assoc($result)) {
 		    $data [] = $row;

@@ -40,7 +40,7 @@
                 $exam_finish_time =  $finished_time->format('Y-m-d H:i:s');
 
                
-                //insert_student_summary($examid, $_SESSION['user_id'], $examcategoryid, $triggerOn, $exam_finish_time);
+                insert_student_summary($examid, $_SESSION['user_id'], $examcategory, $triggerOn, $exam_finish_time);
                 
                 redirect(generate_site_link("exam"));
 
