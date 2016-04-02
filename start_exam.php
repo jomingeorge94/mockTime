@@ -6,6 +6,7 @@
 
     if (user_logged_in() === true){
          include 'includes/navigationloggedinmodified.php';
+
 ?>
 <body>
     <div class="container profile">
@@ -33,7 +34,7 @@
                                           <div class="padding10"></div>
                                           <div class="help-block startExam">Exam Subject &nbsp&nbsp: <strong><?php if($r[1]==null) {echo 'No Data';} else {echo $r[1];} ?></strong></div>
                                           <div class="help-block startExam" name="etime">Exam Duration&nbsp&nbsp: <strong><?php if($r[3]==null) {echo 'No Data';} else {echo $r[3] . " Minutes";}?></strong></div>
-                                          <div class="help-block startExam">Exam Date & Time&nbsp&nbsp: <strong><?php if ($r[7]==null) {echo 'No Data';} else {echo date("D d F Y,  H:i:s", strtotime(safe_output($r[7])));} ?> </strong></div>
+                                          <div class="help-block startExam">Exam Date & Time&nbsp&nbsp: <strong><?php if ($r[8]==null) {echo 'No Data';} else {echo date("D d F Y,  H:i:s", strtotime(safe_output($r[8])));} ?> </strong></div>
                                           <button class="btn btn-success startExamSubmitButton" type="submit">Enter Exam</button>
                                         </div>
 

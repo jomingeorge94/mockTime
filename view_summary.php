@@ -59,6 +59,8 @@
               									$difference = $end_time - $start_time;
 
               									echo sprintf("%02d%s%02d%s%02d", floor($difference/3600), ':', ($difference/60)%60, ':', $difference%60); 
+
+                                insert_time_taken_for_exam(sprintf("%02d%s%02d%s%02d", floor($difference/3600), ':', ($difference/60)%60, ':', $difference%60), $r["student_summary_id"]);
 	
                           	?> 
                           </td>
@@ -72,10 +74,24 @@
                             ?>
                           </td>  
 
-                          <td style="text-align: center;"></td> 
+                            
 
                           <td style="text-align: center;">
-                          	<a href="#" class="btn btn-success"><i class="fa fa-file-pdf-o"></i> Save as PDF</a>
+                            <?php 
+                            if ($r['exam_result_status'] == 0) {
+                              echo '<span class="label label-pill label-warning marking">TBC</span>';
+                            } else if($r['exam_result_status'] == 1) {
+                              echo '<span class="label label-pill label-info marking">Marked</span>';
+                            } else {
+                              echo 'No Data';
+                            }
+
+                            ?>
+                          </td> 
+
+                          <td style="text-align: center;">
+                          	<a href="<?php echo generate_admin_link("exam_results_pdf", "quiz_id=" . ($r["quiz_id"]) . "&" .  "student_sum_id=" . ($r["student_summary_id"]) . "&" . get_all_get_params(array("id"))); ?>" class="btn btn-success"><i class="fa fa-file-pdf-o"></i> Save as PDF</a>
+                            
                           	<a href="#" class="btn btn-danger"><i class="fa fa-print"></i> Print</a>
                           	<a href="#" class="btn btn-primary"><i class="fa fa-eye"></i> View</a>
                           </td> 

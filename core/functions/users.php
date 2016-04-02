@@ -124,9 +124,17 @@ function insert_total_questions_into_quiz ($total_question, $quiz_id, $quiz_dura
 }
 
 
+function insert_time_taken_for_exam($time_taken, $student_sum_id){
+	$data = array();
+		
+		$result = mysql_query("UPDATE `mock_exam_student_summary` SET `time_taken` = '$time_taken' WHERE `student_summary_id` = '$student_sum_id'");
 
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
 
-
+		return $data;
+}
 
 
 //function to retrieve student result 
@@ -193,6 +201,19 @@ function count_answers_belongToOne_question($questionid){
 	$data = array();
 
 	$result = mysql_query("SELECT count(*) FROM mock_exam_questions a, mock_exam_answers b WHERE b.question_id = a.question_id AND a.question_id = '$questionid'");
+
+	while ($row = mysql_fetch_assoc($result)) {
+	    $data [] = $row;
+	}
+
+	return $data;
+}
+
+function retrieve_exam_user_detail_basedon_student_summaryid ($stud_sum_id,$quiz_id) {
+	
+	$data = array();
+
+	$result = mysql_query("SELECT a.*, b.* FROM mock_exam_student_summary a, mock_exam_quiz b WHERE a.student_summary_id = '$stud_sum_id' AND b.quiz_id = '$quiz_id' ");
 
 	while ($row = mysql_fetch_assoc($result)) {
 	    $data [] = $row;
@@ -362,6 +383,8 @@ function add_answer($qid, $a_name, $is_true){
 
 
 
+
+
 //function to get all the questions from an exam
 function get_questions_from_exam($examid){
 	$data = array();
@@ -385,6 +408,11 @@ function count_questions_of_an_exam($examid){
 	$query = mysql_query("SELECT COUNT(*) FROM `mock_exam_questions` WHERE `quiz_id` = '$examid'");
 	return mysql_fetch_row($query);
 
+}
+
+function getuserdetail ($user_id) {
+	$query = mysql_query("SELECT * FROM `mock_exam_users` WHERE `user_id` = '$user_id'");
+	return mysql_fetch_row($query);
 }
 
 
