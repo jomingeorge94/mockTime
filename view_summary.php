@@ -79,6 +79,7 @@
 
                           <td style="text-align: center;">
                             <?php 
+                            
                             if ($r['exam_result_status'] == 0) {
                               echo '<span class="label label-pill label-warning marking">TBC</span>';
                             } else if($r['exam_result_status'] == 1) {

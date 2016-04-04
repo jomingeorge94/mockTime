@@ -13,7 +13,13 @@
    
     $user_detail = getuserdetail ($retrieving_data[0]['user_id']);
 
-    //var_dump($user_detail);
+   
+
+    $question_and_answers = get_questions_from_exam($retrieving_data[0]['quiz_id']); //all the questions and asnwers that belongs to an exam
+
+    //die(var_dump($retrieving_data));
+
+    //var_dump($question_and_answers);
 ?>
 
 <body>
@@ -60,30 +66,110 @@
 
                     <tr>
                         <td style="text-align: left;">Score%:</td>
-                        <td style="text-align: left;">0% </td>
+                        <td style="text-align: left;">
+                          <?php 
+
+                            if ($retrieving_data[0]['student_result'] == "Pending") {
+                                echo '<span class="label label-pill label-danger marking">Pending</span>';
+                            } else {
+                                echo $retrieving_data[0]['student_result'];
+                            } 
+                          ?>
+                        </td>
                     </tr>
 
                     <tr>
                         <td style="text-align: left;">Marking Status:</td>
-                        <td style="text-align: left;"><?php 
-                                                            if ($r['exam_result_status'] == 0) {
-                                                                  echo '<span class="label label-pill label-warning marking">TBC</span>';
-                                                                } else if($r['exam_result_status'] == 1) {
-                                                                  echo '<span class="label label-pill label-info marking">Marked</span>';
-                                                                } else {
-                                                                  echo 'No Data';
-                                                                } 
-                                                      ?>
+                        <td style="text-align: left;">
+                          <?php 
+
+                            if ($retrieving_data[0]['exam_result_status'] == 0) {
+                                echo '<span class="label label-pill label-warning marking">TBC</span>';
+                            } else if($retrieving_data[0]['exam_result_status'] == 1) {
+                                echo '<span class="label label-pill label-info marking">Marked</span>';
+                            } else {
+                                echo 'No Data';
+                            } 
+                          ?>
                         </td>
                     </tr>
 
                   </tbody>
 
                 </table>
-                     
 
-                    
+                <div >
+                  <h2 class="review_user_answers_heading">Review your exam</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  
+
+                </div>    
     </div>
+
+
 <?php
     }else{ 
         header('Location: index.php');
