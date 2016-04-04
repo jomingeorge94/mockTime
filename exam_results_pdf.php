@@ -7,10 +7,11 @@
     //die(var_dump($retrieving_data));
     $user_detail = getuserdetail ($retrieving_data[0]['user_id']);
     
-    
+    $exam_Status;
+    $status = $retrieving_data[0]["exam_result_status"]; if($status == 0){$exam_Status = 'TBC';} else {$exam_Status = 'Marked';}
 
     $title = $retrieving_data[0]['quiz_name'];
-	$filename = $retrieving_data[0]['quiz_name'] ." - Result.pdf";
+    $filename = $retrieving_data[0]['quiz_name'] ." - Result.pdf";
 	
     // set page margins and page type
     $mpdf = new mPDF('utf-8', 'A4', 0, '', '10', '10', '25', '10', '5', '5', 'L');
@@ -23,7 +24,7 @@
     $stylesheet3 = file_get_contents(get_site_url() . 'bootstrap/css/print_style.css');
     $mpdf->WriteHTML($stylesheet3, 1);*/
 
-    // if you want to show watermark
+    //to show watermark
     if (true) {
         $mpdf->SetWatermarkText('mockTime');
         $mpdf->showWatermarkText = true;
@@ -31,14 +32,14 @@
     }
 
 
-    $headerHTML = '<table cellspacing="0" cellpadding="0" width="100%" style="background-color:#140D40;color:#fff;border:none;width:100%;border-collapse:collapse; margin:auto;">'
+    $headerHTML = '<table cellspacing="0" cellpadding="0" width="100%" style="background-color:#140D40;color:#fff;border:none;width:100%;border-collapse:collapse; margin-top:auto;">'
             . '<tr>'
-            . '<td width="100%" valign="top" align="left"><h2>mockTime</h2><p style="font-size:12px;">Student Name : '. $user_detail[3] .' '. $user_detail[4] .' </p> </td>'
+            . '<td width="100%"  valign="top" align="left"><br><h2>mockTime</h2><p style="font-size:12px;">Student Name : '. $user_detail[3] .' '. $user_detail[4] .'</p></td>'
             . '</tr></table><div style="width:100%;border-top:1px solid #000;height:10px;"></div>';
 
     $footerHTML = '<div style="width:100%;border-top:1px solid #000;height:10px;"></div><table cellspacing="0" cellpadding="0" width="100%" style="border:none;width:100%;border-collapse:collapse; margin:auto;">'
             . '<tr>'
-            . '<td width="100%" valign="middle" align="left">Generated time: ' . date("l jS \of F Y h:i:s A") . '</td>'
+            . '<td width="100%" valign="middle" align="left">Generated time: ' .  date("l jS \of F Y h:i:s A e") . '</td>'
             . '</tr></table>';
 
     $mpdf->SetHTMLHeader($headerHTML);
@@ -60,6 +61,10 @@
         <tr>
           <td style="text-align: left;">Correct Answers:</td>
           <td style="text-align: left;">'. $results[0]["tr_correct_answer"] .'</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">Exam Status:</td>
+          <td style="text-align: left;">'. $exam_Status .'</td>
         </tr>
         <tr>
           <td style="text-align: left;">Time Taken:</td>
