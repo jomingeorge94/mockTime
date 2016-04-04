@@ -8,6 +8,7 @@
     if (user_logged_in() === true){
          include 'includes/navigationloggedinmodified.php';
 
+//s
 ?>
 
 <body>
