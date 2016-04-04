@@ -17,9 +17,11 @@
 
     $question_and_answers = get_questions_from_exam($retrieving_data[0]['quiz_id']); //all the questions and asnwers that belongs to an exam
 
-    //die(var_dump($retrieving_data));
+    $total_questions_for_exam = $retrieving_data[0]['total_questions'];
+    
+  //die(var_dump($question_and_answers[0]));
 
-    //var_dump($question_and_answers);
+    
 ?>
 
 <body>
@@ -52,11 +54,6 @@
                     <tr>
                         <td style="text-align: left;">Total Questions:</td>
                         <td style="text-align: left;"><?php echo $retrieving_data[0]['total_questions']; ?></td>
-                    </tr>
-
-                    <tr>
-                        <td style="text-align: left;">Correct Answers:</td>
-                        <td style="text-align: left;">0</td>
                     </tr>
 
                     <tr>
@@ -108,7 +105,15 @@
 
 
 
+            <?php 
 
+            for ($i=0; $i<=$total_questions_for_exam; $i++) {
+              echo $question_and_answers[$i]['question_name'];
+              echo '</br>';
+            }
+
+
+            ?>
 
 
 
