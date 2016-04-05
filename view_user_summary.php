@@ -106,10 +106,39 @@
 
 
             <?php 
+            //die(var_dump($question_and_answers));
 
-            for ($i=0; $i<=$total_questions_for_exam; $i++) {
-              echo $question_and_answers[$i]['question_name'];
-              echo '</br>';
+            for ($i=1; $i<=$total_questions_for_exam; $i++) {
+
+             echo '   <table class="table table-bordered table-condensed table-datatable table-hover">
+                        <tbody>
+
+                            <tr>
+                                <td style="text-align: left;" width="100%"><strong>Question '. $i .'</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left;" width="100%">
+                                    In International Test Cricket which player has most runs in an innings</td>
+                            </tr>
+                    
+                    
+                            <tr>
+                                <td style="text-align: left;" width="100%" class="warning">
+                                    <em>Question Not attempted</em><br>
+                                    <strong>Correct Answer is</strong><br>Brian Lara </td>
+                            </tr>
+
+                            <tr>
+                                <td style="height: 5px;" width="100%">&nbsp;</td>
+                            </tr>
+                    
+                            <tr>
+                            <td style="height: 5px;" width="100%">&nbsp;</td>
+                            </tr>
+
+                        </tbody>
+                        </table>';
+              
             }
 
 
