@@ -209,6 +209,19 @@ function count_answers_belongToOne_question($questionid){
 	return $data;
 }
 
+//function to get correct answer for a question
+function count_answers_belongToOne_questionNew($questionid){
+	$data = array();
+
+	$result = mysql_query("SELECT a.*, b.* FROM mock_exam_questions a, mock_exam_answers b WHERE b.question_id = a.question_id AND a.question_id = '$questionid' AND b.is_true = 1");
+
+	while ($row = mysql_fetch_assoc($result)) {
+	    $data [] = $row;
+	}
+
+	return $data;
+}
+
 function retrieve_exam_user_detail_basedon_student_summaryid ($stud_sum_id,$quiz_id) {
 	
 	$data = array();

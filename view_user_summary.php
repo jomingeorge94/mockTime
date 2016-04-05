@@ -17,9 +17,15 @@
 
     $question_and_answers = get_questions_from_exam($retrieving_data[0]['quiz_id']); //all the questions and asnwers that belongs to an exam
 
+    
+
+
+
+    $quandans = get_questions_from_exam_and_answers($retrieving_data[0]['quiz_id']);
+
     $total_questions_for_exam = $retrieving_data[0]['total_questions'];
     
-  //die(var_dump($question_and_answers[0]));
+    
 
     
 ?>
@@ -106,26 +112,25 @@
 
 
             <?php 
-            //die(var_dump($question_and_answers));
-
-            for ($i=1; $i<=$total_questions_for_exam; $i++) {
-
+            
+            //die(var_dump($question_and_answers[0]));
+            
+            for ($i=0; $i<$total_questions_for_exam; $i++) {
+            $question_id= $question_and_answers[$i]['question_id'];
+            $numberofanswersperquestion = count_answers_belongToOne_questionNew($question_id);
              echo '   <table class="table table-bordered table-condensed table-datatable table-hover">
                         <tbody>
 
                             <tr>
-                                <td style="text-align: left;" width="100%"><strong>Question '. $i .'</strong></td>
+                                <td style="text-align: left;" width="100%"><strong>Question '. ($i+1) .'</strong></td> 
                             </tr>
                             <tr>
-                                <td style="text-align: left;" width="100%">
-                                    In International Test Cricket which player has most runs in an innings</td>
+                                <td style="text-align: left;" width="100%">' . $question_and_answers[$i]['question_name'] .'</td>
                             </tr>
                     
                     
                             <tr>
-                                <td style="text-align: left;" width="100%" class="warning">
-                                    <em>Question Not attempted</em><br>
-                                    <strong>Correct Answer is</strong><br>Brian Lara </td>
+                                <td style="text-align: left;" width="100%" class="warning"><em>Question Not attempted</em><br><strong>Correct Answer is</strong><br>' . $numberofanswersperquestion[0]['answer_name'] . '</td>
                             </tr>
 
                             <tr>
