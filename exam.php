@@ -103,7 +103,7 @@
 
               if(isset($_POST['raw_questionid'])){
               if(!is_null($student_result2)) {
-
+                
                 update_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer']);
 
 
@@ -143,10 +143,6 @@
 
               echo '<hr>';
               if ($e[$question_num]['question_type'] == 'Multiple_Choice') {
-
-                
-
-
 
                 $questionNumber = $question_and_answers[$question_num]['question_id']; //get the question id by passing in the exam id and the current question
                 $questions_and_answer_from_question = get_all_answers_belongToOne_question($questionNumber); //pass in the question id so collect all the details of the specified question and it's answers

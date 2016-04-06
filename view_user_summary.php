@@ -111,14 +111,20 @@
 
 
 
+
             <?php 
             
-            //die(var_dump($question_and_answers[0]));
-            
+                       
+
             for ($i=0; $i<$total_questions_for_exam; $i++) {
+            //var_dump($student_answer_per_question === '' || '')
             $question_id= $question_and_answers[$i]['question_id'];
             $numberofanswersperquestion = count_answers_belongToOne_questionNew($question_id);
-             echo '   <table class="table table-bordered table-condensed table-datatable table-hover">
+            //die(var_dump($question_id)); 
+            $student_answer_per_question = retrieve_student_result ($_SESSION['user_id'], $_GET['quiz_id'], $question_id);
+            $correct_answer = $numberofanswersperquestion[0]['answer_name'];
+
+             echo '   <table class="table table-bordered table-condensed table-datatable table-hover review_marks">
                         <tbody>
 
                             <tr>
@@ -126,14 +132,41 @@
                             </tr>
                             <tr>
                                 <td style="text-align: left;" width="100%">' . $question_and_answers[$i]['question_name'] .'</td>
-                            </tr>
-                    
-                    
-                            <tr>
-                                <td style="text-align: left;" width="100%" class="warning"><em>Question Not attempted</em><br><strong>Correct Answer is</strong><br>' . $numberofanswersperquestion[0]['answer_name'] . '</td>
-                            </tr>
+                            </tr>';
 
-                            <tr>
+                            if($student_answer_per_question == '') 
+                              echo  '<tr>
+                                <td style="text-align: left;" width="100%" class="warning"><em>Question Not attempted</em><br><strong>Correct Answer is </strong><br>' . $numberofanswersperquestion[0]['answer_name'] . '</td>
+                            </tr>';
+                            
+                            
+                            else if ($student_answer_per_question == $correct_answer)
+                                
+                             echo  '<tr>
+                                        <td style="text-align: left;" width="100%" class="success"><strong>Your answer is correct.</strong><br>' . $student_answer_per_question .'</td>
+                                    </tr>';
+
+                            else 
+                                echo    '<tr>
+                                            <td style="text-align: left;" width="100%" class="danger">
+                                                <table style="width: 100%">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th style="width: 50%"><strong>Your Answer</strong></th>
+                                                            <th style="width: 50%"><strong>Correct Answer</strong></th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width: 50%">' . $student_answer_per_question . '</td>
+                                                            <td style="width: 50%">' . $correct_answer .'</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>';
+                            
+                            echo 
+
+                            '<tr>
                                 <td style="height: 5px;" width="100%">&nbsp;</td>
                             </tr>
                     
