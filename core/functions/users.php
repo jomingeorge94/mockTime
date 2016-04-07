@@ -124,6 +124,38 @@ function insert_total_questions_into_quiz ($total_question, $quiz_id, $quiz_dura
 }
 
 
+
+
+
+
+
+
+function update_student_result_for_each_question ($user_id, $exam_id, $question_id, $mark) {
+		$data = array();
+		
+		$result = mysql_query("UPDATE `mock_exam_student_result` SET `student_result_status` = '$mark' WHERE `user_id` = '$user_id' AND `exam_id` = '$exam_id' AND `question_id` = '$question_id'");
+
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+		
+		return $data;
+		
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function insert_time_taken_for_exam($time_taken, $student_sum_id){
 	$data = array();
 		

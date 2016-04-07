@@ -1,7 +1,7 @@
 <?php 
 	include 'core/session.php';
 	include 'includes/head.php';
-  
+ 
   if(isset($_REQUEST['submittest'])) {
     $date_clicked = new DateTime();
     $date_clicked->setTimeZone(new DateTimeZone('Europe/London'));
@@ -109,7 +109,7 @@
 
               } else {
 
-                        insert_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer'], 'in_progress');
+                        insert_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer'], '0');
               }} 
 
 
