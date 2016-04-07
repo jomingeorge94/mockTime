@@ -134,7 +134,7 @@
             //var_dump($student_answer_per_question === '' || '')
             $question_id= $question_and_answers[$i]['question_id'];
             $numberofanswersperquestion = count_answers_belongToOne_questionNew($question_id);
-            //die(var_dump($question_id)); 
+            $score = retrieve_student_result_status ($retrieving_data[0]['user_id'], $retrieving_data[0]['exam_id'], $question_id);
             $student_answer_per_question = retrieve_student_result ($_SESSION['user_id'], $_GET['quiz_id'], $question_id);
             $correct_answer = $numberofanswersperquestion[0]['answer_name'];
 
@@ -189,10 +189,17 @@
                         </tr>
 
                     </tbody>
-                </table>
+                </table>';
 
-                <div class="[ form-group ] correct_answer">
-                    <input type="checkbox" name="correct_answer_or_not[]" value="'.$question_id.'"  id="' . $question_id . '" autocomplete="off" />
+
+
+
+                
+                //var_dump($score[0]['student_result_status'] != 0);
+
+            if($score[0]['student_result_status'] != 0) {
+                echo '<div class="[ form-group ] correct_answer">
+                    <input type="checkbox" checked name="correct_answer_or_not[]" value="'.$question_id.'"  id="' . $question_id . '" autocomplete="off" />
                     <div class="[ btn-group ]">
                         <label for="' . $question_id . '" class="[ btn btn-primary ]">
                             <span class="[ glyphicon glyphicon-ok ]"></span>
@@ -203,6 +210,22 @@
                         </label>
                     </div>
                 </div>';
+            } else {
+                echo '<div class="[ form-group ] correct_answer">
+                    <input type="checkbox" unchecked name="correct_answer_or_not[]" value="'.$question_id.'"  id="' . $question_id . '" autocomplete="off" />
+                    <div class="[ btn-group ]">
+                        <label for="' . $question_id . '" class="[ btn btn-primary ]">
+                            <span class="[ glyphicon glyphicon-ok ]"></span>
+                            <span> </span>
+                        </label>
+                        <label for="' . $question_id . '" class="[ btn btn-default active ]">
+                            Correct Answer
+                        </label>
+                    </div>
+                </div>';
+            }
+
+
               
             }
 

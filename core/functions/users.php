@@ -180,6 +180,19 @@ function retrieve_student_result ($user_id, $exam_id, $question_id) {
 }
 
 
+//function to retrieve student result 
+function retrieve_student_result_status ($user_id, $exam_id, $question_id) {
+		$data = array();
+
+		$result = mysql_query("SELECT `student_result_status` from `mock_exam_student_result` WHERE `user_id` = $user_id AND `exam_id` = $exam_id AND `question_id` = $question_id");
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+
+		return $data;
+}
+
+
 
 
 
