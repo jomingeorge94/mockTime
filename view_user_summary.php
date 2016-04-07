@@ -96,13 +96,10 @@
                     </tr>
 
 
-                    <tr>
-                        <td style="text-align: left;">Time Spent:</td>
-                        <td style="text-align: left;"><?php echo $retrieving_data[0]['time_taken']; ?></td>
-                    </tr>
+                    
 
                     <tr>
-                        <td style="text-align: left;">Score:</td>
+                        <td style="text-align: left;">Gained Mark:</td>
                         <td style="text-align: left;">
                           <?php 
 
@@ -113,6 +110,16 @@
                             } 
                           ?>
                         </td>
+                    </tr>
+
+                    <tr>
+                        <td style="text-align: left;">Score %:</td>
+                        <td style="text-align: left;"><?php echo ($retrieving_data[0]['student_result']/10) / ($retrieving_data[0]['total_questions']) * 100?>%</td>
+                    </tr>
+
+                    <tr>
+                        <td style="text-align: left;">Time Spent:</td>
+                        <td style="text-align: left;"><?php echo $retrieving_data[0]['time_taken']; ?></td>
                     </tr>
 
                     <tr>

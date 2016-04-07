@@ -60,7 +60,7 @@
         </tr>
         <tr>
           <td style="text-align: left;">Correct Answers:</td>
-          <td style="text-align: left;">'. $results[0]["tr_correct_answer"] .'</td>
+          <td style="text-align: left;">'. $retrieving_data[0]["student_result"]/10 .'</td>
         </tr>
         <tr>
           <td style="text-align: left;">Exam Status:</td>
@@ -71,7 +71,7 @@
           <td style="text-align: left;">'. $retrieving_data[0]["time_taken"] .'</td>
         </tr>';
     
-        $v = ($results[0]["tr_correct_answer"]/$results[0]["tr_total_question"])*100; 
+        $v = ($retrieving_data[0]["student_result"]/10) / ($retrieving_data[0]["total_questions"]) *100; 
         
          $body .= '<tr>
           <td style="text-align: left;">Score%:</td>
