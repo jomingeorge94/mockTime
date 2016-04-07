@@ -124,13 +124,22 @@ function insert_total_questions_into_quiz ($total_question, $quiz_id, $quiz_dura
 }
 
 
+function update_student_result_for_each_question ($summary_id) {
+		$data = array();
+		
+		$result = mysql_query("UPDATE `mock_exam_student_summary` SET `exam_result_status` = 1 WHERE `student_summary_id` = '$summary_id'");
+
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+		
+		return $data;
+		
+}
 
 
 
-
-
-
-function update_student_result_for_each_question ($user_id, $exam_id, $question_id, $mark) {
+function update_student_mark_for_each_question ($user_id, $exam_id, $question_id, $mark) {
 		$data = array();
 		
 		$result = mysql_query("UPDATE `mock_exam_student_result` SET `student_result_status` = '$mark' WHERE `user_id` = '$user_id' AND `exam_id` = '$exam_id' AND `question_id` = '$question_id'");
@@ -151,6 +160,40 @@ function update_student_result_for_each_question ($user_id, $exam_id, $question_
 
 
 
+
+
+
+function update_student_final_result ($summary_id, $result) {
+		$data = array();
+		
+		$result = mysql_query("UPDATE `mock_exam_student_summary` SET `student_result` = '$result' WHERE `student_summary_id` = '$summary_id'");
+
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+		
+		return $data;
+		
+}
+
+
+
+
+
+
+
+function get_sum_of_student_marks ($user_id, $exam_id) {
+		$data = array();
+		
+		$result = mysql_query("SELECT SUM(student_result_status) FROM `mock_exam_student_result` WHERE `user_id` = '$user_id' AND `exam_id` = '$exam_id'");
+
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+		
+		return $data;
+		
+}
 
 
 

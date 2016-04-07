@@ -11,18 +11,24 @@
     $mark = "10";
     
     if(isset($_REQUEST['submit_review'])) {
-       
+        //die(var_dump($_POST['student_summary_id']));
+        //die(var_dump($_POST['student_summary_id']));
+        update_student_result_for_each_question($_POST['student_summary_id']);
+
         if (isset($_REQUEST['correct_answer_or_not'])) {
            
             for ($j=0; $j<count($_POST['correct_answer_or_not']); $j++) {
 
-                update_student_result_for_each_question ($_POST['user_id'], $_POST['exam_id'], $_POST['correct_answer_or_not'][$j], $mark);
+                update_student_mark_for_each_question ($_POST['user_id'], $_POST['exam_id'], $_POST['correct_answer_or_not'][$j], $mark);
 
-            }
+            } 
+        }
+            $student_exam_score = get_sum_of_student_marks ($_POST['user_id'], $_POST['exam_id']); 
+            //$student_exam_score[0]['SUM(student_result_status)']
+            update_student_final_result ($_POST['student_summary_id'], $student_exam_score[0]['SUM(student_result_status)']);
+            
             header('Location:view_summary.php');
             exit();
-           
-        }
         
     }
 
@@ -192,11 +198,6 @@
                 </table>';
 
 
-
-
-                
-                //var_dump($score[0]['student_result_status'] != 0);
-
             if($score[0]['student_result_status'] != 0) {
                 echo '<div class="[ form-group ] correct_answer">
                     <input type="checkbox" checked name="correct_answer_or_not[]" value="'.$question_id.'"  id="' . $question_id . '" autocomplete="off" />
@@ -229,7 +230,7 @@
               
             }
 
-            echo '<input type="hidden" value="' .$retrieving_data[0]['user_id']. '" name="user_id"><input type="hidden" value="' .$retrieving_data[0]['exam_id']. '" name="exam_id"><button class="btn btn-large btn-block btn-primary submitbutton" type="submit" style="margin-top:100px;" name="submit_review">Submit Review</button></form>';
+            echo '<input type="hidden" value="' .$retrieving_data[0]['student_summary_id']. '" name="student_summary_id"><input type="hidden" value="' .$retrieving_data[0]['exam_id']. '" name="exam_id"> <input type="hidden" value="' .$retrieving_data[0]['user_id']. '" name="user_id"><input type="hidden" value="' .$retrieving_data[0]['exam_id']. '" name="exam_id"><button class="btn btn-large btn-block btn-primary submitbutton" type="submit" style="margin-top:100px;" name="submit_review">Submit Review</button></form>';
 
 
             ?>
