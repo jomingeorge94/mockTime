@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2016 at 11:26 PM
+-- Generation Time: Apr 07, 2016 at 05:38 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -31,24 +31,32 @@ CREATE TABLE IF NOT EXISTS `mock_exam_answers` (
   `question_id` int(11) NOT NULL,
   `answer_name` varchar(255) NOT NULL,
   `is_true` int(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mock_exam_answers`
 --
 
 INSERT INTO `mock_exam_answers` (`answer_id`, `question_id`, `answer_name`, `is_true`) VALUES
-(1, 1, 'A', 0),
-(2, 1, 'B', 1),
-(3, 1, 'C', 0),
-(4, 1, 'D', 0),
-(15, 6, 'RAndsdasd asdasd asd sadsdas', 1),
-(16, 7, 'A', 0),
-(17, 7, 'B', 1),
-(18, 7, 'C', 0),
-(19, 7, 'D', 0),
-(20, 8, '1', 1),
-(21, 9, '', 1);
+(27, 12, 'A', 0),
+(28, 12, 'B', 1),
+(29, 12, 'C', 0),
+(30, 12, 'D', 0),
+(31, 13, 'Jomin', 1),
+(33, 15, 'answer is literacy question 1', 1),
+(34, 16, 'a', 0),
+(35, 16, 'b', 1),
+(36, 17, 'v', 0),
+(37, 17, 'vsd', 0),
+(38, 17, 'sdsdsd', 1),
+(68, 44, 'India', 1),
+(69, 44, 'Pakistan', 0),
+(70, 44, 'England', 0),
+(71, 44, 'West Indies', 0),
+(72, 45, '1', 1),
+(73, 46, 'essay answer', 1),
+(74, 47, '3', 1),
+(75, 48, 'Random Access Memory', 1);
 
 -- --------------------------------------------------------
 
@@ -108,18 +116,23 @@ CREATE TABLE IF NOT EXISTS `mock_exam_questions` (
   `question_name` varchar(1024) NOT NULL,
   `question_type` varchar(255) NOT NULL,
   `quiz_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mock_exam_questions`
 --
 
 INSERT INTO `mock_exam_questions` (`question_id`, `question_name`, `question_type`, `quiz_id`) VALUES
-(1, 'Which is the right answer', 'Multiple_Choice', 23),
-(6, 'What does RAM stands for ?', 'Acronym_Answer', 24),
-(7, 'Waht is the right answer ?', 'Multiple_Choice', 25),
-(8, 'Is this correct ?', 'True_False', 25),
-(9, 'What is TCP ???', 'Essay', 25);
+(12, 'Java question 1 ?', 'Multiple_Choice', 23),
+(13, 'Explain what is TCP/IP protocol suite ?', 'Essay', 23),
+(15, 'Literacy question 1 ?', 'Acronym_Answer', 24),
+(16, 'Literacy question 2 ? ', 'Multiple_Choice', 24),
+(17, 'Literacy question 3 ?', 'Multiple_Choice', 24),
+(44, 'Who won the cricket world cup 2010 ?', 'Multiple_Choice', 25),
+(45, 'Election in Kerala take place every 5 years ?', 'True_False', 25),
+(46, 'Explain why India and Pakistan has a war going on still ?', 'Essay', 25),
+(47, 'There are ____ zeros in Thousand ?', 'Fill_Blank', 25),
+(48, 'What does RAM stands for ?', 'Acronym_Answer', 25);
 
 -- --------------------------------------------------------
 
@@ -132,20 +145,44 @@ CREATE TABLE IF NOT EXISTS `mock_exam_quiz` (
   `quiz_name` varchar(255) NOT NULL,
   `quiz_category_id` int(11) NOT NULL,
   `quiz_duration` int(11) NOT NULL DEFAULT '0',
+  `total_questions` int(11) NOT NULL DEFAULT '0',
   `quiz_status` int(11) NOT NULL DEFAULT '1',
   `quiz_password_required` int(1) NOT NULL DEFAULT '0',
   `quiz_secret_password` varchar(255) NOT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `mock_exam_quiz`
 --
 
-INSERT INTO `mock_exam_quiz` (`quiz_id`, `quiz_name`, `quiz_category_id`, `quiz_duration`, `quiz_status`, `quiz_password_required`, `quiz_secret_password`, `date_created`) VALUES
-(23, 'Java Exam', 23, 30, 1, 0, '', '2016-03-11 11:27:22'),
-(24, 'Literacy Test', 33, 1, 1, 0, '', '2016-03-24 11:27:50'),
-(25, 'Science Exam', 31, 0, 1, 0, '', '2016-03-17 20:06:56');
+INSERT INTO `mock_exam_quiz` (`quiz_id`, `quiz_name`, `quiz_category_id`, `quiz_duration`, `total_questions`, `quiz_status`, `quiz_password_required`, `quiz_secret_password`, `date_created`) VALUES
+(23, 'Java Exam', 23, 360, 2, 1, 0, '', '2016-03-11 11:27:22'),
+(24, 'Literacy Test', 33, 1, 3, 1, 0, '', '2016-03-24 11:27:50'),
+(25, 'Science Exam', 31, 360, 5, 1, 0, '', '2016-03-17 20:06:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mock_exam_student_result`
+--
+
+CREATE TABLE IF NOT EXISTS `mock_exam_student_result` (
+`student_result_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `exam_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `student_answer` varchar(255) NOT NULL DEFAULT 'not answered',
+  `student_result_status` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mock_exam_student_result`
+--
+
+INSERT INTO `mock_exam_student_result` (`student_result_id`, `user_id`, `exam_id`, `question_id`, `student_answer`, `student_result_status`) VALUES
+(114, 71, 23, 12, 'A', '10'),
+(115, 71, 23, 13, 'o', '10');
 
 -- --------------------------------------------------------
 
@@ -157,18 +194,20 @@ CREATE TABLE IF NOT EXISTS `mock_exam_student_summary` (
 `student_summary_id` int(11) NOT NULL,
   `exam_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `question_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
+  `exam_result_status` int(11) NOT NULL DEFAULT '0',
+  `time_taken` varchar(255) NOT NULL,
+  `student_result` varchar(255) NOT NULL DEFAULT 'Pending',
   `exam_start_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `exam_end_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mock_exam_student_summary`
 --
 
-INSERT INTO `mock_exam_student_summary` (`student_summary_id`, `exam_id`, `user_id`, `question_id`, `category_id`, `exam_start_time`, `exam_end_time`) VALUES
-(91, 23, 64, 0, 23, '2016-03-27 21:26:01', '2016-03-27 21:26:03');
+INSERT INTO `mock_exam_student_summary` (`student_summary_id`, `exam_id`, `user_id`, `category_id`, `exam_result_status`, `time_taken`, `student_result`, `exam_start_time`, `exam_end_time`) VALUES
+(127, 23, 71, 23, 1, '00:00:07', '20', '2016-04-07 15:35:39', '2016-04-07 15:35:46');
 
 -- --------------------------------------------------------
 
@@ -236,6 +275,12 @@ ALTER TABLE `mock_exam_quiz`
  ADD PRIMARY KEY (`quiz_id`), ADD UNIQUE KEY `quiz_name` (`quiz_name`), ADD KEY `quiz_category_id` (`quiz_category_id`);
 
 --
+-- Indexes for table `mock_exam_student_result`
+--
+ALTER TABLE `mock_exam_student_result`
+ ADD PRIMARY KEY (`student_result_id`);
+
+--
 -- Indexes for table `mock_exam_student_summary`
 --
 ALTER TABLE `mock_exam_student_summary`
@@ -255,7 +300,7 @@ ALTER TABLE `mock_exam_users`
 -- AUTO_INCREMENT for table `mock_exam_answers`
 --
 ALTER TABLE `mock_exam_answers`
-MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
+MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=76;
 --
 -- AUTO_INCREMENT for table `mock_exam_category`
 --
@@ -270,17 +315,22 @@ MODIFY `faq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `mock_exam_questions`
 --
 ALTER TABLE `mock_exam_questions`
-MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT for table `mock_exam_quiz`
 --
 ALTER TABLE `mock_exam_quiz`
-MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+--
+-- AUTO_INCREMENT for table `mock_exam_student_result`
+--
+ALTER TABLE `mock_exam_student_result`
+MODIFY `student_result_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=116;
 --
 -- AUTO_INCREMENT for table `mock_exam_student_summary`
 --
 ALTER TABLE `mock_exam_student_summary`
-MODIFY `student_summary_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=92;
+MODIFY `student_summary_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=128;
 --
 -- AUTO_INCREMENT for table `mock_exam_users`
 --
