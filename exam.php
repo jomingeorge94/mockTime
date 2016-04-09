@@ -4,17 +4,17 @@
  
   if(isset($_REQUEST['submittest'])) {
     if(isset($_POST['raw_questionid'])){
-            $student_result2 = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $_POST['raw_questionid']);
+            $student_summary_details = get_student_summary($_SESSION['user_id']);
+            $student_result2 = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $_POST['raw_questionid'], $student_summary_details[0]['student_summary_id']);
 
-              if(!is_null($student_result2)) {
+            if(!is_null($student_result2)) {
                 
-                update_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer']);
+                update_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer']);
 
-
-              } else {
-
-                        insert_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer'], '0');
-              }} 
+            } else {
+                insert_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer'], '0');
+            }
+    } 
 
 
     $date_clicked = new DateTime();
@@ -33,8 +33,6 @@
 
   if(isset($_REQUEST['nextquestion'])) {
 
-    
-    
     if((int)$_SESSION['questionNumber']<count_questions_of_an_exam($_SESSION['chosen_exam_id'])) {
       $_SESSION['questionNumber']=$_SESSION['questionNumber']+1;
     }
@@ -85,7 +83,8 @@
 
     <?php
       $e = get_questions_from_exam($_SESSION['chosen_exam_id']); 
-
+      
+      $student_summary_details = get_student_summary($_SESSION['user_id']);
       
       $question_and_answers = get_questions_from_exam_and_answers($_SESSION['chosen_exam_id']); //all the questions and asnwers that belongs to an exam
 
@@ -93,12 +92,14 @@
       $question_num = $_SESSION['questionNumber']; 
 
       //student result is getting stored into the database
-      $student_result = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $e[$question_num]['question_id']);
-      $student_result2 = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $_POST['raw_questionid']);
+      $student_result = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $_POST['raw_questionid'], $student_summary_details[0]['student_summary_id']);
+      $student_result2 = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $_POST['raw_questionid'], $student_summary_details[0]['student_summary_id']);
 
       $totalquestions = count_questions_of_an_exam($_SESSION['chosen_exam_id']);
 
       insert_total_questions_into_quiz ($totalquestions[0], $_SESSION['chosen_exam_id'], $_SESSION['chosen_exam_time'], $_SESSION['chosen_exam_category']);
+
+      
 
     ?>
     
@@ -116,15 +117,16 @@
               echo '<div class="chosen_exam_questions_class">' . $e[$question_num]['question_name'] . '</div>';
 
               if(isset($_POST['raw_questionid'])){
-              if(!is_null($student_result2)) {
                 
-                update_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer']);
+                if(isset($student_result2)) {
+                  
+                  update_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer']);
 
 
-              } else {
-
-                        insert_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer'], '0');
-              }} 
+                } else {
+                  insert_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer'], '0');
+                }
+            } 
 
 
 

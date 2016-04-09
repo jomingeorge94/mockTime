@@ -11,20 +11,24 @@
     $mark = "10";
     
     if(isset($_REQUEST['submit_review'])) {
-        //die(var_dump($_POST['student_summary_id']));
-        //die(var_dump($_POST['student_summary_id']));
+
+        //after submit database column will get updated from TBC to Marked. 
         update_student_result_for_each_question($_POST['student_summary_id']);
 
+        //if the check box is submitted then do this
         if (isset($_REQUEST['correct_answer_or_not'])) {
            
             for ($j=0; $j<count($_POST['correct_answer_or_not']); $j++) {
+                
+                //die(var_dump($_POST['student_summary_id']));
 
                 update_student_mark_for_each_question ($_POST['user_id'], $_POST['exam_id'], $_POST['correct_answer_or_not'][$j], $mark);
 
             } 
         }
-            $student_exam_score = get_sum_of_student_marks ($_POST['user_id'], $_POST['exam_id']); 
-            //$student_exam_score[0]['SUM(student_result_status)']
+            
+            $student_exam_score = get_sum_of_student_marks ($_POST['user_id'], $_POST['exam_id'], $_POST['student_summary_id']); 
+
             update_student_final_result ($_POST['student_summary_id'], $student_exam_score[0]['SUM(student_result_status)']);
             
             header('Location:view_summary.php');
@@ -148,13 +152,13 @@
 
 
             <?php 
-            
+            //die(var_dump($_GET));
             for ($i=0; $i<$total_questions_for_exam; $i++) {
             //var_dump($student_answer_per_question === '' || '')
             $question_id= $question_and_answers[$i]['question_id'];
             $numberofanswersperquestion = count_answers_belongToOne_questionNew($question_id);
             $score = retrieve_student_result_status ($retrieving_data[0]['user_id'], $retrieving_data[0]['exam_id'], $question_id);
-            $student_answer_per_question = htmlspecialchars(retrieve_student_result ($_SESSION['user_id'], $_GET['quiz_id'], $question_id));
+            $student_answer_per_question = htmlspecialchars(retrieve_student_result ($_SESSION['user_id'], $_GET['quiz_id'], $question_id, $_GET['student_sum_id']));
             $correct_answer = $numberofanswersperquestion[0]['answer_name'];
 
              echo ' <form method="post" id="review_form" name="review_form" action="view_user_summary.php">   

@@ -98,10 +98,10 @@ function insert_student_summary ($exam_id, $user_id, $category_id, $start_time, 
 
 
 //function to add student result on each next click during an exam
-function insert_student_result ($user_id, $exam_id, $question_id, $answer, $student_result_status) {
+function insert_student_result ($student_summary_id, $user_id, $exam_id, $question_id, $answer, $student_result_status) {
 		$data = array();
 
-		$result = mysql_query("INSERT INTO `mock_exam_student_result` (`user_id`, `exam_id`,`question_id`, `student_answer`, `student_result_status`) VALUES ('$user_id', '$exam_id', '$question_id', '$answer', '$student_result_status')");
+		$result = mysql_query("INSERT INTO `mock_exam_student_result` (`student_summary_id`, `user_id`, `exam_id`,`question_id`, `student_answer`, `student_result_status`) VALUES ('$student_summary_id', '$user_id', '$exam_id', '$question_id', '$answer', '$student_result_status')");
 
 		while ($row = mysql_fetch_assoc($result)) {
 		    $data [] = $row;
@@ -182,10 +182,10 @@ function update_student_final_result ($summary_id, $result) {
 
 
 
-function get_sum_of_student_marks ($user_id, $exam_id) {
+function get_sum_of_student_marks ($user_id, $exam_id, $summary_id) {
 		$data = array();
 		
-		$result = mysql_query("SELECT SUM(student_result_status) FROM `mock_exam_student_result` WHERE `user_id` = '$user_id' AND `exam_id` = '$exam_id'");
+		$result = mysql_query("SELECT SUM(student_result_status) FROM `mock_exam_student_result` WHERE `user_id` = '$user_id' AND `exam_id` = '$exam_id' AND `student_summary_id` = '$summary_id'");
 
 		while ($row = mysql_fetch_assoc($result)) {
 		    $data [] = $row;
@@ -213,10 +213,10 @@ function insert_time_taken_for_exam($time_taken, $student_sum_id){
 
 
 //function to retrieve student result 
-function retrieve_student_result ($user_id, $exam_id, $question_id) {
+function retrieve_student_result ($user_id, $exam_id, $question_id, $student_summary) {
 		$data = array();
 
-		$result = mysql_query("SELECT `student_answer` from `mock_exam_student_result` WHERE `user_id` = $user_id AND `exam_id` = $exam_id AND `question_id` = $question_id LIMIT 1");
+		$result = mysql_query("SELECT `student_answer` from `mock_exam_student_result` WHERE `user_id` = $user_id AND `exam_id` = $exam_id AND `question_id` = $question_id AND `student_summary_id` = '$student_summary' LIMIT 1");
 		$row = mysql_fetch_assoc($result);
 
 		return $row ["student_answer"];
@@ -551,11 +551,11 @@ function get_faq(){
 }
 
 //function to update student result on each next click during an exam
-function update_student_result ($user_id, $exam_id, $question_id, $studentanswer) {
+function update_student_result ($student_summary_id, $user_id, $exam_id, $question_id, $studentanswer) {
 	if(empty($user_id) || empty($exam_id) || empty($question_id))
 		return false;
 
-		mysql_query("UPDATE `mock_exam_student_result` SET `student_answer` = '$studentanswer' WHERE `user_id` = '$user_id' AND `exam_id` = '$exam_id' AND `question_id` = '$question_id'");
+		mysql_query("UPDATE `mock_exam_student_result` SET `student_answer` = '$studentanswer' WHERE `student_summary_id` = '$student_summary_id'");
 		return true;
 		
 }

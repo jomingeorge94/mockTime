@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<body class="email_activate_page">
 <?php   
 
 include 'core/session.php';
@@ -65,5 +66,5 @@ else if (isset($_GET['email'], $_GET['email_code']) === true) {
 include 'includes/footer.php';    
 
 ?> 
-
+</body>
 </html>
