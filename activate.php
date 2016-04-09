@@ -5,7 +5,7 @@
 
 include 'core/session.php';
 include 'includes/head.php';
-include 'includes/navigation_modified.php';
+
 
 redirect_logged_in();
 
@@ -14,7 +14,7 @@ if(isset($_GET['success']) === true && empty($_GET['success']) === true) {
 ?>		
 	<div class="accountverified">
 		<h1>Account Verified ...</h1>
-		<strong><p>Your account has been verified and ready to Sign In</p></strong>
+		<strong><p>Your account has been verified and ready to <a href="login.php"> Sign In </a></p></strong>
 	</div>
 <?php
 

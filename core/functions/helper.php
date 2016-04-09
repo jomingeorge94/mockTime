@@ -5,14 +5,14 @@ function sanitise($data) {
 }
 
 function redirect_logged_in () {
-	if (user_logged_in() === true) {
+	if (user_logged_in () === true) {
 		header('Location: index.php');
 		exit();
 	}
 }
 
 function generic_page () {
-	if (user_logged_in() === false) {
+	if (user_logged_in () === false) {
 		header('Location: generic.php');
 		exit();
 	}

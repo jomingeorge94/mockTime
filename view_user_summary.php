@@ -154,7 +154,7 @@
             $question_id= $question_and_answers[$i]['question_id'];
             $numberofanswersperquestion = count_answers_belongToOne_questionNew($question_id);
             $score = retrieve_student_result_status ($retrieving_data[0]['user_id'], $retrieving_data[0]['exam_id'], $question_id);
-            $student_answer_per_question = retrieve_student_result ($_SESSION['user_id'], $_GET['quiz_id'], $question_id);
+            $student_answer_per_question = htmlspecialchars(retrieve_student_result ($_SESSION['user_id'], $_GET['quiz_id'], $question_id));
             $correct_answer = $numberofanswersperquestion[0]['answer_name'];
 
              echo ' <form method="post" id="review_form" name="review_form" action="view_user_summary.php">   

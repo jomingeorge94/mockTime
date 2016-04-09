@@ -6,7 +6,8 @@ body {
     color: #888;
     line-height: 30px;
     text-align: center;
-    padding-top: 70px;
+    padding-top: 50px;
+    
 }
 
 strong { font-weight: 500; }
@@ -713,3 +714,30 @@ hr{
 	margin-top: -20px ! important;
 }
 
+.intro-section {
+	background: url(../img/backgrounds/wallpaper.jpg) no-repeat bottom center scroll ! important;
+	background-size:100% 100% ! important;
+	
+
+}
+
+.mocktime {
+
+	font-family: Geneva, Tahoma, Verdana, sans-serif;
+	color: #050101;
+	font-size: 50;
+	padding: 4;
+	font-weight: bold;
+	text-shadow: 5px -2px 1px #F0C5C5;
+
+
+}
+
+.mocktime-heading {
+	font-size: 100px;
+	padding-bottom: 60px;
+	font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	letter-spacing: 10px;
+	font-weight: 700;
+	color: white;
+}

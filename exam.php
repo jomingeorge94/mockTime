@@ -3,6 +3,20 @@
 	include 'includes/head.php';
  
   if(isset($_REQUEST['submittest'])) {
+    if(isset($_POST['raw_questionid'])){
+            $student_result2 = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $_POST['raw_questionid']);
+
+              if(!is_null($student_result2)) {
+                
+                update_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer']);
+
+
+              } else {
+
+                        insert_student_result ($_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer'], '0');
+              }} 
+
+
     $date_clicked = new DateTime();
     $date_clicked->setTimeZone(new DateTimeZone('Europe/London'));
     $clickedtime =  $date_clicked->format('Y-m-d H:i:s');
