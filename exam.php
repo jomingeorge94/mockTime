@@ -1,61 +1,47 @@
 <?php 
-	include 'core/session.php';
-	include 'includes/head.php';
+  include 'core/session.php';
+  include 'includes/head.php';
  
   if(isset($_REQUEST['submittest'])) {
     if(isset($_POST['raw_questionid'])){
             $student_summary_details = get_student_summary($_SESSION['user_id']);
             $student_result2 = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $_POST['raw_questionid'], $student_summary_details[0]['student_summary_id']);
-
             if(!is_null($student_result2)) {
                 
                 update_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer']);
-
             } else {
                 insert_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer'], '0');
             }
     } 
-
-
     $date_clicked = new DateTime();
     $date_clicked->setTimeZone(new DateTimeZone('Europe/London'));
     $clickedtime =  $date_clicked->format('Y-m-d H:i:s');
-
     $choosen_exam_time = $_SESSION['chosen_exam_start_time'];
     $choosen_exam_time->setTimeZone(new DateTimeZone('Europe/London'));
     $chosen_start_time_forExam =  $choosen_exam_time->format('Y-m-d H:i:s');
     $chosen_exam_summary_id = get_student_summary_id($chosen_start_time_forExam);
-
     update_student_summary($chosen_exam_summary_id[0], $clickedtime);
     header('Location: view_summary.php');
     exit();
   }
-
   if(isset($_REQUEST['nextquestion'])) {
-
     if((int)$_SESSION['questionNumber']<count_questions_of_an_exam($_SESSION['chosen_exam_id'])) {
       $_SESSION['questionNumber']=$_SESSION['questionNumber']+1;
     }
-
-
   }
-
   if(isset($_REQUEST['previousquestion'])) {
      
     if((int)$_SESSION['questionNumber']>=1){
       $_SESSION['questionNumber']=$_SESSION['questionNumber']-1;
     }
-
   }
-
-	if (user_logged_in() === true){
+  if (user_logged_in() === true){
     include 'includes/navigationloggedinmodified.php';
   } else {
-   	include 'includes/navigation_modified.php'; 
+    include 'includes/navigation_modified.php'; 
     header('Location: generic.php');
     exit();
   }
-
   header("Cache-Control: no-cache, must-revalidate");
 ?>
 
@@ -64,7 +50,6 @@
   <script>
     function time_over() {
       document.getElementById("form1").submit();
-
       window.location.replace("http://localhost/mockTime/view_summary.php");
     }
   </script>
@@ -87,20 +72,14 @@
       $student_summary_details = get_student_summary($_SESSION['user_id']);
       
       $question_and_answers = get_questions_from_exam_and_answers($_SESSION['chosen_exam_id']); //all the questions and asnwers that belongs to an exam
-
       //current exam question 
       $question_num = $_SESSION['questionNumber']; 
-
       //student result is getting stored into the database
-      $student_result = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $_POST['raw_questionid'], $student_summary_details[0]['student_summary_id']);
+      $student_result = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $e[$question_num]['question_id'], $student_summary_details[0]['student_summary_id']);
       $student_result2 = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $_POST['raw_questionid'], $student_summary_details[0]['student_summary_id']);
-
       $totalquestions = count_questions_of_an_exam($_SESSION['chosen_exam_id']);
-
       insert_total_questions_into_quiz ($totalquestions[0], $_SESSION['chosen_exam_id'], $_SESSION['chosen_exam_time'], $_SESSION['chosen_exam_category']);
-
       
-
     ?>
     
 
@@ -115,28 +94,16 @@
             <?php 
               
               echo '<div class="chosen_exam_questions_class">' . $e[$question_num]['question_name'] . '</div>';
-
               if(isset($_POST['raw_questionid'])){
                 
                 if(isset($student_result2)) {
-                  
+
                   update_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer']);
-
-
                 } else {
                   insert_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer'], '0');
                 }
             } 
-
-
-
-
-
-
               if ($e[$question_num]['question_type'] == 'Essay') {
-
-
-
                 echo '<div class="form-group">
                         <textarea class="form-control noresize" name="answer" placeholder="Please specify your answer"> '. $student_result .  ' </textarea>
                       </div>';
@@ -156,10 +123,8 @@
                       </div>';
               
               }
-
               echo '<hr>';
               if ($e[$question_num]['question_type'] == 'Multiple_Choice') {
-
                 $questionNumber = $question_and_answers[$question_num]['question_id']; //get the question id by passing in the exam id and the current question
                 $questions_and_answer_from_question = get_all_answers_belongToOne_question($questionNumber); //pass in the question id so collect all the details of the specified question and it's answers
                 $count  = count_answers_belongToOne_question($questionNumber)[0]['count(*)']; //counting all the answers for a question
@@ -171,14 +136,11 @@
                       for($i = 0; $i < $count; $i++) {
                           
                           echo '<option class="multiplechoiceguessess">'; echo $questions_and_answer_from_question[$i]['answer_name']; '</option>';
-
               
                       }
                 echo'</select>';
                 echo '<p class="linebreak">&nbsp;</p>';
-
               }
-
               if ($e[$question_num]['question_type'] == 'Fill_Blank') {
                
                 echo '<div class="form-group fillblankquestiontype">
@@ -186,7 +148,6 @@
                       </div>';
               
               }
-
               if ($e[$question_num]['question_type'] == 'Acronym_Answer') {
                
                 echo '<div class="form-group fillblankquestiontype">
@@ -194,7 +155,6 @@
                       </div>';
               
               }
-
                     
             ?>
 
@@ -258,18 +218,15 @@
       a : 0.4
       }
       },
-
       labels : {
       textScale : 0.8,
       offset : 5
       } 
       });
-
       $("#next").click(function (){
         console.log(myCountdown4._timeRunnerNow);//
         localStorage["<?php echo $_SESSION['chosen_exam_id']; ?>"] =  parseInt(myCountdown4._timeRunnerNow.second) + parseInt(myCountdown4._timeRunnerNow.minute * 60) + parseInt(myCountdown4._timeRunnerNow.hour * 3600);
       });
-
       $("#previous").click(function (){
         console.log(myCountdown4._timeRunnerNow);//
         localStorage["<?php echo $_SESSION['chosen_exam_id']; ?>"] =  parseInt(myCountdown4._timeRunnerNow.second) + parseInt(myCountdown4._timeRunnerNow.minute * 60) + parseInt(myCountdown4._timeRunnerNow.hour * 3600);
@@ -277,6 +234,5 @@
   </script> 
 
 <?php 
-
     include 'includes/footer.php';
 ?>

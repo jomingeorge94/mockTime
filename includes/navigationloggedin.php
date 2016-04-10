@@ -40,12 +40,14 @@
                                 }
                             ?>
                         </ul>
-                </li> 
+                </li>
+
             </ul>
             <ul class="nav navbar-right navbar-nav user-settings">
                 <li class="dropdown">
                   <a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $user_data['first_name'];?> <?php echo $user_data['last_name'];?> <b class="caret"></b></a>
                   <ul class="dropdown-menu">
+
                     <li><a href="userprofile.php"><span class="glyphicon glyphicon-user"></span> User Profile</a></li>
                     <li class="divider"></li>
                     <li><a href="profile.php"><span class="glyphicon glyphicon-cog"></span> Change Password</a></li>
