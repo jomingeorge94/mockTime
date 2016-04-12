@@ -44,6 +44,15 @@ function user_logged_in () {
 function user_count () {
 	return mysql_result(mysql_query("SELECT COUNT(`user_id`) FROM `mock_exam_users` WHERE `active_status` = 1 AND `user_type` = 0"), 0);
 }
+//function which returns the number of current active exams 
+function quiz_count () {
+	return mysql_result(mysql_query("SELECT COUNT(`quiz_id`) FROM `mock_exam_quiz` WHERE `quiz_status` = 1"), 0);
+}
+//function which returns the number of current active categories 
+function category_count () {
+	return mysql_result(mysql_query("SELECT COUNT(`category_id`) FROM `mock_exam_category` WHERE `status` = 1"), 0);
+}
+
 function redirect($url) {
   echo "<script language=\"JavaScript\">\n";
   echo "<!-- hide from old browser\n\n";

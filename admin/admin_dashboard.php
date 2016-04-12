@@ -63,6 +63,35 @@ if(($user_data['admin_password_check']) == 1){
               <!-- small box -->
               <div class="small-box bg-red">
                 <div class="inner">
+                  <h3><?php echo quiz_count();?></h3>
+                  <p>Currently active Exams</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="../admin/admin_manage_exam.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+
+            </div><!-- ./col -->
+             <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3><?php echo category_count();?></h3>
+                  <p>Currently available Categories</p>
+                </div>
+                <div class="icon">
+                  <i class="ion-aperture"></i>
+                </div>
+                <a href="../admin/admin_manage_category.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+              
+            </div><!-- ./col -->
+
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-blue">
+                <div class="inner">
                   <h3>{TODO}</h3>
                   <p>Currently Active Users</p>
                 </div>
@@ -71,6 +100,7 @@ if(($user_data['admin_password_check']) == 1){
                 </div>
                 <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
+              
             </div><!-- ./col -->
           </div><!-- /.row -->
         </section><!-- /.content -->
