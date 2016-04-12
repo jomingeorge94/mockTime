@@ -10,7 +10,6 @@
       header('Location: /mocktime/admin');
     }
 
-
     if($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['q']) && !isset($_POST['a'])){
       delete_all_questions($_GET['id']);
     }
@@ -22,8 +21,7 @@
       $ctr = 0;
       $diff = 1;
       $ctrtype = 0;
-
-        $ctr3 = 0;
+      $ctr3 = 0;
 
       foreach($_POST['q'] as $q){
         $id = add_question($_GET['id'], $q, $_POST['type'][$ctrtype]);
@@ -64,13 +62,8 @@
       }
 
       }
-
-    
-
   ?>
 
-  
-  
   <?php include '/includes/admin_dashboard_usersregisteres_header.php'; ?>
   <?php include '/includes/admin_dashboard_header.php'; ?>
 
@@ -78,7 +71,6 @@
   <div class="wrapper">
 
     <?php include '/includes/admin_header_profile.php';?>
-      <!-- Left side column. contains the logo and sidebar -->
     <?php include '/includes/admin_side_navigation.php';?>
 
     <div class="content-wrapper">
@@ -160,13 +152,13 @@
 
       if($quest['question_type'] == "Essay"){
         echo '<div class="form-group"> 
-                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Question Name: </label> 
+                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Essay - Question Name: </label> 
                 <div class="col-6"> 
                   <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="q[]" class="form-control" value="' . $quest['question_name'] .'"> 
                 </div> 
               </div>';
 
-        echo '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Essay Answer: </label> <br /> 
+        echo '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Essay - Answer: </label> <br /> 
             <textarea rows="20" cols="250" name="a[]">' . get_answers_from_exam($quest['question_id'])[0]['answer_name'] . '</textarea><input name="in[]" type="hidden" value="' . ++$ct . '" /><input type="hidden" name="type[]" value="Essay" />';
               echo '<button id="deletebtn" class="btn btn-danger delete-category" type="button""> <span class="glyphicon glyphicon-plus-sign"></span> Delete Question</button></div>';
 
@@ -232,10 +224,10 @@
                             $j = 0;
                             foreach(get_answers_from_exam($quest['question_id']) as $ans){
                               if($ans['is_true'] == 1){
-                                                             echo '<option selected value="' . ($j + 1) . '">Question: '. ($j + 1) . '</option>';
+                                                             echo '<option selected value="' . ($j + 1) . '">Answer: '. ($j + 1) . '</option>';
 
                               }else{
-                                                             echo '<option value="' . ($j + 1) . '">Question: '. ($j + 1) . '</option>';
+                                                             echo '<option value="' . ($j + 1) . '">Answer: '. ($j + 1) . '</option>';
 
                               }
                               $j++;
@@ -305,7 +297,7 @@
                     <span class="glyphicon glyphicon-plus-sign"></span> Delete Question</button>';
 
                      var addButton = '<button id="" class="btn btn-primary add-multi" type="button""> \
-                    <span class="glyphicon glyphicon-plus-sign"></span> Add Multi-Choice</button>';
+                    <span class="glyphicon glyphicon-plus-sign"></span> Add More Choices</button>';
 
   var sele = '<div class="form-group" style="width:60%"> \
                         <label class="col-2 control-label" for="ans"><span class="required">*</span>Answer: </label> \
@@ -362,7 +354,7 @@
     $(this).before('<input type="text" style="width:60%" class="form-control"  placeholder="Subject Name" name="a[]"> <input name="in[]" type="hidden" value="' + counter + '" /> <br />');
     var x = $(this).next().next().next().children().eq(1).children().eq(0).children().length;
     x++;
-    $(this).next().next().next().children().eq(1).children().eq(0).append('<option value="' + x + '"> Question: ' + x + '</option>');
+    $(this).next().next().next().children().eq(1).children().eq(0).append('<option value="' + x + '"> Answer: ' + x + '</option>');
     console.log($(this));
   });
 
@@ -370,34 +362,34 @@
 
   function doEssay(){
     var q = '<div class="form-group"> \
-                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Question Name: </label> \
+                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-genderless"></i></span> Essay - Question Name: </label> \
                 <div class="col-6"> \
                   <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="q[]" class="form-control" value=""> \
                 </div> \
               </div>';
-    var textarea = '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Essay Answer: </label> <br /> \
+    var textarea = '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-genderless"></i></span> Essay - Answer: </label> <br /> \
 <textarea rows="20" cols="250" name="a[]"></textarea><input name="in[]" type="hidden" value="' + ++counter + '" /><input type="hidden" name="type[]" value="Essay" />';
     $("#endtrailer").before("<div class='wrapperdiv'><br /> <br /> " + q +textarea + deleteBtn + "</div>");
   }
 
   function doMulti(){
     var q = '<div class="form-group"> \
-                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Question Name: </label> \
+                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-genderless"></i></span> Multiple Choice - Question Name: </label> \
                 <div class="col-6"> \
                   <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="q[]" class="form-control" value=""> \
                 </div> \
               </div>';
-    var textfields = '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Multi-Choice Answers: </label> <br /> \
+    var textfields = '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-genderless"></i></span> Multiple Choice - Answers: </label> <br /> \
 <input type="text" style="width:60%" class="form-control"  placeholder="Subject Name" name="a[]"> <br /> <input style="width:60%" class="form-control" placeholder="Subject Name" type="text" name="a[]"> <input name="in[]" type="hidden" value="' + ++counter + '" /><input name="in[]" type="hidden" value="' + counter + '" /><input type="hidden" name="type[]" value="Multiple_Choice" />';
     
-  var options = '<option value="1">Question: 1</option><option value="2">Question: 2</option>';
+  var options = '<option value="1">Answer: 1</option><option value="2">Answer: 2</option>';
 
     $("#endtrailer").before("<div class='wrapperdiv'><br /> <br /> " + q + textfields  + '<br />' + addButton + '<br /><br />'+ sele + options + '</select></div></div><br /><br />' + deleteBtn + "</div>");
   }
 
   function doTF(){
     var q = '<div class="form-group"> \
-                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Question Name: </label> \
+                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-genderless"></i></span> True or False - Question Name: </label> \
                 <div class="col-6"> \
                   <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="q[]" class="form-control" value=""> \
                 </div> \
@@ -405,7 +397,7 @@
 
     var radios = '<div class="form-group col-md-12"> \
                 <div class="form-group col-md-12"> \
-                    <label for="tf" class="control-label"><b>True or False</b></label/>  \
+                    <label for="tf" class="fa fa-genderless control-label"><b> True or False - Answer: </b></label/>  \
                     <br /> \
                     <div class="btn-group inline" data-toggle="buttons"> \
                             <label class=" chk btn btn-default" style="margin-right:10px"><input type="radio" id="category" name="faux" value="1" /> True </label> \
@@ -418,12 +410,12 @@
 
   function doAcro(){
     var q = '<div class="form-group"> \
-                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Question Name: </label> \
+                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-genderless"></i></span> Aronym - Question Name: </label> \
                 <div class="col-6"> \
                   <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="q[]" class="form-control" value=""> \
                 </div> \
               </div>';
-    var textfield = '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Acronym Answer: </label> <br /> \
+    var textfield = '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-genderless"></i></span> Aronym - Answer: </label> <br /> \
 <input type="text" name="a[]"><input name="in[]" type="hidden" value="' + ++counter + '" /><input type="hidden" name="type[]" value="Acronym_Answer" />';
     $("#endtrailer").before("<div class='wrapperdiv'><br /> <br /> " + q + textfield + '<br /><br/> ' + deleteBtn + "</div>");
   }
@@ -431,12 +423,12 @@
 
   function doFillInBlank(){
     var q = '<div class="form-group"> \
-                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Question Name: </label> \
+                <label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-genderless"></i></span> Fill in the Blank - Question Name: </label> \
                 <div class="col-6"> \
                   <input type="text" placeholder="Subject Name" id="quiz_name" autocomplete="off" name="q[]" class="form-control" value=""> \
                 </div> \
               </div>';
-    var textfield = '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-star-o"></i></span>Acronym Answer: </label> <br /> \
+    var textfield = '<br /><label class="col-2 control-label" for="exam_name"><span class="required"><i class="fa fa-genderless"></i></span> Fill in the Blank - Answer: </label> <br /> \
 <input type="text" name="a[]"><input name="in[]" type="hidden" value="' + ++counter + '" /><input type="hidden" name="type[]" value="Fill_Blank" />';
     $("#endtrailer").before("<div class='wrapperdiv'><br /> <br /> " + q + textfield + '<br /><br/> ' + deleteBtn + "</div>");
   }
