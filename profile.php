@@ -3,6 +3,8 @@
 <?php 
     include 'core/session.php';
     include 'includes/head.php';
+    
+    updateLastSeenUser($_SESSION['user_id']);
 
         //checks for what the user is submitting 
         if (empty($_POST) === false){

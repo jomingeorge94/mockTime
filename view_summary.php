@@ -6,7 +6,10 @@
 
 
     if (user_logged_in() === true){
+          updateLastSeenUser($_SESSION['user_id']);
+          
          include 'includes/navigationloggedinmodified.php';
+
 
 ?>
 

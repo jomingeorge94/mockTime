@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
+
 <?php 
     include 'core/session.php';
     include 'includes/head.php';
 
+    updateLastSeenUser($_SESSION['user_id']);
+
     //retrieving the data based on the id's that has been passed into this page
     $retrieving_data = retrieve_exam_user_detail_basedon_student_summaryid($_GET['student_sum_id'],$_GET['quiz_id']);
 
+    //die(var_dump($retrieving_data));
     //mark
     $mark = "10";
     
     if(isset($_REQUEST['submit_review'])) {
+
+        die(var_dump($_POST));
 
         //after submit database column will get updated from TBC to Marked. 
         update_student_result_for_each_question($_POST['student_summary_id']);
@@ -248,8 +256,27 @@
               
             }
 
-            echo '<input type="hidden" value="' .$retrieving_data[0]['student_summary_id']. '" name="student_summary_id"><input type="hidden" value="' .$retrieving_data[0]['exam_id']. '" name="exam_id"> <input type="hidden" value="' .$retrieving_data[0]['user_id']. '" name="user_id"><input type="hidden" value="' .$retrieving_data[0]['exam_id']. '" name="exam_id"><button class="btn btn-large btn-block btn-primary submitbutton" type="submit" style="margin-top:100px;" name="submit_review">Submit Review</button></form>';
+            echo    '<div class="rate_review"><div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <ul class="list-group list-group-flush text-center">
+                                    <li class="list-group-item">
+                                        <div class="skillLineDefault">
+                                            <div class="skill pull-left text-center">Rate the Exam</div>
+                                            <div onclick="getValue()" class="rating" id="rate1"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>';
 
+            echo '<input type="hidden" name="myRate1" id="myRate1"/><input  type="hidden" value="' .$retrieving_data[0]['student_summary_id']. '" name="student_summary_id"><input type="hidden" value="' .$retrieving_data[0]['exam_id']. '" name="exam_id"> <input type="hidden" value="' .$retrieving_data[0]['user_id']. '" name="user_id"><input type="hidden" value="' .$retrieving_data[0]['exam_id']. '" name="exam_id"><button class="btn btn-large btn-block btn-primary submitbutton" type="submit" style="margin-top:100px;" name="submit_review">Submit Review</button></form>';
+
+
+            echo $variable = "<script>document.write(a)</script>";
+
+            
 
             ?>
 
@@ -257,6 +284,68 @@
                 </div>    
     </div>
 
+
+    
+
+
+<style>
+    
+    .rate_review {
+        padding-top: 50px;
+        padding-bottom: 50px;
+        position: static;
+    }
+    .rating {
+        margin-left: 30px;
+    }
+
+    div.skill {
+        background: #5cb85c;
+        border-radius: 3px;
+        color: white;
+        
+        padding: 3px 4px;
+        margin-top: -10px;
+        
+    }
+
+    .skillLine {
+        display: inline-block;
+        width: 100%;
+        min-height: 90px;
+        padding: 3px 4px;
+    }
+
+    skillLineDefault {
+        padding: 3px 4px;
+
+    }
+</style>
+
+<!-- you need to include the shieldui css and js assets in order for the charts to work -->
+<link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
+<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+
+<script type="text/javascript">
+    initializeRatings();
+
+    function initializeRatings() {
+        $('#rate1').shieldRating({
+            max: 5,
+            step: 1,
+            value: 0,
+            markPreset: false
+        });
+        
+    }
+
+
+    function getValue() {
+        //var a = $('#rate1').swidget().value();
+        //alert(a);
+        document.getElementById("myRate1").value = $('#rate1').swidget().value();
+    }
+</script>
 
 <?php
     }else{ 

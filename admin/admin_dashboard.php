@@ -43,7 +43,7 @@ if(($user_data['admin_password_check']) == 1){
         <!-- Main content -->
         <section class="content">
           <!-- Small boxes (Stat box) -->
-          <div class="row">
+          <div class="row admin_dashboard">
             
             
             <div class="col-lg-3 col-xs-6">
@@ -59,6 +59,22 @@ if(($user_data['admin_password_check']) == 1){
                 <a href="admin_dashboard_usersregisteres.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
+
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-blue">
+                <div class="inner">
+                  <h3><?php echo getLoggedInUsers();?></h3>
+                  <p>Currently logged in Users</p>
+                </div>
+                <div class="icon">
+                  <i class="ion-aperture"></i>
+                </div>
+                <a href="admin_dashboard_usersregisteres.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+              
+            </div><!-- ./col -->
+
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-red">
@@ -75,7 +91,7 @@ if(($user_data['admin_password_check']) == 1){
             </div><!-- ./col -->
              <div class="col-lg-3 col-xs-6">
               <!-- small box -->
-              <div class="small-box bg-yellow">
+              <div class="small-box bg-orange">
                 <div class="inner">
                   <h3><?php echo category_count();?></h3>
                   <p>Currently available Categories</p>
@@ -88,28 +104,19 @@ if(($user_data['admin_password_check']) == 1){
               
             </div><!-- ./col -->
 
-            <div class="col-lg-3 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-blue">
-                <div class="inner">
-                  <h3>{TODO}</h3>
-                  <p>Currently Active Users</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-pie-graph"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-              
-            </div><!-- ./col -->
           </div><!-- /.row -->
+
+
+
+          
+
+
+
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
   
 
       <?php include '/includes/footer.php'; ?> 
-
-
 
   <?php include '/includes/admin_dashboard_scripts.php'; ?>
     

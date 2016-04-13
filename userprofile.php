@@ -4,7 +4,9 @@
 ob_start();
     include 'core/session.php';
     include 'includes/head.php';
+
     if (user_logged_in() === true){
+        updateLastSeenUser($_SESSION['user_id']);
         include 'includes/navigationloggedinmodified.php';
 ?>
 

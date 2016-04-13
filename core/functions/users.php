@@ -52,6 +52,15 @@ function quiz_count () {
 function category_count () {
 	return mysql_result(mysql_query("SELECT COUNT(`category_id`) FROM `mock_exam_category` WHERE `status` = 1"), 0);
 }
+//function to update the lastSeen Column on database everytime user visits a page
+function updateLastSeenUser($user_id) {
+	return mysql_result(mysql_query("UPDATE `mock_exam_users` SET `lastSeen` = NOW() WHERE `user_id` = '$user_id'"), 0);
+}
+
+//function to retrieve currently logged in user based on an interval
+function getLoggedInUsers() {
+	return mysql_result(mysql_query("SELECT COUNT(*) FROM `mock_exam_users` WHERE `user_type` = 1 AND `lastSeen` > DATE_SUB(NOW(), INTERVAL 5 MINUTE)"), 0);
+}
 
 function redirect($url) {
   echo "<script language=\"JavaScript\">\n";

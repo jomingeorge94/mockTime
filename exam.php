@@ -1,7 +1,9 @@
 <?php 
   include 'core/session.php';
   include 'includes/head.php';
- 
+
+  updateLastSeenUser($_SESSION['user_id']);
+  
   if(isset($_REQUEST['submittest'])) {
     if(isset($_POST['raw_questionid'])){
             $student_summary_details = get_student_summary($_SESSION['user_id']);
@@ -125,15 +127,16 @@
               }
               echo '<hr>';
               if ($e[$question_num]['question_type'] == 'Multiple_Choice') {
-                $questionNumber = $question_and_answers[$question_num]['question_id']; //get the question id by passing in the exam id and the current question
-                $questions_and_answer_from_question = get_all_answers_belongToOne_question($questionNumber); //pass in the question id so collect all the details of the specified question and it's answers
-                $count  = count_answers_belongToOne_question($questionNumber)[0]['count(*)']; //counting all the answers for a question
+
+                $questions_and_answer_from_question = get_all_answers_belongToOne_question($e[$question_num]['question_id']); //pass in the question id so collect all the details of the specified question and it's answers
+
+
                 echo '<select class="form-control multiplechose_questionTypes" name="answer" id="multiple_choice_student_chosen">';
                 if(is_null($student_result))
                       echo  '<option class="multiplechoiceguessess" value=""disabled selected>Select the answer</option>';
                     else
                       echo '<option class="multiplechoiceguessess" value="'. $student_result . '"selected>' . $student_result . '</option>';
-                      for($i = 0; $i < $count; $i++) {
+                      for($i = 0; $i < count($questions_and_answer_from_question); $i++) {
                           
                           echo '<option class="multiplechoiceguessess">'; echo $questions_and_answer_from_question[$i]['answer_name']; '</option>';
               
