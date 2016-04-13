@@ -123,6 +123,21 @@ if(($user_data['admin_password_check']) == 1){
                 </div><!-- /.box-body -->
               </div><!-- /.box -->
 
+               
+          <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Average Exam Duration Statistics</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <div class="chart">
+                    <canvas id="barChart2" style="height:230px"></canvas>
+                  </div>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+
           
 
           
@@ -134,8 +149,6 @@ if(($user_data['admin_password_check']) == 1){
 
   <?php include '/includes/admin_dashboard_scripts.php'; ?>
     
-
-
 
 
     <!-- jQuery 2.1.4 -->
@@ -218,6 +231,84 @@ if(($user_data['admin_password_check']) == 1){
 
         barChartOptions.datasetFill = false;
         barChart.Bar(barChartData, barChartOptions);
+
+
+
+
+
+
+
+      areaChartData = {
+          labels: [ <?php 
+          foreach(get_all_exams() as $exams){
+            echo '"' .  htmlspecialchars($exams["quiz_name"]). '", ';
+          } ?> ],
+          datasets: [
+            {
+              label: "Number of Users",
+              fillColor: "rgba(60,141,188,0.9)",
+              strokeColor: "rgba(60,141,188,0.8)",
+              pointColor: "#3b8bba",
+              pointStrokeColor: "rgba(60,141,188,1)",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(60,141,188,1)",
+              data: [
+              <?php foreach(get_duration_detail_unique_count() as $c){
+                echo $c . ', ';
+              } ?>]
+            }
+          ]
+        };
+       
+        //-------------
+        //- BAR CHART -
+        //-------------
+        barChartCanvas = $("#barChart2").get(0).getContext("2d");
+        barChart2 = new Chart(barChartCanvas);
+        barChartData = areaChartData;
+        barChartData.datasets[0].fillColor = "#00a65a";
+        barChartData.datasets[0].strokeColor = "#00a65a";
+        barChartData.datasets[0].pointColor = "#00a65a";
+        barChartOptions = {
+          //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+          scaleBeginAtZero: true,
+          //Boolean - Whether grid lines are shown across the chart
+          scaleShowGridLines: true,
+          //String - Colour of the grid lines
+          scaleGridLineColor: "rgba(0,0,0,.05)",
+          //Number - Width of the grid lines
+          scaleGridLineWidth: 1,
+          //Boolean - Whether to show horizontal lines (except X axis)
+          scaleShowHorizontalLines: true,
+          //Boolean - Whether to show vertical lines (except Y axis)
+          scaleShowVerticalLines: true,
+          //Boolean - If there is a stroke on each bar
+          barShowStroke: true,
+          //Number - Pixel width of the bar stroke
+          barStrokeWidth: 2,
+          //Number - Spacing between each of the X value sets
+          barValueSpacing: 5,
+          //Number - Spacing between data sets within X values
+          barDatasetSpacing: 1,
+          //String - A legend template
+          legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
+          //Boolean - whether to make the chart responsive
+          responsive: true,
+          maintainAspectRatio: true
+        };
+
+        barChartOptions.datasetFill = false;
+        barChart2.Bar(barChartData, barChartOptions);
+
+
+
+
+
+
+
+
+
+
       });
     </script>
 

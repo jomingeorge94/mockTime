@@ -322,6 +322,58 @@ function get_student_detail_unique_count () {
 		return $data;
 }
 
+function get_duration_detail_unique_count () {
+		$data = array();
+		$result = mysql_query("select a.exam_id, a.time_taken FROM mock_exam_student_summary a, mock_exam_quiz b WHERE a.exam_id = b.quiz_id ORDER BY b.quiz_name");
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+
+		$temp = array();
+
+		foreach($data as $v)
+		{   
+
+			$algo = explode(":", $v["time_taken"]);
+
+			$ct = (intval($algo[0]) * 3600) + (intval($algo[1]) * 60) + (intval($algo[2]));
+
+			$k = $v["exam_id"];
+
+
+		   if(!isset($temp[$k])){
+		   		$temp[$v["exam_id"]] = $ct;
+		   }else{
+
+		   		$temp[$v["exam_id"]] += $ct;
+		   }
+		}
+
+
+		$temp2 = array();
+
+		foreach($temp as $k => $t){
+			$temp2[$k] = $temp[$k] /= get_values_for_keys($data, $k);
+		}
+
+
+		return $temp2;
+
+
+}
+
+function get_values_for_keys($mapping, $keys) {
+	$i = 0;
+
+    foreach($mapping as $k => $v) {
+        if(intval($v["exam_id"]) == $keys)
+        	$i++;
+    }
+
+    return $i;
+}
+
+
 
 
 
