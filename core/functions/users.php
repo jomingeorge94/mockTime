@@ -59,7 +59,7 @@ function updateLastSeenUser($user_id) {
 
 //function to retrieve currently logged in user based on an interval
 function getLoggedInUsers() {
-	return mysql_result(mysql_query("SELECT COUNT(*) FROM `mock_exam_users` WHERE `user_type` = 1 AND `lastSeen` > DATE_SUB(NOW(), INTERVAL 5 MINUTE)"), 0);
+	return mysql_result(mysql_query("SELECT COUNT(*) FROM `mock_exam_users` WHERE `user_type` = 0 AND `lastSeen` > DATE_SUB(NOW(), INTERVAL 5 MINUTE)"), 0);
 }
 
 function redirect($url) {
