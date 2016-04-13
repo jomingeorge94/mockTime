@@ -125,6 +125,35 @@ function update_student_result_for_each_question ($summary_id) {
 		return $data;
 		
 }
+
+
+
+
+
+function update_ratingColumnInDatabase ($numberofRating, $summary_id) {
+		$data = array();
+		
+		$result = mysql_query("UPDATE `mock_exam_student_summary` SET `star_rating` = '$numberofRating' WHERE `student_summary_id` = '$summary_id'");
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+		return $data;		
+}
+
+function retrieve_ratingColumnInDatabase ($summary_id) {
+		$data = array();
+		
+		$result = mysql_query("SELECT `star_rating` FROM `mock_exam_student_summary` WHERE `student_summary_id` = '$summary_id'");
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+		return $data;		
+}
+
+
+
+
+
 function update_student_mark_for_each_question ($student_summary_id, $user_id, $exam_id, $question_id, $mark) {
 		$data = array();
 		
