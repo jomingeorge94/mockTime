@@ -313,6 +313,18 @@ function get_student_detail () {
 		return $data;
 }
 
+function get_student_detail_unique_count () {
+		$data = array();
+		$result = mysql_query("select a.exam_id, count(distinct a.user_id) FROM mock_exam_student_summary a, mock_exam_quiz b WHERE a.exam_id = b.quiz_id GROUP BY(a.exam_id) ORDER BY b.quiz_name");
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+		return $data;
+}
+
+
+
+
 
 
 
@@ -640,4 +652,15 @@ function generate_site_link($page = '', $parameters = '') {
     $link = substr($link, 0, -1);
   return $link;
 }
+
+
+function get_all_exams () {
+	$data = array();
+	$query = mysql_query("SELECT `quiz_name` FROM `mock_exam_quiz`");
+	while ($row = mysql_fetch_assoc($query)) {
+		$data [] = $row;
+	}
+    return $data;
+}
+
 ?>

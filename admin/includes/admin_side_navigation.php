@@ -36,6 +36,7 @@
             <li><a href="admin_manage_exam.php"><i class="fa fa-cog"></i> <span>Exam Listing</span></a></li>
             <li class="header">View</li>
             <li><a href="admin_exam_view.php"><i class="fa fa-cog"></i> <span>Exam Results</span></a></li>
+            <li><a href="admin_exam_view.php"><i class="fa fa-cog"></i> <span>Exam Statistics</span></a></li>
            
           </ul>
         </section>
