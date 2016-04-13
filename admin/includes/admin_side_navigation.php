@@ -34,7 +34,8 @@
             <li class="header">Manage</li>
             <li><a href="admin_manage_category.php"><i class="fa fa-cogs"></i> <span>Category Listing</span></a></li>
             <li><a href="admin_manage_exam.php"><i class="fa fa-cog"></i> <span>Exam Listing</span></a></li>
-
+            <li class="header">View</li>
+            <li><a href="admin_exam_view.php"><i class="fa fa-cog"></i> <span>Exam Results</span></a></li>
            
           </ul>
         </section>

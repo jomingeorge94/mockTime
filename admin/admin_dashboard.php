@@ -107,11 +107,19 @@ if(($user_data['admin_password_check']) == 1){
           </div><!-- /.row -->
 
 
+          <div class="box box-danger">
+            <div class="box-header with-border">
+              <h3 class="box-title">Marking Boundaries</h3>
+              <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+                <canvas id="pieChart" style="height:250px"></canvas>
+            </div><!-- /.box-body -->
+          </div><!-- /.box -->
 
           
-
-
-
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
   
@@ -120,5 +128,97 @@ if(($user_data['admin_password_check']) == 1){
 
   <?php include '/includes/admin_dashboard_scripts.php'; ?>
     
+
+<!-- jQuery 2.1.4 -->
+    <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- ChartJS 1.0.1 -->
+    <script src="plugins/chartjs/Chart.min.js"></script>
+    <!-- FastClick -->
+    <script src="plugins/fastclick/fastclick.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="dist/js/demo.js"></script>
+    <!-- page script -->
+
+
+    <script>
+      $(function () {
+
+        //-------------
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
+        var pieChart = new Chart(pieChartCanvas);
+        var PieData = [
+          {
+            value: 35,
+            color: "#E5AE05",
+            highlight: "#f56954",
+            label: "Pass by Compensation"
+          },
+          {
+            value: 40,
+            color: "#92E5AC",
+            highlight: "#00a65a",
+            label: "Pass"
+          },
+          {
+            value: 50,
+            color: "#8DDEE5",
+            highlight: "#24403F",
+            label: "Second Lower Class"
+          },
+          {
+            value: 60,
+            color: "#132240",
+            highlight: "#00c0ef",
+            label: "Second Upper Class"
+          },
+          {
+            value: 70,
+            color: "#00400C",
+            highlight: "#00a65a",
+            label: "First Class"
+          }
+        ];
+        var pieOptions = {
+          //Boolean - Whether we should show a stroke on each segment
+          segmentShowStroke: true,
+          //String - The colour of each segment stroke
+          segmentStrokeColor: "#fff",
+          //Number - The width of each segment stroke
+          segmentStrokeWidth: 2,
+          //Number - The percentage of the chart that we cut out of the middle
+          percentageInnerCutout: 50, // This is 0 for Pie charts
+          //Number - Amount of animation steps
+          animationSteps: 100,
+          //String - Animation easing effect
+          animationEasing: "easeOutBounce",
+          //Boolean - Whether we animate the rotation of the Doughnut
+          animateRotate: true,
+          //Boolean - Whether we animate scaling the Doughnut from the centre
+          animateScale: false,
+          //Boolean - whether to make the chart responsive to window resizing
+          responsive: true,
+          // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+          maintainAspectRatio: true,
+          //String - A legend template
+          legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+        };
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        pieChart.Doughnut(PieData, pieOptions);
+
+
+        barChartOptions.datasetFill = false;
+        barChart.Bar(barChartData, barChartOptions);
+      });
+    </script>
+
+
   </body>
 </html>

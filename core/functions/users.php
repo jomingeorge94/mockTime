@@ -130,20 +130,20 @@ function update_student_result_for_each_question ($summary_id) {
 
 
 
-function update_ratingColumnInDatabase ($numberofRating, $summary_id) {
+function update_ratingColumnInDatabase ($numberofRating, $user_id, $examid) {
 		$data = array();
 		
-		$result = mysql_query("UPDATE `mock_exam_student_summary` SET `star_rating` = '$numberofRating' WHERE `student_summary_id` = '$summary_id'");
+		$result = mysql_query("UPDATE `mock_exam_student_summary` SET `star_rating` = '$numberofRating' WHERE `user_id` = '$user_id' AND `exam_id` = '$examid'");
 		while ($row = mysql_fetch_assoc($result)) {
 		    $data [] = $row;
 		}
 		return $data;		
 }
 
-function retrieve_ratingColumnInDatabase ($summary_id) {
+function retrieve_ratingColumnInDatabase ($user_id, $exam_id) {
 		$data = array();
 		
-		$result = mysql_query("SELECT `star_rating` FROM `mock_exam_student_summary` WHERE `student_summary_id` = '$summary_id'");
+		$result = mysql_query("SELECT `star_rating` FROM `mock_exam_student_summary` WHERE `user_id` = '$user_id' AND `exam_id` = '$exam_id'");
 		while ($row = mysql_fetch_assoc($result)) {
 		    $data [] = $row;
 		}
@@ -298,6 +298,30 @@ function get_all_categories () {
 		}
 		return $data;
 } 
+
+
+
+
+
+
+function get_student_detail () {
+		$data = array();
+		$result = mysql_query("SELECT a.*, b.*, c.* FROM mock_exam_users a, mock_exam_quiz b, mock_exam_student_summary c WHERE a.user_id = c.user_id AND b.quiz_id = c.exam_id");
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+		return $data;
+}
+
+
+
+
+
+
+
+
+
+
 //get all the exam details from the exam table
 function get_all_exam () {
 		$data = array();

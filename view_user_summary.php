@@ -15,12 +15,13 @@
     
     if(isset($_REQUEST['submit_review'])) {
 
-
+        //die(var_dump($_POST));
         //after submit database column will get updated from TBC to Marked. 
         update_student_result_for_each_question($_POST['student_summary_id']);
 
         if(!empty($_POST['myRate1'])) {
-            update_ratingColumnInDatabase ($_POST['myRate1'], $_POST['student_summary_id']);
+            //update_ratingColumnInDatabase ($numberofRating, $user_id, $examid)
+            update_ratingColumnInDatabase ($_POST['myRate1'], $_POST['user_id'], $_POST['exam_id']);
         }
         
 
@@ -170,7 +171,8 @@
             $correct_answer = $numberofanswersperquestion[0]['answer_name'];
 
             //retrieving if the user has set a star rating
-            $star_rating = retrieve_ratingColumnInDatabase($_GET['student_sum_id'])[0]['star_rating'];
+            $star_rating = retrieve_ratingColumnInDatabase($_SESSION['user_id'], $_GET['quiz_id'])[0]['star_rating'];
+                            //retrieve_ratingColumnInDatabase ($user_id, $exam_id)
 
             
            
