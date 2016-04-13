@@ -89,13 +89,50 @@ if(!empty(get_rating_avg($_GET['id']))){
                 </div><!-- /.box-body -->
               </div><!-- /.box -->';
 } ?>
+<?php 
 
-        </section>
+$aux = array();
+
+foreach(get_question_breakdown($_GET['id']) as $doublearray){
+    foreach($doublearray as $k => $a){
+      if(!isset($aux[$k]))
+      $aux[$k] = $a;
+    else
+      $aux[$k] = $a / $aux[$k];
+    }
+}
+
+?>
+
+
+<?php foreach($aux as $k => $m){
+  echo '<div class="box box-success">
+              <div class="info-box bg-green">
+                <span class="info-box-icon"><i class="fa fa-thumbs-o-up"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">' . get_question_name($k) . '</span>
+                  <div class="progress">
+                    <div class="progress-bar" style="width: ' . $m * 100 . '%"></div>
+                  </div>
+                  <span class="progress-description">
+                    ' . $m * 100 . ' % got this question right...
+                  </span>
+                </div><!-- /.info-box-content -->
+              </div><!-- /.info-box -->
+            </div>';
 
 
 
-      </div><!-- /.content-wrapper -->
-  
+       
+}
+
+?>
+
+   </section>
+
+
+
+      </div><!-- /.content-wrapper -->';
 
       <?php include '/includes/footer.php'; ?> 
 

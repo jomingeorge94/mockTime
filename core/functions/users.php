@@ -299,6 +299,49 @@ function get_all_categories () {
 		return $data;
 } 
 
+function get_question_name($id){
+	$query = mysql_query("SELECT question_name FROM mock_exam_questions WHERE question_id = " . $id);
+	return mysql_fetch_row($query)[0];
+}
+
+
+
+
+function get_question_breakdown($eid){
+	
+	$data = array();
+	$result = mysql_query("select a.user_id, b.question_id, b.question_name, a.student_result_status from mock_exam_student_result a, mock_exam_questions b WHERE a.question_id=b.question_id AND a.exam_id = " . $eid);
+	while ($row = mysql_fetch_assoc($result)) {
+	    $data [] = $row;
+	}
+
+	$ret = array();
+
+	$data2 = array();
+
+
+	foreach($data as $d){
+		$query = mysql_query("select count(distinct a.user_id) from mock_exam_student_result a WHERE a.exam_id = " . $eid . " AND question_id = " . $d["question_id"] . ";");
+		$data2[$d["question_id"]] = (mysql_fetch_row($query)[0]);
+	}
+
+
+	$dataRIGHT = array();
+
+	foreach($data as $d){
+		$query = mysql_query("select count(distinct a.user_id) from mock_exam_student_result a WHERE a.exam_id = " . $eid . " AND question_id = " . $d["question_id"] . " AND student_result_status = 10;");
+		$dataRIGHT[$d["question_id"]] = (mysql_fetch_row($query)[0]);
+	}
+	
+
+	$ret[] = $data2;
+	$ret[] = $dataRIGHT;
+
+	
+
+	return $ret;
+}
+
 
 
 function get_mark_breakdown_max($eid){
