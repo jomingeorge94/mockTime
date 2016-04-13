@@ -365,7 +365,7 @@ function get_mark_breakdown_max($eid){
  function get_rating_avg($eid){
 	 
 	$data = array();
-	$result = mysql_query(" select user_id, MAX(star_rating) from mock_exam_student_summary where exam_id = 27 GROUP BY(user_id);");
+	$result = mysql_query(" select user_id, MAX(star_rating) from mock_exam_student_summary where exam_id = " . $eid . " GROUP BY(user_id);");
 	while ($row = mysql_fetch_assoc($result)) {
 	    $data [] = $row;
 	}
@@ -402,12 +402,6 @@ function get_mark_breakdown_max($eid){
             	$data2['5'] = $data2['5'] + 1;
             }else{
             	$data2['5'] = 1;
-            }
-         }else{
-         	if(isset($data2['null'])){
-            	$data2['null'] = $data2['null'] + 1;
-            }else{
-            	$data2['null'] = 1;
             }
          }
 }

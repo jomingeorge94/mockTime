@@ -42,7 +42,8 @@ if(($user_data['admin_password_check']) == 1){
           <!-- Main content -->
         <section class="content">
         
-           <!-- DONUT CHART -->
+                    <?php  if(!empty(get_mark_breakdown_max($_GET['id']))){
+          echo ' <!-- DONUT CHART -->
               <div class="box box-danger">
                 <div class="box-header with-border">
                   <h3 class="box-title">Max Users Chart</h3>
@@ -54,9 +55,10 @@ if(($user_data['admin_password_check']) == 1){
                 <div class="box-body">
                     <canvas id="pieChart" style="height:250px"></canvas>
                 </div><!-- /.box-body -->
-              </div><!-- /.box -->
-
-               <!-- DONUT CHART -->
+              </div><!-- /.box --> ';
+} ?>
+            <?php  if(!empty(get_mark_breakdown_avg($_GET['id'])))
+              echo '<!-- DONUT CHART -->
               <div class="box box-danger">
                 <div class="box-header with-border">
                   <h3 class="box-title">Avg Users Chart</h3>
@@ -68,10 +70,12 @@ if(($user_data['admin_password_check']) == 1){
                 <div class="box-body">
                     <canvas id="pieChart2" style="height:250px"></canvas>
                 </div><!-- /.box-body -->
-              </div><!-- /.box -->
+              </div><!-- /.box -->';
 
-
-               <div class="box box-success">
+?>
+ <?php  
+if(!empty(get_rating_avg($_GET['id']))){
+           echo '    <div class="box box-success">
                 <div class="box-header with-border">
                   <h3 class="box-title">Exam Engagement Statistics</h3>
                   <div class="box-tools pull-right">
@@ -83,8 +87,8 @@ if(($user_data['admin_password_check']) == 1){
                     <canvas id="barChart" style="height:230px"></canvas>
                   </div>
                 </div><!-- /.box-body -->
-              </div><!-- /.box -->
-
+              </div><!-- /.box -->';
+} ?>
 
         </section>
 
