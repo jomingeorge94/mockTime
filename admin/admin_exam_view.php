@@ -82,8 +82,10 @@ if(($user_data['admin_password_check']) == 1){
 
                           <?php
                           
-
-                             if(intval($r['student_result']) <35){
+                              if($r['student_result'] == "Pending"){
+                                echo '<td class="label-default" style="text-align: left;">  Pending   </td>';
+                             }
+                             else if(intval($r['student_result']) <35){
                                 echo '<td class="label-danger" style="text-align: left;">  Failed </td>';
                              }else if(intval($r['student_result']) >= 35 && intval($r['student_result']) <40){
                                 echo '<td class="label-warning" style="text-align: left;">  Pass by Compensation   </td>';

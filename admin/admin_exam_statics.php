@@ -46,7 +46,8 @@ if(($user_data['admin_password_check']) == 1){
           echo ' <!-- DONUT CHART -->
               <div class="box box-danger">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Max Users Chart</h3>
+                  <h3 class="box-title">Exam Classification Breakdown (MAX)</h3>
+                  <p>Exam result based on the highest mark each unique user has scored</p>
                   <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -61,7 +62,8 @@ if(($user_data['admin_password_check']) == 1){
               echo '<!-- DONUT CHART -->
               <div class="box box-danger">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Avg Users Chart</h3>
+                  <h3 class="box-title">Exam Classification Breakdown (AVG)</h3>
+                  <p>Exam result based on the average mark each unique user has scored</p>
                   <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -78,6 +80,7 @@ if(!empty(get_rating_avg($_GET['id']))){
            echo '    <div class="box box-success">
                 <div class="box-header with-border">
                   <h3 class="box-title">Exam Engagement Statistics</h3>
+                  <p>How did each unique user found the exam in a sclae out of five</p>
                   <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                   </div>

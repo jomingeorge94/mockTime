@@ -112,6 +112,7 @@ if(($user_data['admin_password_check']) == 1){
           <div class="box box-success">
                 <div class="box-header with-border">
                   <h3 class="box-title">Exam Engagement Statistics</h3>
+                  <p>Number of unique user attempted each exams</p>
                   <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                   </div>
@@ -127,6 +128,7 @@ if(($user_data['admin_password_check']) == 1){
           <div class="box box-success">
                 <div class="box-header with-border">
                   <h3 class="box-title">Average Exam Duration Statistics</h3>
+                  <p>Average time duration for each exam</p>
                   <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                   </div>
