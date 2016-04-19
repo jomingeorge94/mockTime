@@ -180,6 +180,14 @@ function get_difficulty($ssid, $uid, $eid, $qid){
 	return $data[0];
 }
 
+function get_difficulty_for_question($qid, $eid){
+	$data = array();
+	$result = mysql_query(" select `difficulty_level` from `mock_exam_student_result` where `exam_id` = '$eid' and `question_id` = '$qid';");
+	while ($row = mysql_fetch_assoc($result)) {
+	    $data [] = $row;
+	}
+	return $data;
+}
 
 
 

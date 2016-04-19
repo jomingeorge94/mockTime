@@ -80,7 +80,7 @@ if(!empty(get_rating_avg($_GET['id']))){
            echo '    <div class="box box-success">
                 <div class="box-header with-border">
                   <h3 class="box-title">Exam Engagement Statistics</h3>
-                  <p>How did each unique user found the exam in a sclae out of five</p>
+                  <p>How did each unique user found the exam in a scale out of five</p>
                   <div class="box-tools pull-right">
                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                   </div>
@@ -124,6 +124,85 @@ foreach(get_question_breakdown($_GET['id']) as $doublearray){
               </div><!-- /.info-box -->
             </div>';
 
+$algorithm = array();
+foreach(get_difficulty_for_question($k, $_GET['id']) as $v){
+
+  if(!isset($algorithm[$v['difficulty_level']]))
+      $algorithm[$v['difficulty_level']] = 1;
+    else
+      $algorithm[$v['difficulty_level']] = $algorithm[$v['difficulty_level']] + 1;
+    
+}
+
+echo '
+            <div class="row admin_dashboard">
+            
+            
+            <div class="col-lg-4 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-blue">
+                <div class="inner">
+                  <h4>';
+
+
+                  if($algorithm[1] == 0){
+                    echo "0";
+                  }
+
+
+                   echo $algorithm[1] . ' users found it </h4>
+                  <p>Easy </p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+              </div>
+            </div><!-- ./col -->
+
+           <div class="col-lg-4 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h4>';
+
+
+                  if($algorithm[2] == 0){
+                    echo "0";
+                  }
+
+
+                   echo $algorithm[2] . ' users found it </h4>
+                  <p>Medium </p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+              </div>
+            </div><!-- ./col -->
+
+            <div class="col-lg-4 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h4>';
+
+
+                  if($algorithm[3] == 0){
+                    echo "0";
+                  }
+
+
+                   echo $algorithm[3] . ' users found it </h4>
+                  <p>Hard </p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+              </div>
+            </div><!-- ./col -->
+           
+
+          </div> ';
 
 
        
@@ -131,6 +210,9 @@ foreach(get_question_breakdown($_GET['id']) as $doublearray){
 
 ?>
 
+
+
+ 
    </section>
 
 
