@@ -12,7 +12,9 @@
 
     //mark
     $mark = "10";
-    
+
+
+
     if(isset($_REQUEST['submit_review'])) {
 
         //die(var_dump($_POST));
@@ -23,6 +25,16 @@
             //update_ratingColumnInDatabase ($numberofRating, $user_id, $examid)
             update_ratingColumnInDatabase ($_POST['myRate1'], $_POST['user_id'], $_POST['exam_id']);
         }
+
+
+        foreach($_POST as $k => $value){
+            $pre = explode('_', $k);
+                if($pre[0] == 'pre'){
+                    update_difficulty_for_each_question ($_POST['student_summary_id'], $_POST['user_id'], $_POST['exam_id'], $pre[1], $value);
+                }
+            }
+
+        
         
 
         //if the check box is submitted then do this
@@ -258,6 +270,44 @@
                 </div>';
             }
 
+if(!check_if_attempted($_GET['student_sum_id'], $_SESSION['user_id'], $_GET['quiz_id'], $question_id)){
+
+            echo '
+
+        <h4>How did you find this question ?</h4>
+        
+        ';
+        if(check_if_not_done($_GET['student_sum_id'], $_SESSION['user_id'], $_GET['quiz_id'], $question_id)){
+             echo'
+        <div class="btn-group rds" data-toggle="buttons">
+            
+            
+            <label class="btn btn-success">
+                <input type="radio" name="pre_' . $question_id . '" value="1" autocomplete="off" >
+                <span class="glyphicon glyphicon-ok">Easy</span>
+            </label>
+
+            <label class="btn btn-warning ">
+                <input type="radio" name="pre_' . $question_id . '" value="2" autocomplete="off">
+                <span class="glyphicon glyphicon-ok">Medium</span>
+            </label>
+
+            <label class="btn btn-danger">
+                <input type="radio" name="pre_' . $question_id . '" value="3" autocomplete="off">
+                <span class="glyphicon glyphicon-ok">Hard</span>
+            </label>
+
+            
+        
+        </div>
+
+
+    ';
+        }else{
+            echo 'You gave this a: ' . get_difficulty($_GET['student_sum_id'], $_SESSION['user_id'], $_GET['quiz_id'], $question_id)['difficulty_level'] ;
+        }
+       
+}
 
               
             }
@@ -293,7 +343,6 @@
             echo '<input type="hidden" name="myRate1" id="myRate1"/><input  type="hidden" value="' .$retrieving_data[0]['student_summary_id']. '" name="student_summary_id"><input type="hidden" value="' .$retrieving_data[0]['exam_id']. '" name="exam_id"> <input type="hidden" value="' .$retrieving_data[0]['user_id']. '" name="user_id"><input type="hidden" value="' .$retrieving_data[0]['exam_id']. '" name="exam_id"><button class="btn btn-large btn-block btn-primary submitbutton" type="submit" style="margin-top:100px;" name="submit_review">Submit Review</button></form>';
 
 
-            echo $variable = "<script>document.write(a)</script>";
 
             ?>
 
@@ -302,6 +351,10 @@
     </div>
 
 <style>
+
+    .rds .glyphicon-ok:before {
+        content: "" !important;
+    }
     
     .rate_review {
         padding-top: 50px;
@@ -361,7 +414,7 @@
     function getValue() {
         //var a = $('#rate1').swidget().value();
         //alert(a);
-        document.getElementById("myRate1").value = $('#rate1').swidget().value();
+        a = document.getElementById("myRate1").value = $('#rate1').swidget().value();
     }
 </script>
 

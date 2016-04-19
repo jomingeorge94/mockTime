@@ -150,6 +150,37 @@ function retrieve_ratingColumnInDatabase ($user_id, $exam_id) {
 		return $data;		
 }
 
+function check_if_attempted($ssid, $uid, $eid, $qid){
+	$data = array();
+		
+	$result = mysql_query("SELECT `difficulty_level` FROM `mock_exam_student_result` WHERE `user_id` = '$uid' AND `exam_id` = '$eid' AND `question_id` = '$qid' AND `student_summary_id` = '$ssid'");
+	while ($row = mysql_fetch_assoc($result)) {
+	    $data [] = $row;
+	}
+	return empty($data);
+}
+
+function check_if_not_done($ssid, $uid, $eid, $qid){
+	$data = array();
+		
+	$result = mysql_query("SELECT `difficulty_level` FROM `mock_exam_student_result` WHERE `user_id` = '$uid' AND `exam_id` = '$eid' AND `question_id` = '$qid' AND `student_summary_id` = '$ssid'");
+	while ($row = mysql_fetch_assoc($result)) {
+	    $data [] = $row;
+	}
+	return $data[0]['difficulty_level'] == 0;
+}
+
+function get_difficulty($ssid, $uid, $eid, $qid){
+	$data = array();
+		
+	$result = mysql_query("SELECT `difficulty_level` FROM `mock_exam_student_result` WHERE `user_id` = '$uid' AND `exam_id` = '$eid' AND `question_id` = '$qid' AND `student_summary_id` = '$ssid'");
+	while ($row = mysql_fetch_assoc($result)) {
+	    $data [] = $row;
+	}
+	return $data[0];
+}
+
+
 
 
 
@@ -165,6 +196,19 @@ function update_student_mark_for_each_question ($student_summary_id, $user_id, $
 		return $data;
 		
 }
+
+function update_difficulty_for_each_question ($student_summary_id, $user_id, $exam_id, $question_id, $diff) {
+		$data = array();
+		
+		$result = mysql_query("UPDATE `mock_exam_student_result` SET `difficulty_level` = '$diff' WHERE `user_id` = '$user_id' AND `exam_id` = '$exam_id' AND `question_id` = '$question_id' AND `student_summary_id` = '$student_summary_id'");
+		while ($row = mysql_fetch_assoc($result)) {
+		    $data [] = $row;
+		}
+		
+		return $data;
+		
+}
+
 function update_student_final_result ($summary_id, $result) {
 		$data = array();
 		
