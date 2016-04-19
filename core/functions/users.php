@@ -394,7 +394,10 @@ function get_question_breakdown($eid){
 	return $ret;
 }
 
-
+function get_questions_in_exam($eid){
+	$query = mysql_query("select count(*) from `mock_exam_questions` where `quiz_id` = '$eid'");
+	return mysql_fetch_row($query)[0];
+}
 
 function get_mark_breakdown_max($eid){
 	 
@@ -404,46 +407,51 @@ function get_mark_breakdown_max($eid){
 	    $data [] = $row;
 	}
 
+	$ttl = get_questions_in_exam($eid) * 10;
+
 	$data2 = array();
 
 	foreach($data as $val){
-		  if(intval($val['MAX(student_result)']) <35 && $val['MAX(student_result)'] != "Pending"){
+
+
+		  if(floatval($val['MAX(student_result)'])/$ttl < 0.35 && $val['MAX(student_result)'] != "Pending"){
             if(isset($data2['Fail'])){
             	$data2['Fail'] = $data2['Fail'] + 1;
             }else{
             	$data2['Fail'] = 1;
             }
-         }else if(intval($val['MAX(student_result)']) >= 35 && intval($val['MAX(student_result)']) <40 && $val['MAX(student_result)'] != "Pending"){
+         }else if(floatval($val['MAX(student_result)'])/$ttl >= 0.35 && floatval($val['MAX(student_result)'])/$ttl <0.40 && $val['MAX(student_result)'] != "Pending"){
             if(isset($data2['Pass by Compensation'])){
             	$data2['Pass by Compensation'] = $data2['Pass by Compensation'] + 1;
             }else{
             	$data2['Pass by Compensation'] = 1;
             }
-         }else if(intval($val['MAX(student_result)']) >= 40 && intval($val['MAX(student_result)']) <50 && $val['MAX(student_result)'] != "Pending"){
+         }else if(floatval($val['MAX(student_result)'])/$ttl >= 0.40 && floatval($val['MAX(student_result)'])/$ttl <0.50 && $val['MAX(student_result)'] != "Pending"){
             if(isset($data2['Pass'])){
             	$data2['Pass'] = $data2['Pass'] + 1;
             }else{
             	$data2['Pass'] = 1;
             }
-         }else if(intval($val['MAX(student_result)']) >= 50 && intval($val['MAX(student_result)']) <60 && $val['MAX(student_result)'] != "Pending"){
+         }else if(floatval($val['MAX(student_result)'])/$ttl >= 0.50 && floatval($val['MAX(student_result)'])/$ttl <0.60 && $val['MAX(student_result)'] != "Pending"){
             if(isset($data2['Second Lower Class'])){
             	$data2['Second Lower Class'] = $data2['Second Lower Class'] + 1;
             }else{
             	$data2['Second Lower Class'] = 1;
             }
-         }else if(intval($val['MAX(student_result)']) >= 60 && intval($val['MAX(student_result)']) <70 && $val['MAX(student_result)'] != "Pending"){
+         }else if(floatval($val['MAX(student_result)'])/$ttl >= 0.60 && floatval($val['MAX(student_result)'])/$ttl <0.70 && $val['MAX(student_result)'] != "Pending"){
             if(isset($data2['Second Upper Class'])){
             	$data2['Second Upper Class'] = $data2['Second Upper Class'] + 1;
             }else{
             	$data2['Second Upper Class'] = 1;
             }
-         }else if(intval($val['MAX(student_result)']) >= 70 && intval($val['MAX(student_result)']) <= 100 && $val['MAX(student_result)'] != "Pending"){
+         }else if((floatval($val['MAX(student_result)'])/$ttl >= 0.70) && (floatval($val['MAX(student_result)'])/$ttl <= 1.1) && $val['MAX(student_result)'] != "Pending"){
+         	
          	if(isset($data2['First'])){
             	$data2['First'] = $data2['First'] + 1;
             }else{
             	$data2['First'] = 1;
             }
-         }else if(intval($val['MAX(student_result)']) == "Pending"){
+         }else if(floatval($val['MAX(student_result)'])/$ttl == "Pending"){
 	        if(isset($data2['Pending'])){
 	        	$data2['Pending'] = $data2['PendingPending'] + 1;
 	        }else{
@@ -466,6 +474,7 @@ function get_mark_breakdown_max($eid){
 	}
 
 	$data2 = array();
+	
 
 	foreach($data as $val){
 		  if(intval($val['MAX(star_rating)']) == 1){
@@ -514,45 +523,46 @@ function get_mark_breakdown_avg($eid){
 	}
 
 	$data2 = array();
+	$ttl = get_questions_in_exam($eid) * 10;
 
 	foreach($data as $val){
-		  if(intval($val['AVG(student_result)']) <35 && $val['AVG(student_result)'] != "Pending"){
+		  if(floatval($val['AVG(student_result)'])/$ttl <0.35 && $val['AVG(student_result)'] != "Pending"){
             if(isset($data2['Fail'])){
             	$data2['Fail'] = $data2['Fail'] + 1;
             }else{
             	$data2['Fail'] = 1;
             }
-         }else if(intval($val['AVG(student_result)']) >= 35 && intval($val['AVG(student_result)']) <40 && $val['AVG(student_result)'] != "Pending"){
+         }else if(floatval($val['AVG(student_result)'])/$ttl >= 0.35 && floatval($val['AVG(student_result)'])/$ttl <0.40 && $val['AVG(student_result)'] != "Pending"){
             if(isset($data2['Pass by Compensation'])){
             	$data2['Pass by Compensation'] = $data2['Pass by Compensation'] + 1;
             }else{
             	$data2['Pass by Compensation'] = 1;
             }
-         }else if(intval($val['AVG(student_result)']) >= 40 && intval($val['AVG(student_result)']) <50 && $val['AVG(student_result)'] != "Pending"){
+         }else if(floatval($val['AVG(student_result)'])/$ttl >= 0.40 && floatval($val['AVG(student_result)'])/$ttl <0.50 && $val['AVG(student_result)'] != "Pending"){
             if(isset($data2['Pass'])){
             	$data2['Pass'] = $data2['Pass'] + 1;
             }else{
             	$data2['Pass'] = 1;
             }
-         }else if(intval($val['AVG(student_result)']) >= 50 && intval($val['AVG(student_result)']) <60 && $val['AVG(student_result)'] != "Pending"){
+         }else if(floatval($val['AVG(student_result)'])/$ttl >= 0.50 && floatval($val['AVG(student_result)'])/$ttl <0.60 && $val['AVG(student_result)'] != "Pending"){
             if(isset($data2['Second Lower Class'])){
             	$data2['Second Lower Class'] = $data2['Second Lower Class'] + 1;
             }else{
             	$data2['Second Lower Class'] = 1;
             }
-         }else if(intval($val['AVG(student_result)']) >= 60 && intval($val['AVG(student_result)']) <70 && $val['AVG(student_result)'] != "Pending"){
+         }else if(floatval($val['AVG(student_result)'])/$ttl >= 0.60 && floatval($val['AVG(student_result)'])/$ttl <0.70 && $val['AVG(student_result)'] != "Pending"){
             if(isset($data2['Second Upper Class'])){
             	$data2['Second Upper Class'] = $data2['Second Upper Class'] + 1;
             }else{
             	$data2['Second Upper Class'] = 1;
             }
-         }else if(intval($val['AVG(student_result)']) >= 70 && intval($val['AVG(student_result)']) <= 100 && $val['AVG(student_result)'] != "Pending"){
+         }else if(floatval($val['AVG(student_result)'])/$ttl >= 0.70 && floatval($val['AVG(student_result)'])/$ttl <= 1.1 && $val['AVG(student_result)'] != "Pending"){
          	if(isset($data2['First'])){
             	$data2['First'] = $data2['First'] + 1;
             }else{
             	$data2['First'] = 1;
             }
-         }else if(intval($val['AVG(student_result)']) == "Pending"){
+         }else if(floatval($val['AVG(student_result)']) == "Pending"){
 	        if(isset($data2['Pending'])){
 	        	$data2['Pending'] = $data2['PendingPending'] + 1;
 	        }else{
@@ -969,7 +979,7 @@ function generate_site_link($page = '', $parameters = '') {
 
 function get_all_exams () {
 	$data = array();
-	$query = mysql_query("SELECT `quiz_name` FROM `mock_exam_quiz`");
+	$query = mysql_query("SELECT `quiz_name` FROM `mock_exam_quiz` ORDER BY `quiz_id`");
 	while ($row = mysql_fetch_assoc($query)) {
 		$data [] = $row;
 	}

@@ -257,6 +257,7 @@ echo '
         var pieChart = new Chart(pieChartCanvas);
         var PieData = [
           <?php 
+
             foreach(get_mark_breakdown_max($_GET['id']) as $k => $e){
               echo '{
                   value: ' . $e . ',';
