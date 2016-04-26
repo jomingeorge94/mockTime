@@ -41,20 +41,27 @@
                             ?>
                         </ul>
                 </li>
-
             </ul>
             <ul class="nav navbar-right navbar-nav user-settings">
                 <li class="dropdown">
                   <a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $user_data['first_name'];?> <?php echo $user_data['last_name'];?> <b class="caret"></b></a>
                   <ul class="dropdown-menu">
+                        <?php 
+                            if (is_admin($_SESSION['user_id']) == "true") {
+                                echo '<li><a href="admin"><span class="fa fa-lock"></span> Admin Panel </a></li>
+                                      <li class="divider"></li>';
+                            } 
+                        ?>
+                        <li><a href="userprofile.php"><span class="glyphicon glyphicon-user"></span> User Profile</a></li>
+                        <li class="divider"></li>
 
-                    <li><a href="userprofile.php"><span class="glyphicon glyphicon-user"></span> User Profile</a></li>
-                    <li class="divider"></li>
-                    <li><a href="profile.php"><span class="glyphicon glyphicon-cog"></span> Change Password</a></li>
-                    <li class="divider"></li>
-                    <li><a href="view_summary.php"><span class="glyphicon glyphicon-stats"></span> View Summary</a></li>
-                    <li class="divider"></li>
-                    <li><a href="logout.php"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+                        <li><a href="profile.php"><span class="glyphicon glyphicon-cog"></span> Change Password</a></li>
+                        <li class="divider"></li>
+
+                        <li><a href="view_summary.php"><span class="glyphicon glyphicon-stats"></span> View Summary</a></li>
+                        <li class="divider"></li>
+                        
+                        <li><a href="logout.php"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
                   </ul>
                 </li>
             </ul>   
