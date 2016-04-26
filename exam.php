@@ -1,50 +1,74 @@
+<!-- Created by: Jomin Kaitholil George -->
+<!-- Purpose of this page: this page has been used to carry out the exam -->
+<!-- Last Edited: 26/04/2016 -->
+
 <?php 
   include 'core/session.php';
   include 'includes/head.php';
 
   updateLastSeenUser($_SESSION['user_id']);
-  
+  //if the form is submitted
   if(isset($_REQUEST['submittest'])) {
+    //if upon posting the question id
     if(isset($_POST['raw_questionid'])){
-            $student_summary_details = get_student_summary($_SESSION['user_id']);
-            $student_result2 = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $_POST['raw_questionid'], $student_summary_details[0]['student_summary_id']);
-            if(!is_null($student_result2)) {
-                
-                update_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer']);
-            } else {
-                insert_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer'], '0');
-            }
-    } 
-    $date_clicked = new DateTime();
-    $date_clicked->setTimeZone(new DateTimeZone('Europe/London'));
-    $clickedtime =  $date_clicked->format('Y-m-d H:i:s');
-    $choosen_exam_time = $_SESSION['chosen_exam_start_time'];
-    $choosen_exam_time->setTimeZone(new DateTimeZone('Europe/London'));
-    $chosen_start_time_forExam =  $choosen_exam_time->format('Y-m-d H:i:s');
-    $chosen_exam_summary_id = get_student_summary_id($chosen_start_time_forExam);
-    update_student_summary($chosen_exam_summary_id[0], $clickedtime);
-    header('Location: view_summary.php');
-    exit();
+      //get the user id
+      $student_summary_details = get_student_summary($_SESSION['user_id']);
+      //retrieving the user details and storing it in a variable, it contains information like user id, exam id, question id, and summary id
+      $student_result2 = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $_POST['raw_questionid'], $student_summary_details[0]['student_summary_id']);
+
+        if(!is_null($student_result2)) {
+          update_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer']);
+        } 
+        else {
+          insert_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer'], '0');
+        }
+    }
+
+      $date_clicked = new DateTime();
+      $date_clicked->setTimeZone(new DateTimeZone('Europe/London'));
+      $clickedtime =  $date_clicked->format('Y-m-d H:i:s');
+
+      $choosen_exam_time = $_SESSION['chosen_exam_start_time'];
+      $choosen_exam_time->setTimeZone(new DateTimeZone('Europe/London'));
+      $chosen_start_time_forExam =  $choosen_exam_time->format('Y-m-d H:i:s');
+
+      $chosen_exam_summary_id = get_student_summary_id($chosen_start_time_forExam);
+      update_student_summary($chosen_exam_summary_id[0], $clickedtime);
+
+      header('Location: view_summary.php');
+      exit();
   }
+
+  //when user clicks on the next button
   if(isset($_REQUEST['nextquestion'])) {
+    //if the current question id is less than the total question for the exam
     if((int)$_SESSION['questionNumber']<count_questions_of_an_exam($_SESSION['chosen_exam_id'])) {
+      //if it matches the condition, then the current question id will be up by 1
       $_SESSION['questionNumber']=$_SESSION['questionNumber']+1;
     }
+
   }
+
+  //when the user clicks on the previous button
   if(isset($_REQUEST['previousquestion'])) {
-     
+    //if the current question id is greator or equal to 1 then set the current question to be -1
     if((int)$_SESSION['questionNumber']>=1){
       $_SESSION['questionNumber']=$_SESSION['questionNumber']-1;
     }
+
   }
+
   if (user_logged_in() === true){
     include 'includes/navigationloggedinmodified.php';
-  } else {
+  } 
+  else {
     include 'includes/navigation_modified.php'; 
     header('Location: generic.php');
     exit();
   }
+
   header("Cache-Control: no-cache, must-revalidate");
+
 ?>
 
   <script src="/mockTime/assets/js/countdown.js"></script>
@@ -56,9 +80,7 @@
     }
   </script>
 
-  <div class="col-6 col-offset-4"  id="foo">
-
-  </div>
+  <div class="col-6 col-offset-4"  id="foo"></div>
 
   <form class="form-horizontal" method="post" id="form1" name="form1" action="exam.php">
     <input type="hidden" value="end" name="mode">
@@ -79,113 +101,112 @@
       //student result is getting stored into the database
       $student_result = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $e[$question_num]['question_id'], $student_summary_details[0]['student_summary_id']);
       $student_result2 = retrieve_student_result($_SESSION['user_id'], $_SESSION['chosen_exam_id'], $_POST['raw_questionid'], $student_summary_details[0]['student_summary_id']);
+      //total question for this exam
       $totalquestions = count_questions_of_an_exam($_SESSION['chosen_exam_id']);
       insert_total_questions_into_quiz ($totalquestions[0], $_SESSION['chosen_exam_id'], $_SESSION['chosen_exam_time'], $_SESSION['chosen_exam_category']);
       
     ?>
     
-
-
-
     <div class = "panel panel-primary student_question_area">
-       <div class = "panel-heading student_question_heading">
-          <h3 class = "panel-title student_question_number"> <span class="chosen_student_exam_name"> Exam Name: <strong><?php  echo $_SESSION['chosen_exam_name'];?></strong> </span> <span class="currentquestionNumber">Question Number: <strong> <?php if($_SESSION['questionNumber'] == 0){echo '1';}else {echo $_SESSION['questionNumber'] + 1;} ?></strong> </span> <span class="chosen_exam_total_numbers"> Number of Questions: <strong> <?php  echo $totalquestions[0];?> </strong></span></h3>
-       </div>
-       <div class = "panel-body">
-          <div class= "chosen_exam_questions" style="font-family: sans-serif;">
-            <?php 
-              
-              echo '<div class="chosen_exam_questions_class">' . $e[$question_num]['question_name'] . '</div>';
-              if(isset($_POST['raw_questionid'])){
-                
-                if(isset($student_result2)) {
 
-                  update_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer']);
-                } else {
-                  insert_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer'], '0');
-                }
+      <div class = "panel-heading student_question_heading">
+        <h3 class = "panel-title student_question_number"> <span class="chosen_student_exam_name"> Exam Name: <strong><?php  echo $_SESSION['chosen_exam_name'];?></strong> </span> <span class="currentquestionNumber">Question Number: <strong> <?php if($_SESSION['questionNumber'] == 0){echo '1';}else {echo $_SESSION['questionNumber'] + 1;} ?></strong> </span> <span class="chosen_exam_total_numbers"> Number of Questions: <strong> <?php  echo $totalquestions[0];?> </strong></span></h3>
+      </div>
+
+      <div class = "panel-body">
+        <div class= "chosen_exam_questions" style="font-family: sans-serif;">
+          <?php 
+
+            echo '<div class="chosen_exam_questions_class">' . $e[$question_num]['question_name'] . '</div>';
+
+            if(isset($_POST['raw_questionid'])){
+
+              if(isset($student_result2)) {
+                update_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer']);
+              } 
+              else {
+                insert_student_result ($student_summary_details[0]['student_summary_id'], $_SESSION['user_id'], $_SESSION['chosen_exam_id'], intval($_POST['raw_questionid']), $_POST['answer'], '0');
+              }
+
             } 
-              if ($e[$question_num]['question_type'] == 'Essay') {
-                echo '<div class="form-group">
-                        <textarea class="form-control noresize" name="answer" placeholder="Please specify your answer"> '. $student_result .  ' </textarea>
-                      </div>';
-              
+
+            if ($e[$question_num]['question_type'] == 'Essay') {
+              echo '<div class="form-group">
+                      <textarea class="form-control noresize" name="answer" placeholder="Please specify your answer"> '. $student_result .  ' </textarea>
+                    </div>';
+            }
+
+            echo '<hr>';
+
+            if ($e[$question_num]['question_type'] == 'True_False') {
+              if($student_result == 1)
+                echo '  <div class="form-group trueorfalse">
+                          <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input class="" type="radio" id="category" name="answer" value="1" checked /> True </label>
+                          <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input type="radio" id="category" name="answer" value="0" /> False </label>
+                        </div>';
+              else
+                echo '  <div class="form-group trueorfalse">
+                          <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input class="" type="radio" id="category" name="answer" value="1" /> True </label>
+                          <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input type="radio" id="category" name="answer" value="0" checked /> False </label>
+                        </div>';
               }
               echo '<hr>';
-              if ($e[$question_num]['question_type'] == 'True_False') {
-               if($student_result == 1)
-                echo '<div class="form-group trueorfalse">
-                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input class="" type="radio" id="category" name="answer" value="1" checked /> True </label>
-                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input type="radio" id="category" name="answer" value="0" /> False </label>
-                      </div>';
-                else
-                  echo '<div class="form-group trueorfalse">
-                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input class="" type="radio" id="category" name="answer" value="1" /> True </label>
-                        <label class="btn chk btn-default active essay_question_types_trueorfalse" style="margin-right:10px"><input type="radio" id="category" name="answer" value="0" checked /> False </label>
-                      </div>';
-              
-              }
-              echo '<hr>';
+
               if ($e[$question_num]['question_type'] == 'Multiple_Choice') {
 
                 $questions_and_answer_from_question = get_all_answers_belongToOne_question($e[$question_num]['question_id']); //pass in the question id so collect all the details of the specified question and it's answers
 
-
                 echo '<select class="form-control multiplechose_questionTypes" name="answer" id="multiple_choice_student_chosen">';
-                if(is_null($student_result))
-                      echo  '<option class="multiplechoiceguessess" value=""disabled selected>Select the answer</option>';
-                    else
-                      echo '<option class="multiplechoiceguessess" value="'. $student_result . '"selected>' . $student_result . '</option>';
-                      for($i = 0; $i < count($questions_and_answer_from_question); $i++) {
-                          
-                          echo '<option class="multiplechoiceguessess">'; echo $questions_and_answer_from_question[$i]['answer_name']; '</option>';
-              
-                      }
+                  if(is_null($student_result))
+                    echo  '<option class="multiplechoiceguessess" value=""disabled selected>Select the answer</option>';
+                  else
+                    echo '<option class="multiplechoiceguessess" value="'. $student_result . '"selected>' . $student_result . '</option>';
+
+                  for($i = 0; $i < count($questions_and_answer_from_question); $i++) {
+                    echo '<option class="multiplechoiceguessess">'; echo $questions_and_answer_from_question[$i]['answer_name']; '</option>';
+                  }
+
                 echo'</select>';
                 echo '<p class="linebreak">&nbsp;</p>';
               }
+
               if ($e[$question_num]['question_type'] == 'Fill_Blank') {
-               
-                echo '<div class="form-group fillblankquestiontype">
+              echo '  <div class="form-group fillblankquestiontype">
                         <input type="text" class="fill_in_blank_answer_box" value=" ' . $student_result .'" name="answer" placeholder="Type your answer here" >
                       </div>';
-              
               }
+
               if ($e[$question_num]['question_type'] == 'Acronym_Answer') {
-               
-                echo '<div class="form-group fillblankquestiontype">
-                        <input type="text" class="acronym_answer_box" name="answer" value="' . $student_result .'" placeholder="Type your answer here" >
-                      </div>';
-              
+                echo '  <div class="form-group fillblankquestiontype">
+                          <input type="text" class="acronym_answer_box" name="answer" value="' . $student_result .'" placeholder="Type your answer here" >
+                        </div>';
               }
-                    
-            ?>
 
-            
-          </div>  
+          ?>
+        </div>  
+      </div>
+    <form >
 
-          
-       </div>
-      <form >
+    <div class="next_and_previous_button">
+      <input type="hidden" value="<?php echo ($e[$question_num]['question_id']); ?>" name="raw_questionid">  
 
+      <button class="btn btn-info nextpreviousbutton" id="previous" name="previousquestion" type="submit" <?php
+        if ($_SESSION['questionNumber'] < 1) {
+          echo 'disabled';
+        } 
+        else {
+          ?> <?php } ?> ><span class="glyphicon glyphicon-backward"></span> PREVIOUS
 
-          <div class="next_and_previous_button">
-                <input type="hidden" value="<?php echo ($e[$question_num]['question_id']); ?>" name="raw_questionid">  
+      </button>
 
-            <button class="btn btn-info nextpreviousbutton" id="previous" name="previousquestion" type="submit" <?php
-            if ($_SESSION['questionNumber'] < 1) {
-                echo 'disabled';
-            } else {
-                ?> <?php } ?> ><span class="glyphicon glyphicon-backward"></span> PREVIOUS</button>
-
-
-            <button class="btn btn-info nextpreviousbutton" id="next" name="nextquestion" type="submit" <?php if ($_SESSION['questionNumber'] < (int)$totalquestions[0] - 1) { ?> <?php
-            } else {
-                echo 'disabled';
-            }
-                ?>>NEXT <span class="glyphicon glyphicon-forward"></span></button>
-          </div>
-
+      <button class="btn btn-info nextpreviousbutton" id="next" name="nextquestion" type="submit" <?php if ($_SESSION['questionNumber'] < (int)$totalquestions[0] - 1) { ?> <?php
+        } 
+        else {
+          echo 'disabled';
+        }
+        ?>>NEXT <span class="glyphicon glyphicon-forward"></span>
+      </button>
+    </div>
 
     </form>
     <button class="btn btn-large btn-block btn-primary submitbutton" type="submit" style="margin-top:100px;" name="submittest">Submit Test</button>
