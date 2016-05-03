@@ -20,7 +20,7 @@
         //after submit database column will get updated from TBC to Marked. 
         update_student_result_for_each_question($_POST['student_summary_id']);
 
-        //if the ration has been submitted
+        //if the rating has been submitted
         if(!empty($_POST['myRate1'])) {
             //update_ratingColumnInDatabase ($numberofRating, $user_id, $examid)
             update_ratingColumnInDatabase ($_POST['myRate1'], $_POST['user_id'], $_POST['exam_id']);

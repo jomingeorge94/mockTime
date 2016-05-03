@@ -95,9 +95,9 @@
                           </td> 
 
                           <td style="text-align: center;">
-                          	<a href="<?php echo generate_admin_link("exam_results_pdf", "quiz_id=" . ($r["quiz_id"]) . "&" .  "student_sum_id=" . ($r["student_summary_id"]) . "&" . get_all_get_params(array("id"))); ?>" class="btn btn-success"><i class="fa fa-file-pdf-o"></i> Save as PDF</a>
+                          	<a href="<?php echo generate_admin_link("exam_results_pdf", "quiz_id=" . ($r["quiz_id"]) . "&" .  "student_sum_id=" . ($r["student_summary_id"]) . "&" . get_all_get_params(array("id"))); ?>" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Save as PDF</a>
                             
-                          	<a href="#" class="btn btn-danger"><i class="fa fa-print"></i> Print</a>
+                          	
                           	<a href="<?php echo generate_admin_link("view_user_summary", "quiz_id=" . ($r["quiz_id"]) . "&" .  "student_sum_id=" . ($r["student_summary_id"]) . "&" . get_all_get_params(array("id"))); ?>" class="btn btn-primary"><i class="fa fa-eye"></i> View</a>
                           </td> 
                           
