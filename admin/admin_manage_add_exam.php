@@ -16,8 +16,6 @@
 
     if(isset($_POST['quiz_name']) && isset($_POST['quiz_category']) && isset($_POST['quiz_duration']) && isset($_POST['freezechecked'])){
       
-
-
       $freeze = 0;
       if($_POST['freezechecked'] == 'On'){
         $freeze = 1;
@@ -28,7 +26,6 @@
       }
 
       if(!add_exam($_POST['quiz_name'], $_POST['quiz_category'], $_POST['quiz_duration'], $freeze)){
-        // echo "error";
       }else{
         header('Location: /mocktime/admin/admin_manage_exam.php');
       }

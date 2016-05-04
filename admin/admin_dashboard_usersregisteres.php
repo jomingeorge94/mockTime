@@ -37,16 +37,16 @@
 
         <?php
         
-          $counterboy = 0;
+          $counter = 0;
 
           if (isset($_POST['freezechecked'])) {
             foreach ($_POST['freezechecked'] as $freeze){
               if($freeze == "On")
-                set_freeze_user_account($_POST['id'][$counterboy]);
+                set_freeze_user_account($_POST['id'][$counter]);
               else
-                unset_freeze_user_account($_POST['id'][$counterboy]); 
+                unset_freeze_user_account($_POST['id'][$counter]); 
 
-              $counterboy++;
+              $counter++;
             }
           }
 
